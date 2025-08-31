@@ -50,7 +50,7 @@ app.get("/article", (req, res) => {
       <a href="/" class="btn">Back to Home</a>
     </main>
     <footer>
-      <p>© 2025 GDN - made by SiebeCluyts/FireFaults</p>
+      <p>© 2025 GDN - made by SiebeCluyts/FireFaults. Geometry Dash belongs to Robtop Games.</p>
     </footer>
   </body>
   </html>
