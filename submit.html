@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Submit Article - GDN</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>GDN</h1>
+    <nav>
+      <a href="index.html">Home</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Submit an Article</h2>
+    <form action="https://formspree.io/f/movnwldb" method="POST">
+      <label>Name:</label>
+      <input type="text" name="name" required>
+
+      <label>Email:</label>
+      <input type="email" name="_replyto" required>
+
+      <label>Article Title:</label>
+      <input type="text" name="title" required>
+
+      <label>Category:</label>
+      <select name="category">
+        <option>Updates</option>
+        <option>Levels</option>
+        <option>Mods</option>
+        <option>Community</option>
+        <option>Events</option>
+      </select>
+
+      <label>Article Content:</label>
+      <textarea name="content" required></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+    <p>articles wil be send to admins to be verified and added to the servers. This can take up to 1 week. You wil get a email saying if your article got accepted or not.</p>
+  </main>
+
+  <footer>
+    <p>© 2025 GDN - made by SiebeCluyts/FireFaults</p>
+  </footer>
+</body>
+</html>
