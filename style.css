@@ -36,7 +36,7 @@ nav a {
 }
 
 nav a:hover {
-  background: #333;
+  background: #004669;
   border-radius: 4px;
 }
 
@@ -48,7 +48,7 @@ nav a:hover {
 }
 
 .dropbtn {
-  background-color: #1c1c1c;
+  background-color: #004669;
   color: white;
   border: none;
   cursor: pointer;
@@ -66,7 +66,7 @@ nav a:hover {
 }
 
 .dropdown-content a {
-  color: black;
+  color: 004669;
   padding: 8px 12px;
   text-decoration: none;
   display: block;
@@ -122,7 +122,7 @@ main#articles {
 .btn {
   display: inline-block;
   padding: 6px 12px;
-  background: #1c1c1c;
+  background: #004669;
   color: white;
   text-decoration: none;
   border-radius: 4px;
