@@ -63,6 +63,10 @@ app.get("/submit", (req, res) => {
   res.sendFile(path.join(__dirname, "submit.html"));
 });
 
+app.get("/about", (req, res) => {
+  res.sendFile(path.join(__dirname, "about.html"));
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`GDN server running at http://localhost:${PORT}`);
