@@ -36,17 +36,17 @@ function renderArticles() {
   });
 
   // Enkel tonen wat mag
-  filtered.slice(0, visibleCount).forEach(a => {
-    const card = document.createElement("div");
-    card.className = "card";
-   el.innerHTML = `
-  <h2><a href="/article?id=${article.id}">${article.title}</a></h2>
-  <img src="${article.thumbnail}" alt="thumbnail" style="width:100%; max-height:200px; object-fit:cover;">
-  <p>${article.content}</p>
-  <small>By ${article.author} - ${article.date}</small>
-`;
-    articlesContainer.appendChild(card);
-  });
+  filtered.slice(0, visibleCount).forEach(article => {
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `
+    <h2><a href="/article?id=${article.id}">${article.title}</a></h2>
+    <img src="${article.thumbnail}" alt="thumbnail" style="width:100%; max-height:200px; object-fit:cover;">
+    <p>${article.content}</p>
+    <small>By ${article.author} - ${article.date}</small>
+  `;
+  articlesContainer.appendChild(card);
+});
 
   // Knop tonen/verbergen
   if (visibleCount < filtered.length) {
