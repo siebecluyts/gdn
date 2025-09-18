@@ -39,12 +39,12 @@ function renderArticles() {
   filtered.slice(0, visibleCount).forEach(a => {
     const card = document.createElement("div");
     card.className = "card";
-    card.innerHTML = `
-      <h2>${a.title}</h2>
-      <p><em>${a.date} | ${a.category} | by ${a.author}</em></p>
-      <p>${a.content.substring(0, 120)}...</p>
-      <a href="/article?id=${a.id}" class="btn">Read More</a>
-    `;
+   el.innerHTML = `
+  <h2><a href="/article?id=${article.id}">${article.title}</a></h2>
+  <img src="${article.thumbnail}" alt="thumbnail" style="width:100%; max-height:200px; object-fit:cover;">
+  <p>${article.content}</p>
+  <small>By ${article.author} - ${article.date}</small>
+`;
     articlesContainer.appendChild(card);
   });
 

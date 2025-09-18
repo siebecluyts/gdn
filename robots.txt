@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://gdn-1bx3.onrender.com/sitemap.xml

@@ -34,8 +34,17 @@
         <option>Events</option>
       </select>
 
+        <label>Thumbnail URL: <input type="url" name="thumbnail" required></label>
+
       <label>Article Content:</label>
-      <textarea name="content" required></textarea>
+      <textarea name="content" required></textarea><br>
+        <label>Attach files (optional): 
+    <input type="file" name="files" multiple>
+  </label><br>
+  
+  <label>If files are uploaded, describe their location/use: 
+    <textarea name="file_description"></textarea>
+  </label><br>
 
       <button type="submit">Submit</button>
     </form>
