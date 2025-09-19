@@ -16,35 +16,26 @@
   <main>
     <h2>Submit an Article</h2>
     <form action="https://formspree.io/f/movnwldb" method="POST">
-      <label>Name:</label>
-      <input type="text" name="name" required>
+<h2>Submit your article</h2>
 
-      <label>Email:</label>
-      <input type="email" name="_replyto" required>
-
-      <label>Article Title:</label>
+      <label for="title">Title</label>
       <input type="text" name="title" required>
 
-      <label>Category:</label>
-      <select name="category">
-        <option>Updates</option>
-        <option>Levels</option>
-        <option>Mods</option>
-        <option>Community</option>
-        <option>Events</option>
+      <label for="author">Author</label>
+      <input type="text" name="author" required>
+
+      <label for="category">Category</label>
+      <select name="category" required>
+        <option value="Updates">Updates</option>
+        <option value="Levels">Levels</option>
+        <option value="Community">Community</option>
       </select>
 
-        <label>Thumbnail URL: <input type="url" name="thumbnail" required></label>
+      <label for="thumbnail">Thumbnail URL</label>
+      <input type="url" name="thumbnail" placeholder="https://example.com/image.jpg" required>
 
-      <label>Article Content:</label>
-      <textarea name="content" required></textarea><br>
-        <label>Attach files (optional): 
-    <input type="file" name="files" multiple>
-  </label><br>
-  
-  <label>If files are uploaded, describe their location/use: 
-    <textarea name="file_description"></textarea>
-  </label><br>
+      <label for="content">Content (you can use &lt;br&gt; and &lt;img&gt;)</label>
+      <textarea name="content" required></textarea>
 
       <button type="submit">Submit</button>
     </form>
