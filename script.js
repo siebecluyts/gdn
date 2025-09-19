@@ -1,6 +1,6 @@
 let allArticles = [];
-let visibleCount = 5; 
-const step = 5;
+let visibleCount = 5; // hoeveel artikels zichtbaar bij start
+const step = 5;       // hoeveel artikels per klik "Load more"
 
 const articlesContainer = document.getElementById("articles");
 const loadMoreBtn = document.getElementById("loadMoreBtn");
@@ -13,16 +13,17 @@ let currentFilter = { search: "", category: "" };
 fetch("articles.json")
   .then(res => res.json())
   .then(articles => {
-    // Sorteer op datum (nieuwste eerst)
-    allArticles = articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+    // Sorteer nieuwste eerst op ID
+    allArticles = articles.sort((a, b) => b.id - a.id);
     renderArticles();
   })
   .catch(err => console.error("Error loading articles.json:", err));
 
-// Render artikelen op homepage
+// Render artikelen
 function renderArticles() {
   articlesContainer.innerHTML = "";
 
+  // Filteren
   let filtered = allArticles.filter(a => {
     const matchesSearch =
       a.title.toLowerCase().includes(currentFilter.search.toLowerCase()) ||
@@ -34,39 +35,41 @@ function renderArticles() {
     return matchesSearch && matchesCategory;
   });
 
+  // Enkel tonen wat mag
   filtered.slice(0, visibleCount).forEach(article => {
     const card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `
-      <h2><a href="/article?id=${article.id}">${article.title}</a></h2>
-      <img src="${article.thumbnail}" alt="thumbnail" class="thumb">
-      <p>${article.content.substring(0, 120)}...</p>
+      <h2><a href="/article.html?id=${article.id}">${article.title}</a></h2>
+      ${article.thumbnail ? `<img src="${article.thumbnail}" alt="thumbnail" style="width:100%; max-height:200px; object-fit:cover;">` : ""}
+      <p>${article.content.substring(0, 200)}...</p>
       <small>By ${article.author} - ${article.date}</small>
-      <br><a href="/article?id=${article.id}" class="btn">Read more</a>
     `;
     articlesContainer.appendChild(card);
   });
 
+  // Knop tonen/verbergen
   if (visibleCount < filtered.length) {
     loadMoreBtn.style.display = "block";
   } else {
     loadMoreBtn.style.display = "none";
   }
 
+  // Als geen resultaten
   if (filtered.length === 0) {
     articlesContainer.innerHTML = `<p>No articles found.</p>`;
     loadMoreBtn.style.display = "none";
   }
 }
 
-// Search
+// Search live filter
 searchInput.addEventListener("input", e => {
   currentFilter.search = e.target.value;
-  visibleCount = step;
+  visibleCount = step; // reset bij nieuw filter
   renderArticles();
 });
 
-// Categories
+// Category filter
 categoryLinks.forEach(link => {
   link.addEventListener("click", e => {
     e.preventDefault();
