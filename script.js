@@ -1,6 +1,6 @@
 let allArticles = [];
-let visibleCount = 5; // hoeveel artikels zichtbaar bij start
-const step = 5;       // hoeveel artikels per klik "Load more"
+let visibleCount = 5; // aantal artikels zichtbaar bij start
+const step = 5;       // aantal artikels per "Load more"
 
 const articlesContainer = document.getElementById("articles");
 const loadMoreBtn = document.getElementById("loadMoreBtn");
@@ -23,7 +23,6 @@ fetch("articles.json")
 function renderArticles() {
   articlesContainer.innerHTML = "";
 
-  // Filteren
   let filtered = allArticles.filter(a => {
     const matchesSearch =
       a.title.toLowerCase().includes(currentFilter.search.toLowerCase()) ||
@@ -35,27 +34,24 @@ function renderArticles() {
     return matchesSearch && matchesCategory;
   });
 
-  // Enkel tonen wat mag
   filtered.slice(0, visibleCount).forEach(article => {
     const card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `
       <h2><a href="/article.html?id=${article.id}">${article.title}</a></h2>
       ${article.thumbnail ? `<img src="${article.thumbnail}" alt="thumbnail" style="width:100%; max-height:200px; object-fit:cover;">` : ""}
-      <p>${article.content.substring(0, 200)}...</p>
+      <p><a href="/article.html?id=${article.id}" style="text-decoration:none; color:inherit;">${article.content.substring(0, 200)}...</a></p>
       <small>By ${article.author} - ${article.date}</small>
     `;
     articlesContainer.appendChild(card);
   });
 
-  // Knop tonen/verbergen
   if (visibleCount < filtered.length) {
     loadMoreBtn.style.display = "block";
   } else {
     loadMoreBtn.style.display = "none";
   }
 
-  // Als geen resultaten
   if (filtered.length === 0) {
     articlesContainer.innerHTML = `<p>No articles found.</p>`;
     loadMoreBtn.style.display = "none";
@@ -79,7 +75,7 @@ categoryLinks.forEach(link => {
   });
 });
 
-// Load more
+// Load more knop
 loadMoreBtn.addEventListener("click", () => {
   visibleCount += step;
   renderArticles();
