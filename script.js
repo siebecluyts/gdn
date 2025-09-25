@@ -29,23 +29,27 @@ function renderArticles() {
       a.content.toLowerCase().includes(currentFilter.search.toLowerCase());
 
     const matchesCategory =
-      currentFilter.category === "" || a.category === currentFilter.category;
+      currentFilter.category === "" ||
+      currentFilter.category === "All" ||   // ✅ fix
+      a.category === currentFilter.category;
 
     return matchesSearch && matchesCategory;
   });
 
+  // Render cards
   filtered.slice(0, visibleCount).forEach(article => {
     const card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `
-      <h2><a href="/article.html?id=${article.id}">${article.title}</a></h2>
-      ${article.thumbnail ? `<img src="${article.thumbnail}" alt="thumbnail" style="width:100%; max-height:200px; object-fit:cover;">` : ""}
-      <p><a href="/article.html?id=${article.id}" style="text-decoration:none; color:inherit;">${article.content.substring(0, 200)}...</a></p>
+      <h2><a href="/article?id=${article.id}">${article.title}</a></h2>
+      ${article.thumbnail ? `<img src="${article.thumbnail}" alt="thumbnail" style="width:100%; max-height:150px; object-fit:cover;">` : ""}
+      <p>${article.content.substring(0, 150)}...</p>
       <small>By ${article.author} - ${article.date}</small>
     `;
     articlesContainer.appendChild(card);
   });
 
+  // Load more button toggle
   if (visibleCount < filtered.length) {
     loadMoreBtn.style.display = "block";
   } else {
@@ -53,7 +57,7 @@ function renderArticles() {
   }
 
   if (filtered.length === 0) {
-    articlesContainer.innerHTML = `<p>No articles found.</p>`;
+    articlesContainer.innerHTML = `<p id="no-results">No articles found.</p>`;
     loadMoreBtn.style.display = "none";
   }
 }
