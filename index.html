@@ -4,11 +4,12 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" href="style.css">
   <title>GDNews - Geometry Dash News & Updates</title>
-<meta name="description" content="Stay updated with the latest Geometry Dash news, updates, levels, and community stories on GDNews.">
-<meta name="keywords" content="geometry dash, gdnews, geometry dash news, gd updates, robtop, gd levels">
-<meta name="google-site-verification" content="2aR-waeEzgLjd7ysPXmo7na-ywf8WElNSrYZckOtNOE" />
+  <meta name="description" content="Stay updated with the latest Geometry Dash news, updates, levels, and community stories on GDNews.">
+  <meta name="keywords" content="geometry dash, gdnews, geometry dash news, gd updates, robtop, gd levels">
+  <meta name="google-site-verification" content="2aR-waeEzgLjd7ysPXmo7na-ywf8WElNSrYZckOtNOE" />
 </head>
 <body>
+  <!-- ===== Header ===== -->
   <header>
     <h1>GDN</h1>
     <nav>
@@ -16,16 +17,15 @@
 
       <div class="dropdown">
         <button class="dropbtn">Categories</button>
-       <div class="dropdown-content">
-  <a href="#" data-category="All">All</a>
-  <a href="#" data-category="Updates">Updates</a>
-  <a href="#" data-category="Levels">Levels</a>
-  <a href="#" data-category="Mods">Mods</a>
-  <a href="#" data-category="Community">Community</a>
-  <a href="#" data-category="Events">Events</a>
-  <a href="#" data-category="Tutorials">Tutorials</a> <!-- ✅ nieuw -->
-</div>
-
+        <div class="dropdown-content">
+          <a href="#" data-category="All">All</a>
+          <a href="#" data-category="Updates">Updates</a>
+          <a href="#" data-category="Levels">Levels</a>
+          <a href="#" data-category="Mods">Mods</a>
+          <a href="#" data-category="Community">Community</a>
+          <a href="#" data-category="Events">Events</a>
+          <a href="#" data-category="Tutorials">Tutorials</a>
+        </div>
       </div>
 
       <input type="text" id="search" placeholder="Search...">
@@ -33,15 +33,23 @@
     </nav>
   </header>
 
-  <main id="articles"></main>
+  <!-- ===== Articles Grid ===== -->
+  <section class="articles-grid" id="articles">
+    <p id="no-results" style="display:none;">No articles found.</p>
+  </section>
 
-  <button id="loadMoreBtn">Load More</button>
-  <h2>
-    Sources:
-  </h2>
-  <p><a href="https://dashword.net">Dashword</a>, News and articles</p>
-  <p><a href="https://www.youtube.com/@GeometryDashBrainRot">Geometry Dash Brainrot - youtube</a>, community<p>
-    <p><a href="https://www.youtube.com/@secretwaygd">SecretWayGD - youtube</a>, community and levels<p></p>
+  <!-- ===== Load More Button ===== -->
+  <button id="loadMoreBtn" class="load-more">Load More</button>
+
+  <!-- ===== Sources ===== -->
+  <section style="max-width: 1000px; margin: 0 auto; padding: 20px;">
+    <h2>Sources:</h2>
+    <p><a href="https://dashword.net">Dashword</a>, News and articles</p>
+    <p><a href="https://www.youtube.com/@GeometryDashBrainRot">Geometry Dash Brainrot - YouTube</a>, community</p>
+    <p><a href="https://www.youtube.com/@secretwaygd">SecretWayGD - YouTube</a>, community and levels</p>
+  </section>
+
+  <!-- ===== Footer ===== -->
   <footer>
     <p>© 2025 GDN - made by SiebeCluyts/FireFaults. Geometry Dash belongs to Robtop Games.</p>
   </footer>
