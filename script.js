@@ -25,7 +25,7 @@ function displayArticles() {
     const card = document.createElement("div");
     card.classList.add("article-card");
     card.innerHTML = `
-      <a href="article${article.id}.html">
+      <a href="article.html?id=${article.id}">
         ${article.thumbnail ? `<img class="thumb" src="${article.thumbnail}" alt="thumbnail">` : ""}
         <h2>${article.title}</h2>
         <p>${article.content.substring(0, 150)}...</p>
@@ -45,3 +45,4 @@ function displayArticles() {
 document.getElementById("loadMoreBtn").addEventListener("click", displayArticles);
 
 fetchArticles();
+
