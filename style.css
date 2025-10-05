@@ -205,12 +205,17 @@ nav a:hover, .dropbtn:hover {
 
 /* ===== Footer ===== */
 footer {
-  background: #004d7a;
+  background: linear-gradient(135deg, #004d7a, #008793);
   color: white;
-  text-align: center;
-  padding: 15px;
-  font-size: 14px;
-  margin-top: 40px;
+  padding: 18px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 /* ===== Responsive ===== */
