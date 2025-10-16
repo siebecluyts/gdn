@@ -49,23 +49,25 @@ function parseDateSafe(d) {
 
 // --- load en sorteer artikelen ---
 // --- load en sorteer artikelen ---
+// --- load en sorteer artikelen ---
 fetch("articles.json")
   .then(res => res.json())
   .then(data => {
     articles = Array.isArray(data) ? data.slice() : [];
 
-    // sorteer: datum (nieuwste eerst). Als datum ontbreekt of onjuist -> fallback naar numeric id
+    // sorteer artikelen: nieuwste datum eerst
     articles.sort((a, b) => {
-      const ta = parseDateSafe(a.date);
+      const ta = parseDateSafe(a.date); // null als geen datum
       const tb = parseDateSafe(b.date);
-      if (ta !== null && tb !== null) return tb - ta; // newest first
-      if (ta !== null) return -1;
-      if (tb !== null) return 1;
 
-      // fallback naar numerieke sortering van id
+      if (ta !== null && tb !== null) return tb - ta; // nieuwste eerst
+      if (ta !== null) return -1; // a heeft datum, b niet → a eerst
+      if (tb !== null) return 1;  // b heeft datum, a niet → b eerst
+
+      // fallback naar numerieke id
       const ia = Number(a.id) || 0;
       const ib = Number(b.id) || 0;
-      return ib - ia; // hoogste id eerst
+      return ib - ia;
     });
 
     filteredArticles = articles.slice();
@@ -76,6 +78,14 @@ fetch("articles.json")
     console.error("Error loading articles.json:", err);
     articlesContainer.innerHTML = "<p style='text-align:center'>Failed to load articles.</p>";
   });
+
+// parse date safely
+function parseDateSafe(d) {
+  if (!d) return null;
+  const t = Date.parse(d);
+  return isNaN(t) ? null : t;
+}
+
 
 // --- render ---
 function renderArticles() {
