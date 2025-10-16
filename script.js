@@ -6,7 +6,7 @@ const noResultsMsg = document.getElementById("no-results");
 
 let articles = [];
 let filteredArticles = [];
-let articlesPerPage = 5;
+const articlesPerPage = 5;
 let currentPage = 1;
 let currentCategory = "All";
 
@@ -14,7 +14,8 @@ let currentCategory = "All";
 fetch("articles.json")
   .then(res => res.json())
   .then(data => {
-    articles = data;
+    // Sorteer van nieuwste naar oudste (hoogste id eerst)
+    articles = data.sort((a, b) => b.id - a.id);
     filteredArticles = articles;
     renderArticles();
   })
@@ -28,16 +29,20 @@ function renderArticles() {
 
   // HTML genereren
   articlesContainer.innerHTML = toDisplay
-    .map(
-      a => `
-      <article class="article-card" data-category="${a.category}">
-        ${a.thumbnail ? `<img src="${a.thumbnail}" alt="${a.title}" class="article-thumb">` : ""}
-        <h3>${a.title}</h3>
-        <p>${a.description || ""}</p>
-        <a href="article.html?id=${a.id}" class="read-more">Read More</a>
-      </article>
-    `
-    )
+    .map(a => {
+      // Beschrijving afkappen (max 120 tekens)
+      let desc = a.description || "";
+      if (desc.length > 120) desc = desc.substring(0, 120) + "...";
+
+      return `
+        <article class="article-card" data-category="${a.category}">
+          ${a.thumbnail ? `<img src="${a.thumbnail}" alt="${a.title}" class="article-thumb">` : ""}
+          <h3>${a.title}</h3>
+          <p>${desc}</p>
+          <a href="article.html?id=${a.id}" class="read-more">Read More</a>
+        </article>
+      `;
+    })
     .join("");
 
   // Geen resultaten
