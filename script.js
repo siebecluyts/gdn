@@ -10,81 +10,131 @@ const articlesPerPage = 5;
 let currentPage = 1;
 let currentCategory = "All";
 
-// ✅ Artikelen laden
+// helper: strip HTML tags
+function stripHtml(html) {
+  const tmp = document.createElement("div");
+  tmp.innerHTML = html || "";
+  return tmp.textContent || tmp.innerText || "";
+}
+
+// helper: truncate without ellipsis
+function shortText(text, max = 120) {
+  if (!text) return "";
+  const s = stripHtml(text).trim();
+  return s.length > max ? s.slice(0, max) : s;
+}
+
+// parse date safely; returns timestamp or null
+function parseDateSafe(d) {
+  const t = Date.parse(d);
+  return isNaN(t) ? null : t;
+}
+
+// fetch + sort (newest first by date, fallback to numeric id)
 fetch("articles.json")
   .then(res => res.json())
   .then(data => {
-    // Sorteer van nieuwste naar oudste (hoogste id eerst)
-    articles = data.sort((a, b) => b.id - a.id);
-    filteredArticles = articles;
+    articles = Array.isArray(data) ? data.slice() : [];
+
+    articles.sort((a, b) => {
+      const ta = parseDateSafe(a.date);
+      const tb = parseDateSafe(b.date);
+      if (ta !== null && tb !== null) return tb - ta; // newest first
+      if (ta !== null) return -1;
+      if (tb !== null) return 1;
+      // fallback to numeric id
+      const ia = parseInt(a.id, 10) || 0;
+      const ib = parseInt(b.id, 10) || 0;
+      return ib - ia;
+    });
+
+    filteredArticles = articles.slice();
     renderArticles();
   })
   .catch(err => console.error("Error loading articles:", err));
 
-// ✅ Artikelen tonen
+// render according to currentPage and filteredArticles
 function renderArticles() {
-  const start = 0;
   const end = currentPage * articlesPerPage;
   const toDisplay = filteredArticles.slice(0, end);
 
-  // HTML genereren
-  articlesContainer.innerHTML = toDisplay
-    .map(a => {
-      // Beschrijving afkappen (max 120 tekens)
-      let desc = a.description || "";
-      if (desc.length > 120) desc = desc.substring(0, 120) + "...";
+  if (toDisplay.length === 0) {
+    articlesContainer.innerHTML = "";
+    noResultsMsg.style.display = "block";
+    loadMoreBtn.style.display = "none";
+    return;
+  } else {
+    noResultsMsg.style.display = "none";
+  }
 
-      return `
-        <article class="article-card" data-category="${a.category}">
-          ${a.thumbnail ? `<img src="${a.thumbnail}" alt="${a.title}" class="article-thumb">` : ""}
-          <h3>${a.title}</h3>
-          <p>${desc}</p>
-          <a href="article.html?id=${a.id}" class="read-more">Read More</a>
-        </article>
-      `;
-    })
-    .join("");
+  articlesContainer.innerHTML = toDisplay.map(a => {
+    const thumbHtml = a.thumbnail ? `<img src="${a.thumbnail}" alt="${escapeHtml(a.title)}" class="article-thumb">` : "";
+    const summary = shortText(a.content, 120); // use content field
+    const meta = `<p class="meta">By ${escapeHtml(a.author || "Unknown")} - ${escapeHtml(a.date || "")}</p>`;
 
-  // Geen resultaten
-  noResultsMsg.style.display = filteredArticles.length === 0 ? "block" : "none";
+    return `
+      <article class="article-card" data-category="${escapeHtml(a.category || "")}">
+        ${thumbHtml}
+        <div class="article-content">
+          <h3><a href="article.html?id=${encodeURIComponent(a.id)}">${escapeHtml(a.title)}</a></h3>
+          ${meta}
+          <p>${escapeHtml(summary)}</p>
+          <div class="article-footer">
+            <a href="article.html?id=${encodeURIComponent(a.id)}" class="btn">Read More</a>
+          </div>
+        </div>
+      </article>
+    `;
+  }).join("");
 
-  // Load More tonen/verbergen
   loadMoreBtn.style.display = end < filteredArticles.length ? "block" : "none";
 }
 
-// ✅ “Load More” functionaliteit
+// Load more
 loadMoreBtn.addEventListener("click", () => {
   currentPage++;
   renderArticles();
 });
 
-// ✅ Categorieën filteren
+// Category clicks
 categoryLinks.forEach(link => {
   link.addEventListener("click", e => {
     e.preventDefault();
-    currentCategory = link.dataset.category;
+    const cat = (link.dataset.category || "All").toString();
+    currentCategory = cat;
     filterArticles();
   });
 });
 
-// ✅ Zoeken
+// Search
 searchInput.addEventListener("input", () => {
   filterArticles();
 });
 
-// ✅ Filterfunctie
+// filter + reset page
 function filterArticles() {
-  const query = searchInput.value.toLowerCase();
+  const q = (searchInput.value || "").toLowerCase().trim();
+  const cat = (currentCategory || "All").toString().toLowerCase();
 
   filteredArticles = articles.filter(article => {
-    const matchesCategory =
-      currentCategory === "All" || article.category === currentCategory;
-    const matchesSearch =
-      article.title.toLowerCase().includes(query) ||
-      article.description?.toLowerCase().includes(query);
+    const matchesCategory = (cat === "all") || ((article.category || "").toString().toLowerCase() === cat);
+    const title = (article.title || "").toString().toLowerCase();
+    const content = stripHtml(article.content || "").toLowerCase();
+    const matchesSearch = title.includes(q) || content.includes(q);
     return matchesCategory && matchesSearch;
   });
 
   currentPage = 1;
   renderArticles();
+}
+
+// small helper to escape text inside HTML
+function escapeHtml(text) {
+  if (text === null || text === undefined) return "";
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
