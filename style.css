@@ -203,6 +203,19 @@ nav a:hover, .dropbtn:hover {
   transform: translateY(-2px);
 }
 
+/* ===== Artikel links ===== */
+.articles-grid a {
+  color: #008793;            /* mooie accentkleur voor links */
+  text-decoration: none;      /* verwijder standaard underline */
+  transition: color 0.3s, text-decoration 0.3s;
+  font-weight: 500;
+}
+
+.articles-grid a:hover {
+  color: #004d7a;             /* donkerdere kleur bij hover */
+  text-decoration: underline; /* subtiele underline bij hover */
+}
+
 /* ===== No Results Message ===== */
 #no-results {
   text-align: center;
