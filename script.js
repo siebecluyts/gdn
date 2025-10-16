@@ -1,102 +1,85 @@
-let allArticles = [];
-let filteredArticles = [];
-let displayedCount = 0;
-const loadCount = 5;
-
-const articlesGrid = document.getElementById("articles");
-const loadBtn = document.getElementById("loadMoreBtn");
+const articlesContainer = document.getElementById("articles");
+const loadMoreBtn = document.getElementById("loadMoreBtn");
 const searchInput = document.getElementById("search");
 const categoryLinks = document.querySelectorAll(".dropdown-content a");
-const noResults = document.getElementById("no-results");
+const noResultsMsg = document.getElementById("no-results");
 
-// ===== Fetch JSON =====
+let articles = [];
+let filteredArticles = [];
+let articlesPerPage = 10;
+let currentPage = 1;
+let currentCategory = "All";
+
+// ✅ Artikelen laden
 fetch("articles.json")
   .then(res => res.json())
   .then(data => {
-    allArticles = data.sort((a,b) => b.id - a.id); // nieuwste eerst
-    filteredArticles = [...allArticles];
-    displayedCount = Math.min(loadCount, filteredArticles.length);
-    displayArticles();
+    articles = data;
+    filteredArticles = articles;
+    renderArticles();
   })
-  .catch(err => console.error("Error loading articles.json:", err));
+  .catch(err => console.error("Error loading articles:", err));
 
-function displayArticles() {
-  articlesGrid.innerHTML = "";
+// ✅ Artikelen tonen
+function renderArticles() {
+  const start = 0;
+  const end = currentPage * articlesPerPage;
+  const toDisplay = filteredArticles.slice(0, end);
 
-  const toDisplay = filteredArticles.slice(0, displayedCount);
-  if(toDisplay.length === 0){
-    noResults.style.display = "block";
-    loadBtn.style.display = "none";
-    return;
-  } else {
-    noResults.style.display = "none";
-  }
+  // HTML genereren
+  articlesContainer.innerHTML = toDisplay
+    .map(
+      a => `
+      <article class="article-card" data-category="${a.category}">
+        ${a.thumbnail ? `<img src="${a.thumbnail}" alt="${a.title}" class="article-thumb">` : ""}
+        <h3>${a.title}</h3>
+        <p>${a.description || ""}</p>
+        <a href="article.html?id=${a.id}" class="read-more">Read More</a>
+      </article>
+    `
+    )
+    .join("");
 
-  toDisplay.forEach(article => {
-    const card = document.createElement("div");
-    card.classList.add("article-card");
+  // Geen resultaten
+  noResultsMsg.style.display = filteredArticles.length === 0 ? "block" : "none";
 
-    if(article.thumbnail) {
-      const img = document.createElement("img");
-      img.src = article.thumbnail;
-      img.alt = article.title;
-      card.appendChild(img);
-    }
-
-    const contentDiv = document.createElement("div");
-    contentDiv.classList.add("article-content");
-
-    const h2 = document.createElement("h2");
-    h2.textContent = article.title;
-    h2.style.cursor = "pointer";
-    h2.addEventListener("click", () => {
-      window.location.href = `article.html?id=${article.id}`;
-    });
-
-    const p = document.createElement("p");
-    p.innerHTML = article.content.length > 100 ? article.content.substring(0,100) + "..." : article.content;
-
-    const footer = document.createElement("div");
-    footer.classList.add("article-footer");
-    footer.innerHTML = `<small>${article.author} - ${article.date}</small>
-                        <a href="article.html?id=${article.id}" class="btn">Read More</a>`;
-
-    contentDiv.appendChild(h2);
-    contentDiv.appendChild(p);
-    contentDiv.appendChild(footer);
-    card.appendChild(contentDiv);
-
-    articlesGrid.appendChild(card);
-  });
-
-  loadBtn.style.display = displayedCount < filteredArticles.length ? "block" : "none";
+  // Load More tonen/verbergen
+  loadMoreBtn.style.display = end < filteredArticles.length ? "block" : "none";
 }
 
-loadBtn.addEventListener("click", () => {
-  displayedCount += loadCount;
-  displayArticles();
+// ✅ “Load More” functionaliteit
+loadMoreBtn.addEventListener("click", () => {
+  currentPage++;
+  renderArticles();
 });
 
-// ===== Search =====
-searchInput.addEventListener("input", () => {
-  const term = searchInput.value.toLowerCase();
-  filteredArticles = allArticles.filter(a => a.title.toLowerCase().includes(term));
-  displayedCount = Math.min(loadCount, filteredArticles.length);
-  displayArticles();
-});
-
-// ===== Category Filter =====
+// ✅ Categorieën filteren
 categoryLinks.forEach(link => {
   link.addEventListener("click", e => {
     e.preventDefault();
-    const category = link.dataset.category;
-    if(category === "All") {
-      filteredArticles = [...allArticles];
-    } else {
-      filteredArticles = allArticles.filter(a => a.category.toLowerCase() === category.toLowerCase());
-    }
-    displayedCount = Math.min(loadCount, filteredArticles.length);
-    searchInput.value = "";
-    displayArticles();
+    currentCategory = link.dataset.category;
+    filterArticles();
   });
 });
+
+// ✅ Zoeken
+searchInput.addEventListener("input", () => {
+  filterArticles();
+});
+
+// ✅ Filterfunctie
+function filterArticles() {
+  const query = searchInput.value.toLowerCase();
+
+  filteredArticles = articles.filter(article => {
+    const matchesCategory =
+      currentCategory === "All" || article.category === currentCategory;
+    const matchesSearch =
+      article.title.toLowerCase().includes(query) ||
+      article.description?.toLowerCase().includes(query);
+    return matchesCategory && matchesSearch;
+  });
+
+  currentPage = 1;
+  renderArticles();
+}
