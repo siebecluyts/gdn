@@ -6,7 +6,7 @@ const noResultsMsg = document.getElementById("no-results");
 
 let articles = [];
 let filteredArticles = [];
-let articlesPerPage = 10;
+let articlesPerPage = 5;
 let currentPage = 1;
 let currentCategory = "All";
 
