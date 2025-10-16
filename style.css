@@ -105,7 +105,7 @@ nav a:hover, .dropbtn:hover {
   box-shadow: 0 0 5px rgba(0, 135, 147, 0.4);
 }
 
-/* ===== Articles Grid (5 per row) ===== */
+/* ===== Articles Grid ===== */
 .articles-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -142,13 +142,13 @@ nav a:hover, .dropbtn:hover {
 
 .article-content {
   padding: 15px;
-  flex-grow: 1;
+  flex-grow: 0; /* FIX: voorkomt grote gaps */
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start; /* FIX: items bovenaan */
 }
 
-.article-card h2 {
+.article-card h3 {
   font-size: 18px;
   color: #004d7a;
   margin: 0 0 10px;
@@ -159,29 +159,24 @@ nav a:hover, .dropbtn:hover {
   font-size: 14px;
   color: #555;
   margin: 0 0 12px;
-  flex-grow: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* toont max 3 regels */
+  -webkit-box-orient: vertical;
+  line-height: 1.4;
 }
 
-.article-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 13px;
-  color: #777;
-}
-
-.article-footer .btn {
-  background: #008793;
-  color: white;
-  padding: 7px 12px;
-  border-radius: 6px;
+/* ===== Read More Link ===== */
+.article-card a.read-more {
+  color: #008793;
   text-decoration: none;
-  font-size: 13px;
-  transition: background 0.3s;
+  font-weight: 500;
+  transition: color 0.3s;
 }
 
-.article-footer .btn:hover {
-  background: #006f77;
+.article-card a.read-more:hover {
+  color: #004d7a;
+  text-decoration: underline;
 }
 
 /* ===== Load More Button ===== */
@@ -201,19 +196,6 @@ nav a:hover, .dropbtn:hover {
 .load-more:hover {
   background: #00324f;
   transform: translateY(-2px);
-}
-
-/* ===== Artikel links ===== */
-.articles-grid a {
-  color: #008793;            /* mooie accentkleur voor links */
-  text-decoration: none;      /* verwijder standaard underline */
-  transition: color 0.3s, text-decoration 0.3s;
-  font-weight: 500;
-}
-
-.articles-grid a:hover {
-  color: #004d7a;             /* donkerdere kleur bij hover */
-  text-decoration: underline; /* subtiele underline bij hover */
 }
 
 /* ===== No Results Message ===== */
