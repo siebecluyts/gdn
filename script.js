@@ -83,48 +83,27 @@ fetch("articles.json")
   });
 
 // --- render ---
-function renderArticles() {
-  const end = currentPage * articlesPerPage;
-  const toDisplay = filteredArticles.slice(0, end);
-
-  if (toDisplay.length === 0) {
-    articlesContainer.innerHTML = "";
-    noResultsMsg.style.display = "block";
-    loadMoreBtn.style.display = "none";
-    return;
-  } else {
-    noResultsMsg.style.display = "none";
-  }
-
-  articlesContainer.innerHTML = toDisplay.map(a => {
-    // title + meta
-    const title = escapeHtml(a.title || "Untitled");
-    const meta = `<p class="meta">By ${escapeHtml(a.author || "Unknown")} - ${escapeHtml(a.date || "")}</p>`;
-
-    // summary: gebruik content (niet description), behoud <br>, voeg "..." als afgekapt
-    const summaryHtml = makeSummaryFromContent(a.content || "", 120);
-
-    // thumbnail (we keep as-is, alt safe)
-    const thumbHtml = a.thumbnail ? `<img src="${escapeHtml(a.thumbnail)}" alt="${title}" class="article-thumb">` : "";
-
-    return `
-      <article class="article-card" data-category="${escapeHtml(a.category || "")}">
-        ${thumbHtml}
-        <div class="article-content">
-          <h3><a href="article.html?id=${encodeURIComponent(a.id)}">${title}</a></h3>
-          ${meta}
-          <p>${summaryHtml}</p>
-          <div class="article-footer">
-            <a href="article.html?id=${encodeURIComponent(a.id)}" class="btn">Read More</a>
-          </div>
-        </div>
-      </article>
-    `;
-  }).join("");
-
-  loadMoreBtn.style.display = end < filteredArticles.length ? "block" : "none";
+function getShortDescription(desc, maxLength = 100) {
+  if (!desc) return "";
+  // replace <br> met newline voor telling
+  const text = desc.replace(/<br\s*\/?>/gi, "\n");
+  if (text.length <= maxLength) return desc;
+  let short = text.slice(0, maxLength);
+  // terug naar <br> als die er waren
+  short = short.replace(/\n/g, "<br>");
+  return short + "...";
 }
 
+// In renderArticles()
+articlesContainer.innerHTML = toDisplay
+  .map(a => `
+    <article class="article-card" data-category="${a.category}">
+      ${a.thumbnail ? `<img src="${a.thumbnail}" alt="${a.title}" class="article-thumb">` : ""}
+      <h3>${a.title}</h3>
+      <p>${getShortDescription(a.description)}</p>
+      <a href="article.html?id=${a.id}" class="read-more">Read More</a>
+    </article>
+  `).join("");
 // --- Load more button ---
 loadMoreBtn.addEventListener("click", () => {
   currentPage++;

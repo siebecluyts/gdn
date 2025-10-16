@@ -105,7 +105,7 @@ nav a:hover, .dropbtn:hover {
   box-shadow: 0 0 5px rgba(0, 135, 147, 0.4);
 }
 
-/* ===== Articles Grid ===== */
+/* ===== Articles Grid (5 per row) ===== */
 .articles-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -142,10 +142,10 @@ nav a:hover, .dropbtn:hover {
 
 .article-content {
   padding: 15px;
-  flex-grow: 0; /* FIX: voorkomt grote gaps */
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* FIX: items bovenaan */
+  justify-content: space-between;
 }
 
 .article-card h3 {
@@ -159,24 +159,29 @@ nav a:hover, .dropbtn:hover {
   font-size: 14px;
   color: #555;
   margin: 0 0 12px;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 3; /* toont max 3 regels */
-  -webkit-box-orient: vertical;
-  line-height: 1.4;
+  flex-grow: 1;
 }
 
-/* ===== Read More Link ===== */
-.article-card a.read-more {
-  color: #008793;
+.article-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: #777;
+}
+
+.article-footer .btn {
+  background: #008793;
+  color: white;
+  padding: 7px 12px;
+  border-radius: 6px;
   text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s;
+  font-size: 13px;
+  transition: background 0.3s;
 }
 
-.article-card a.read-more:hover {
-  color: #004d7a;
-  text-decoration: underline;
+.article-footer .btn:hover {
+  background: #006f77;
 }
 
 /* ===== Load More Button ===== */
@@ -216,6 +221,19 @@ footer {
   font-size: 14px;
   margin-top: 60px;
   box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== Alle links behalve in header ===== */
+body :not(header) a {
+  color: #008793;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+body :not(header) a:hover {
+  color: #004d7a;
+  text-decoration: underline;
 }
 
 /* ===== Responsive ===== */
