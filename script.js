@@ -48,8 +48,6 @@ function parseDateSafe(d) {
 }
 
 // --- load en sorteer artikelen ---
-// --- load en sorteer artikelen ---
-// --- load en sorteer artikelen ---
 fetch("articles.json")
   .then(res => res.json())
   .then(data => {
