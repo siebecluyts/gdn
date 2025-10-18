@@ -60,7 +60,17 @@
     <p>© 2025 GDN - made by SiebeCluyts/FireFaults. Geometry Dash belongs to Robtop Games.</p>
   </footer>
 
+  <script>
+    // redirect /search/xyz → ?q=xyz zodat de filter werkt ook op GitHub Pages
+    const path = window.location.pathname;
+    const searchMatch = path.match(/^\/search\/(.+)/);
+    if (searchMatch) {
+      const q = decodeURIComponent(searchMatch[1]);
+      window.location.replace(`/?q=${encodeURIComponent(q)}`);
+    }
+  </script>
   <script src="script.js"></script>
 </body>
 </html>
+
 
