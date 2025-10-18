@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+  <meta http-equiv="refresh" content="0;url=/" />
+  <script>
+    // GitHub Pages 404 handler
+    const path = window.location.pathname;
+    const match = path.match(/^\/gdn\/search\/(.+)/); // let op: jouw repo naam in de URL
+    if (match) {
+      const q = decodeURIComponent(match[1]);
+      const newUrl = `/gdn/?q=${encodeURIComponent(q)}`;
+      window.location.replace(newUrl);
+    } else {
+      window.location.replace("/gdn/");
+    }
+  </script>
+</head>
+<body>
+  Redirecting...
+</body>
+</html>
