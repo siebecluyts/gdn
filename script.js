@@ -43,8 +43,35 @@ function makeSummaryFromContent(htmlContent, maxChars = 120) {
 
 // parse date safely
 function parseDateSafe(d) {
+  if (!d) return null;
   const t = Date.parse(d);
   return isNaN(t) ? null : t;
+}
+
+// --- Detecteer zoektermen via /search/... of ?q=... ---
+const currentPath = window.location.pathname;
+const urlParams = new URLSearchParams(window.location.search);
+let initialSearch = "";
+
+// Detecteer /search/<term>
+if (currentPath.startsWith("/search/")) {
+  initialSearch = decodeURIComponent(currentPath.replace("/search/", "").replace(/\/$/, ""));
+}
+
+// Detecteer ?q=<term>
+if (!initialSearch && urlParams.has("q")) {
+  initialSearch = urlParams.get("q");
+}
+
+// Als er iets is, stel het zoekveld in
+if (initialSearch) {
+  document.addEventListener("DOMContentLoaded", () => {
+    if (searchInput) {
+      searchInput.value = initialSearch;
+      const inputEvent = new Event("input");
+      searchInput.dispatchEvent(inputEvent);
+    }
+  });
 }
 
 // --- load en sorteer artikelen ---
@@ -55,12 +82,12 @@ fetch("articles.json")
 
     // sorteer artikelen: nieuwste datum eerst
     articles.sort((a, b) => {
-      const ta = parseDateSafe(a.date); // null als geen datum
+      const ta = parseDateSafe(a.date);
       const tb = parseDateSafe(b.date);
 
       if (ta !== null && tb !== null) return tb - ta; // nieuwste eerst
-      if (ta !== null) return -1; // a heeft datum, b niet → a eerst
-      if (tb !== null) return 1;  // b heeft datum, a niet → b eerst
+      if (ta !== null) return -1;
+      if (tb !== null) return 1;
 
       // fallback naar numerieke id
       const ia = Number(a.id) || 0;
@@ -70,20 +97,18 @@ fetch("articles.json")
 
     filteredArticles = articles.slice();
     currentPage = 1;
-    renderArticles();
+
+    // als er een zoekterm is in de URL, pas meteen de filter toe
+    if (initialSearch) {
+      applyFiltersAndReset();
+    } else {
+      renderArticles();
+    }
   })
   .catch(err => {
     console.error("Error loading articles.json:", err);
     articlesContainer.innerHTML = "<p style='text-align:center'>Failed to load articles.</p>";
   });
-
-// parse date safely
-function parseDateSafe(d) {
-  if (!d) return null;
-  const t = Date.parse(d);
-  return isNaN(t) ? null : t;
-}
-
 
 // --- render ---
 function renderArticles() {
