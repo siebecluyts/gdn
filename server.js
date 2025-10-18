@@ -66,6 +66,17 @@ app.get("/submit", (req, res) => {
 app.get("/about", (req, res) => {
   res.sendFile(path.join(__dirname, "about.html"));
 });
+// Catch-all route for client-side paths (Render fix)
+app.get('*', (req, res) => {
+  // Negeer echte bestanden of API-routes
+  if (req.path.includes('.') || req.path.startsWith('/api')) {
+    res.status(404).send('Not found');
+    return;
+  }
+
+  // Stuur altijd index.html voor client-side routing
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 // Start server
 app.listen(PORT, () => {
