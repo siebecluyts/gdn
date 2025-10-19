@@ -1,6 +1,28 @@
 const articleContainer = document.getElementById("article-detail");
 const params = new URLSearchParams(window.location.search);
 const articleId = parseInt(params.get("id"));
+function renderPoll(poll, articleId) {
+  if (!poll) return ''; // Geen poll 
+  let optionsHtml = poll.options.map(option => `<option value="${option}">${option}</option>`).join('');
+  
+  return `
+    <form id="pollForm" action="https://formspree.io/f/movkbapd" method="POST">
+      <label>${poll.question}</label>
+      <select name="gamemode" required>
+        ${optionsHtml}
+      </select>
+      <input type="hidden" name="email" value="${poll.email}">
+      <input type="hidden" name="articleId" value="${articleId}"> <!-- Voeg het artikel ID toe als verborgen veld -->
+      <button type="submit">Verzenden</button>
+    </form>
+  `;
+}
+document.addEventListener("submit", function(event) {
+  if (event.target.id === "pollForm") {
+    event.preventDefault(); // Voorkom standaard verzending
+    alert("Bedankt voor uw inzending!");
+  }
+});
 
 // fetch articles.json
 fetch("articles.json")
@@ -10,7 +32,7 @@ fetch("articles.json")
     if(!article) {
       articleContainer.innerHTML = "<p>Article not found.</p>";
       return;
-    }
+    } 
 
     const html = `
       <h1>${article.title}</h1>
