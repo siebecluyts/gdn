@@ -5,7 +5,7 @@ const articleId = parseInt(params.get("id"));
 function renderPoll(poll, articleId) {
   if (!poll) return ''; // Geen poll 
   let optionsHtml = poll.options.map(option => `<option value="${option}">${option}</option>`).join('');
-  
+
   return `
     <form id="pollForm" action="https://formsubmit.co/${poll.email}" method="POST">
       <label>${poll.question}</label>
@@ -22,15 +22,19 @@ function renderPoll(poll, articleId) {
 // Event listener voor het formulier
 document.addEventListener("submit", function(event) {
   if (event.target.id === "pollForm") {
-    event.preventDefault(); // Voorkom standaard verzending
+    // Verlaat de preventDefault hier, zodat de verzending kan plaatsvinden
     alert("Thanks for your answer!");
-    // Eventueel kun je hier nog een fetch-aanroep toevoegen om de verzonden data te verzenden
   }
 });
 
 // Fetch articles.json
 fetch("articles.json")
-  .then(res => res.json())
+  .then(res => {
+    if (!res.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return res.json();
+  })
   .then(data => {
     const article = data.find(a => a.id === articleId);
     if (!article) {
