@@ -7,7 +7,7 @@ function renderPoll(poll, articleId) {
   let optionsHtml = poll.options.map(option => `<option value="${option}">${option}</option>`).join('');
 
   return `
-    <form id="pollForm" action="https://formsubmit.co/${poll.email}" method="POST">
+    <form id="pollForm" action="https://formsubmit.co/debendevanzelem1@gmail.Com" method="POST">
       <label>${poll.question}</label>
       <select name="option" required>
         ${optionsHtml}

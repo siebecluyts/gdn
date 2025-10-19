@@ -116,8 +116,7 @@
   "content": "Here at the GDN, we wonder what gamemodes the community prefers. By filling out the form a bit down, you help us get a better view at the community.",
   "poll": {
     "question": "What is your favorite gamemode?",
-    "options": ["Cube", "Ship", "Ball", "Ufo", "Spider", "Wave", "Swing", "Robot"],
-    "email": "debendevanzelem1@gmail.com"
+    "options": ["Cube", "Ship", "Ball", "Ufo", "Spider", "Wave", "Swing", "Robot"]
   }
 },
 {
@@ -130,8 +129,7 @@
   "content": "We want to know what you guys best player is.",
   "poll": {
     "question": "Who is the best player in gd?",
-    "options": ["Zoink", "WpoPoff", "Npesta", "Doggie", "Trick", "Cuatrocientos ", "Riot", "Paqoe"],
-    "email": "debendevanzelem1@gmail.com"
+    "options": ["Zoink", "WpoPoff", "Npesta", "Doggie", "Trick", "Cuatrocientos ", "Riot", "Paqoe"]
   }
 }
 ]
