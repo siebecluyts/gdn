@@ -14,7 +14,7 @@ function renderPoll(poll, articleId) {
       </select>
       <input type="hidden" name="email" value="${poll.email}">
       <input type="hidden" name="articleId" value="${articleId}"> <!-- Voeg het artikel ID toe als verborgen veld -->
-      <input type="hidden" name="_next" value="thanksform.html">
+      <input type="hidden" name="_next" value="https://siebecluyts.github.io/gdn/thanksform.html">
       <input type="hidden" name="_autoresponse" value="Thanks for your answer! Your answer will be seen quick! -GDN">
       <button type="submit">Verzenden</button>
     </form>
