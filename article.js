@@ -7,7 +7,7 @@ function renderPoll(poll, articleId) {
   let optionsHtml = poll.options.map(option => `<option value="${option}">${option}</option>`).join('');
   
   return `
-    <form id="pollForm" action="https://formspree.io/f/movkbapd" method="POST">
+    <form id="pollForm" action="https://formsubmit.co/${poll.email}" method="POST">
       <label>${poll.question}</label>
       <select name="gamemode" required>
         ${optionsHtml}
