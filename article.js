@@ -9,7 +9,7 @@ function renderPoll(poll, articleId) {
   return `
     <form id="pollForm" action="https://formsubmit.co/${poll.email}" method="POST">
       <label>${poll.question}</label>
-      <select name="gamemode" required>
+      <select name="option" required>
         ${optionsHtml}
       </select>
       <input type="hidden" name="email" value="${poll.email}">
