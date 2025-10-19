@@ -115,9 +115,9 @@
   "thumbnail": "assets/articlethumbnail/13.png",
   "content": "Here at the GDN, we wonder what gamemodes the community prefers. By filling out the form a bit down, you help us get a better view at the community.",
   "poll": {
-          "question": "What is your favorite gamemode?",
-                "options": ["Cube", "Ship", "Ball", "Ufo", "Spider", "Wave", "Swing", "Robot"],
-      "email": "debendevanzelem1@gmail.com"
+    "question": "What is your favorite gamemode?",
+    "options": ["Cube", "Ship", "Ball", "Ufo", "Spider", "Wave", "Swing", "Robot"],
+    "email": "debendevanzelem1@gmail.com"
   }
 }
 ]
