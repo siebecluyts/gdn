@@ -58,6 +58,116 @@
     <p><a href="https://www.youtube.com/@secretwaygd">SecretWayGD - YouTube</a>, community and levels</p>
   </section>
 <a target="_blank" href="https://github.com/SiebeCluyts/gdn">Github</a>
+<!-- ================= COOKIE BANNER ================= -->
+<div id="cookie-banner" class="cookie-banner hidden">
+  <div class="cookie-text">
+    <p>
+      🍪 We use cookies to enhance your experience on GDNews.  
+      <a href="/privacy.html">Learn more</a>
+    </p>
+  </div>
+  <div class="cookie-actions">
+    <button id="accept-cookies">Accept</button>
+    <button id="decline-cookies">Decline</button>
+  </div>
+</div>
+
+<style>
+.cookie-banner {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0b0b0b;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  max-width: 600px;
+  width: calc(100% - 40px);
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+  z-index: 10000;
+  animation: fade-in 0.4s ease;
+}
+.cookie-banner.hidden {
+  display: none;
+}
+.cookie-banner a {
+  color: #4da3ff;
+  text-decoration: none;
+  font-weight: 500;
+}
+.cookie-banner a:hover {
+  text-decoration: underline;
+}
+.cookie-actions {
+  display: flex;
+  gap: 10px;
+}
+.cookie-actions button {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+#accept-cookies {
+  background: #4da3ff;
+  color: white;
+}
+#accept-cookies:hover {
+  background: #3a8be6;
+  transform: scale(1.03);
+}
+#decline-cookies {
+  background: #333;
+  color: #ccc;
+}
+#decline-cookies:hover {
+  background: #444;
+  transform: scale(1.03);
+}
+@keyframes fade-in {
+  from { opacity: 0; transform: translate(-50%, 30px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+@media (max-width: 500px) {
+  .cookie-banner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .cookie-actions {
+    justify-content: flex-end;
+  }
+}
+</style>
+
+<script>
+// Cookie consent logic
+window.addEventListener("load", () => {
+  const banner = document.getElementById("cookie-banner");
+  const accepted = localStorage.getItem("cookies_accepted");
+
+  if (!accepted) banner.classList.remove("hidden");
+
+  document.getElementById("accept-cookies").addEventListener("click", () => {
+    localStorage.setItem("cookies_accepted", "true");
+    banner.classList.add("hidden");
+  });
+
+  document.getElementById("decline-cookies").addEventListener("click", () => {
+    banner.classList.add("hidden");
+  });
+});
+</script>
+
   <!-- ===== Footer ===== -->
   <footer>
     <p>© 2025 GDN - made by SiebeCluyts/FireFaults. Geometry Dash belongs to Robtop Games.</p>
