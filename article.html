@@ -55,7 +55,12 @@
 
   <!-- Artikel content -->
   <main id="article-detail"></main>
-<script>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 GDN - made by SiebeCluyts/FireFaults. Geometry Dash belongs to Robtop Games.</p>
+  </footer>
+  <script>
 const params = new URLSearchParams(window.location.search);
 const articleId = params.get("id");
 if (articleId) {
@@ -64,10 +69,5 @@ if (articleId) {
   localStorage.setItem(key, current + 1);
 }
 </script>
-
-  <!-- Footer -->
-  <footer>
-    <p>© 2025 GDN - made by SiebeCluyts/FireFaults. Geometry Dash belongs to Robtop Games.</p>
-  </footer>
 </body>
 </html>
