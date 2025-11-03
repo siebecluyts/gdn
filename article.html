@@ -2,72 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>GDN - Article</title>
+  <title>Article - GDN</title>
   <link rel="stylesheet" href="style.css">
-  <script defer src="article.js"></script>
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4382191760626362"
-     crossorigin="anonymous"></script>
-  <style>
-    /* Thumbnail afbeelding stijl */
-    .thumb-large {
-      display: block;
-      margin: 20px auto;
-      width: 60%;
-      max-width: 600px;
-      border-radius: 12px;
-      object-fit: cover;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    main#article-detail {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-
-    main#article-detail h1 {
-      color: #004d7a;
-      margin-bottom: 10px;
-    }
-
-    main#article-detail p {
-      line-height: 1.7;
-      color: #333;
-    }
-
-    main#article-detail small {
-      color: #777;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 <body>
-  <!-- Header -->
   <header>
-    <img src="assets/Logo.png" height="60" width="150">
+    <img src="assets/Logo.png" height="60" width="150" alt="GDN logo">
     <nav>
       <a href="index.html">Home</a>
     </nav>
   </header>
 
-  <!-- Artikel content -->
-  <main id="article-detail"></main>
+  <main id="article-detail" style="padding:20px; max-width:900px; margin:20px auto;"></main>
 
-  <!-- Footer -->
-  <footer>
+  <footer style="text-align:center; margin-top:40px;">
     <p>© 2025 GDN - made by SiebeCluyts/FireFaults. Geometry Dash belongs to Robtop Games.</p>
   </footer>
-  <script>
-const params = new URLSearchParams(window.location.search);
-const articleId = params.get("id");
-if (articleId) {
-  const key = `views_${articleId}`;
-  const current = parseInt(localStorage.getItem(key)) || 0;
-  localStorage.setItem(key, current + 1);
-}
-</script>
+
+  <script src="article.js" defer></script>
 </body>
 </html>

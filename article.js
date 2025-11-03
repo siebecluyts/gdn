@@ -1,56 +1,64 @@
-const articleContainer = document.getElementById("article-detail");
-const params = new URLSearchParams(window.location.search);
-const articleId = parseInt(params.get("id"));
+(function(){
+  const articleContainer = document.getElementById("article-detail");
+  if (!articleContainer) return;
 
-function renderPoll(poll, articleId) {
-  if (!poll) return ''; // Geen poll 
-  let optionsHtml = poll.options.map(option => `<option value="${option}">${option}</option>`).join('');
-
-  return `
-    <form id="pollForm" action="https://formsubmit.co/debendevanzelem1@gmail.Com" method="POST">
-      <label>${poll.question}</label>
-      <select name="option" required>
-        ${optionsHtml}
-      </select>
-      <input type="hidden" name="articleId" value="${articleId}"> <!-- Voeg het artikel ID toe als verborgen veld -->
-      <input type="hidden" name="_next" value="https://siebecluyts.github.io/gdn/thanksform.html">
-      <input type="hidden" name="_autoresponse" value="Thanks for your answer! Your answer will be seen quick! -GDN">
-      <button type="submit">Send</button>
-    </form>
-  `;
-}
-
-// Event listener voor het formulier
-document.addEventListener("submit", function(event) {
-  if (event.target.id === "pollForm") {
-    // Verlaat de preventDefault hier, zodat de verzending kan plaatsvinden
-    alert("Thanks for your answer!");
+  const params = new URLSearchParams(window.location.search);
+  const articleId = params.get("id");
+  if (!articleId) {
+    articleContainer.innerHTML = "<p>Article ID missing.</p><p><a href='index.html'>Back to home</a></p>";
+    return;
   }
-});
 
-// Fetch articles.json
-fetch("articles.json")
-  .then(res => {
-    if (!res.ok) {
-      throw new Error("Network response was not ok");
-    }
-    return res.json();
-  })
-  .then(data => {
-    const article = data.find(a => a.id === articleId);
-    if (!article) {
-      articleContainer.innerHTML = "<p>Article not found.</p>";
-      return;
-    }
+  function escapeHtml(text) {
+    if (text === null || text === undefined) return "";
+    return String(text)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
 
-    const html = `
-      <h1>${article.title}</h1>
-      <p><small>By ${article.author} - ${article.date}</small></p>
-      ${article.thumbnail ? `<img src="${article.thumbnail}" alt="${article.title}" class="thumb-large">` : ""}
-      <p>${article.content}</p>
-      ${renderPoll(article.poll, article.id)} <!-- Voeg de poll hier toe -->
-    `;
+  fetch("articles.json")
+    .then(res => res.json())
+    .then(data => {
+      const article = (Array.isArray(data) ? data.find(a => String(a.id) === String(articleId)) : null);
+      if (!article) {
+        articleContainer.innerHTML = "<h2>Article not found.</h2><p><a href='index.html'>Back to home</a></p>";
+        return;
+      }
 
-    articleContainer.innerHTML = html;
-  })
-  .catch(err => console.error("Error loading article:", err));
+      const thumbHtml = article.thumbnail 
+        ? `<img src="${escapeHtml(article.thumbnail)}" alt="${escapeHtml(article.title)}" style="width:100%; max-height:400px; object-fit:cover; border-radius:8px;">`
+        : "";
+
+      const html = `
+        <article>
+          <h1>${escapeHtml(article.title)}</h1>
+          <p style="color:#666;">By ${escapeHtml(article.author)} — ${escapeHtml(article.date)} — ${escapeHtml(article.category || "")}</p>
+          ${thumbHtml}
+          <div id="article-body" style="margin-top:16px;"></div>
+          <p style="margin-top:18px;"><a href="index.html">Back to Home</a></p>
+        </article>
+      `;
+      articleContainer.innerHTML = html;
+
+      const bodyDiv = document.getElementById("article-body");
+      if (bodyDiv) {
+        let contentHtml = String(article.content || article.description || "");
+        if (!contentHtml.includes("<")) {
+          contentHtml = escapeHtml(contentHtml).replace(/\n/g, "<br>");
+        }
+        bodyDiv.innerHTML = contentHtml;
+      }
+
+      try {
+        const viewKey = `views_${article.id}`;
+        const current = parseInt(localStorage.getItem(viewKey)) || 0;
+        localStorage.setItem(viewKey, current + 1);
+      } catch {}
+    })
+    .catch(() => {
+      articleContainer.innerHTML = "<p>Error loading article.</p><p><a href='index.html'>Back to home</a></p>";
+    });
+})();
