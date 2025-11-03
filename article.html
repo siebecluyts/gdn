@@ -55,6 +55,15 @@
 
   <!-- Artikel content -->
   <main id="article-detail"></main>
+<script>
+const params = new URLSearchParams(window.location.search);
+const articleId = params.get("id");
+if (articleId) {
+  const key = `views_${articleId}`;
+  const current = parseInt(localStorage.getItem(key)) || 0;
+  localStorage.setItem(key, current + 1);
+}
+</script>
 
   <!-- Footer -->
   <footer>

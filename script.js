@@ -165,3 +165,39 @@ function applyFiltersAndReset() {
   currentPage = 1;
   renderArticles();
 }
+// --- Sorting by Most Viewed --- //
+const sortMostViewedBtn = document.getElementById("sortMostViewed");
+const sortNewestBtn = document.getElementById("sortNewest");
+
+if (sortMostViewedBtn && sortNewestBtn) {
+  sortMostViewedBtn.addEventListener("click", () => {
+    sortMostViewedBtn.classList.add("active");
+    sortNewestBtn.classList.remove("active");
+
+    filteredArticles.sort((a, b) => {
+      const viewsA = parseInt(localStorage.getItem(`views_${a.id}`)) || 0;
+      const viewsB = parseInt(localStorage.getItem(`views_${b.id}`)) || 0;
+      return viewsB - viewsA; // meest bekeken eerst
+    });
+
+    currentPage = 1;
+    renderArticles();
+  });
+
+  sortNewestBtn.addEventListener("click", () => {
+    sortNewestBtn.classList.add("active");
+    sortMostViewedBtn.classList.remove("active");
+
+    filteredArticles.sort((a, b) => {
+      const ta = parseDateSafe(a.date);
+      const tb = parseDateSafe(b.date);
+      if (ta !== null && tb !== null) return tb - ta;
+      if (ta !== null) return -1;
+      if (tb !== null) return 1;
+      return (Number(b.id) || 0) - (Number(a.id) || 0);
+    });
+
+    currentPage = 1;
+    renderArticles();
+  });
+}
