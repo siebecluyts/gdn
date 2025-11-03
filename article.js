@@ -29,7 +29,8 @@
       }
 
       const thumbHtml = article.thumbnail 
-        ? `<img src="${escapeHtml(article.thumbnail)}" alt="${escapeHtml(article.title)}" style="width:100%; max-height:400px; object-fit:cover; border-radius:8px;">`
+        ? `<img src="${escapeHtml(article.thumbnail)}" alt="${escapeHtml(article.title)}" 
+            style="display:block; margin:10px auto; width:80%; max-height:250px; object-fit:cover; border-radius:8px;">`
         : "";
 
       const html = `
