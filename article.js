@@ -30,7 +30,7 @@
 
       const thumbHtml = article.thumbnail 
         ? `<img src="${escapeHtml(article.thumbnail)}" alt="${escapeHtml(article.title)}" 
-            style="display:block; margin:10px auto; width:80%; max-height:250px; object-fit:cover; border-radius:8px;">`
+            style="display:block; margin:10px auto; width:80%; max-height:500px; object-fit:cover; border-radius:8px;">`
         : "";
 
       const html = `
