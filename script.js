@@ -8,15 +8,10 @@ let articles = [];
 let filteredArticles = [];
 const articlesPerPage = 5;
 
-// ✅ lees page uit URL of stel in op 1
+// --- lees huidige pagina uit URL ---
 const params = new URLSearchParams(window.location.search);
 let currentPage = parseInt(params.get("page")) || 1;
-if (!params.has("page")) {
-  params.set("page", "1");
-  window.history.replaceState({}, "", `${window.location.pathname}?${params.toString()}`);
-}
-
-let currentCategory = "All";
+if (currentPage < 1) currentPage = 1;
 
 // --- helpers ---
 function htmlToTextKeepBr(html) {
@@ -52,14 +47,13 @@ function parseDateSafe(d) {
   return isNaN(t) ? null : t;
 }
 
-// ✅ update de URL met de huidige page-parameter
 function updateURLPage() {
   const params = new URLSearchParams(window.location.search);
   params.set("page", currentPage);
   window.history.replaceState({}, "", `${window.location.pathname}?${params.toString()}`);
 }
 
-// --- detecteer zoektermen via /search/... of ?q=... ---
+// --- detecteer zoektermen ---
 const currentPath = window.location.pathname;
 const urlParams = new URLSearchParams(window.location.search);
 let initialSearch = "";
@@ -86,6 +80,8 @@ fetch("articles.json")
   .then(res => res.json())
   .then(data => {
     articles = Array.isArray(data) ? data.slice() : [];
+
+    // sorteer nieuwste eerst
     articles.sort((a, b) => {
       const ta = parseDateSafe(a.date);
       const tb = parseDateSafe(b.date);
@@ -128,22 +124,16 @@ function renderArticles() {
   noResultsMsg.style.display = filteredArticles.length === 0 ? "block" : "none";
   loadMoreBtn.style.display = end < filteredArticles.length ? "block" : "none";
 
-  updateURLPage(); // ✅ hou de URL synchroon met de pagina
+  updateURLPage();
 }
 
-// --- Load more button ---
+// ✅ Geen scroll — enkel URL update en render
 loadMoreBtn.addEventListener("click", () => {
   currentPage++;
   renderArticles();
-
-  // ✅ smooth scroll naar nieuw gedeelte
-  window.scrollTo({
-    top: document.body.scrollHeight - window.innerHeight / 2,
-    behavior: "smooth"
-  });
 });
 
-// --- filters & search ---
+// --- filters ---
 categoryLinks.forEach(link => {
   link.addEventListener("click", e => {
     e.preventDefault();
@@ -172,7 +162,7 @@ function applyFiltersAndReset() {
   renderArticles();
 }
 
-// --- Sorting by Most Viewed ---
+// --- sorteer op meest bekeken / nieuwste ---
 const sortMostViewedBtn = document.getElementById("sortMostViewed");
 const sortNewestBtn = document.getElementById("sortNewest");
 
