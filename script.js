@@ -127,10 +127,11 @@ function renderArticles() {
   updateURLPage();
 }
 
-// ✅ Geen scroll — enkel URL update en render
 loadMoreBtn.addEventListener("click", () => {
+  const currentScroll = window.scrollY;
   currentPage++;
   renderArticles();
+  window.scrollTo({ top: currentScroll, behavior: "instant" });
 });
 
 // --- filters ---
