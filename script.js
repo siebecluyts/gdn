@@ -8,8 +8,14 @@ let articles = [];
 let filteredArticles = [];
 const articlesPerPage = 5;
 
-// ✅ lees page uit de URL, standaard 1
-let currentPage = parseInt(new URLSearchParams(window.location.search).get("page")) || 1;
+// ✅ lees page uit URL of stel in op 1
+const params = new URLSearchParams(window.location.search);
+let currentPage = parseInt(params.get("page")) || 1;
+if (!params.has("page")) {
+  params.set("page", "1");
+  window.history.replaceState({}, "", `${window.location.pathname}?${params.toString()}`);
+}
+
 let currentCategory = "All";
 
 // --- helpers ---
