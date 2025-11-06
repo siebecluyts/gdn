@@ -5,7 +5,7 @@
   const params = new URLSearchParams(window.location.search);
   const articleId = params.get("id");
   if (!articleId) {
-    articleContainer.innerHTML = "<p>Article ID missing.</p><p><a href='index.html'>Back to home</a></p>";
+    articleContainer.innerHTML = "<p>Article ID missing.</p><p><a href='/gdn'>Back to home</a></p>";
     return;
   }
 
@@ -24,7 +24,7 @@
     .then(data => {
       const article = (Array.isArray(data) ? data.find(a => String(a.id) === String(articleId)) : null);
       if (!article) {
-        articleContainer.innerHTML = "<h2>Article not found.</h2><p><a href='index.html'>Back to home</a></p>";
+        articleContainer.innerHTML = "<h2>Article not found.</h2><p><a href='/gdn'>Back to home</a></p>";
         return;
       }
 
@@ -39,7 +39,7 @@
           <p style="color:#666;">By ${escapeHtml(article.author)} — ${escapeHtml(article.date)} — ${escapeHtml(article.category || "")}</p>
           ${thumbHtml}
           <div id="article-body" style="margin-top:16px;"></div>
-          <p style="margin-top:18px;"><a href="index.html">Back to Home</a></p>
+          <p style="margin-top:18px;"><a href="/gdn">Back to Home</a></p>
         </article>
       `;
       articleContainer.innerHTML = html;
