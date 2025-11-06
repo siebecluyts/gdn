@@ -8,11 +8,6 @@ let articles = [];
 let filteredArticles = [];
 const articlesPerPage = 5;
 
-// --- lees huidige pagina uit URL ---
-const params = new URLSearchParams(window.location.search);
-let currentPage = parseInt(params.get("page")) || 1;
-if (currentPage < 1) currentPage = 1;
-
 // --- helpers ---
 function htmlToTextKeepBr(html) {
   if (!html) return "";
