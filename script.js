@@ -7,11 +7,12 @@ const noResultsMsg = document.getElementById("no-results");
 let articles = [];
 let filteredArticles = [];
 const articlesPerPage = 5;
-let currentPage = 1;
+
+// ✅ lees page uit de URL, standaard 1
+let currentPage = parseInt(new URLSearchParams(window.location.search).get("page")) || 1;
 let currentCategory = "All";
 
 // --- helpers ---
-// behoud <br> als newline, verwijder andere HTML
 function htmlToTextKeepBr(html) {
   if (!html) return "";
   let s = String(html).replace(/<br\s*\/?>/gi, "\n");
@@ -20,7 +21,6 @@ function htmlToTextKeepBr(html) {
   return tmp.textContent || tmp.innerText || "";
 }
 
-// veilige escape voor tonen in HTML (maar reintroduce <br> after escaping)
 function escapeHtml(text) {
   if (text === null || text === undefined) return "";
   return String(text)
@@ -31,7 +31,6 @@ function escapeHtml(text) {
     .replace(/'/g, "&#039;");
 }
 
-// maak korte samenvatting uit content (behoud nieuwe regels), voeg "..." als afgekapt
 function makeSummaryFromContent(htmlContent, maxChars = 120) {
   const plain = htmlToTextKeepBr(htmlContent).trim();
   if (plain.length <= maxChars) {
@@ -41,29 +40,31 @@ function makeSummaryFromContent(htmlContent, maxChars = 120) {
   return escapeHtml(sliced).replace(/\n/g, "<br>");
 }
 
-// parse date safely
 function parseDateSafe(d) {
   if (!d) return null;
   const t = Date.parse(d);
   return isNaN(t) ? null : t;
 }
 
-// --- Detecteer zoektermen via /search/... of ?q=... ---
+// ✅ update de URL met de huidige page-parameter
+function updateURLPage() {
+  const params = new URLSearchParams(window.location.search);
+  params.set("page", currentPage);
+  window.history.replaceState({}, "", `${window.location.pathname}?${params.toString()}`);
+}
+
+// --- detecteer zoektermen via /search/... of ?q=... ---
 const currentPath = window.location.pathname;
 const urlParams = new URLSearchParams(window.location.search);
 let initialSearch = "";
 
-// Detecteer /search/<term>
 if (currentPath.startsWith("/search/")) {
   initialSearch = decodeURIComponent(currentPath.replace("/search/", "").replace(/\/$/, ""));
 }
-
-// Detecteer ?q=<term>
 if (!initialSearch && urlParams.has("q")) {
   initialSearch = urlParams.get("q");
 }
 
-// Als er iets is, stel het zoekveld in
 if (initialSearch) {
   document.addEventListener("DOMContentLoaded", () => {
     if (searchInput) {
@@ -79,26 +80,17 @@ fetch("articles.json")
   .then(res => res.json())
   .then(data => {
     articles = Array.isArray(data) ? data.slice() : [];
-
-    // sorteer artikelen: nieuwste datum eerst
     articles.sort((a, b) => {
       const ta = parseDateSafe(a.date);
       const tb = parseDateSafe(b.date);
-
-      if (ta !== null && tb !== null) return tb - ta; // nieuwste eerst
+      if (ta !== null && tb !== null) return tb - ta;
       if (ta !== null) return -1;
       if (tb !== null) return 1;
-
-      // fallback naar numerieke id
-      const ia = Number(a.id) || 0;
-      const ib = Number(b.id) || 0;
-      return ib - ia;
+      return (Number(b.id) || 0) - (Number(a.id) || 0);
     });
 
     filteredArticles = articles.slice();
-    currentPage = 1;
 
-    // als er een zoekterm is in de URL, pas meteen de filter toe
     if (initialSearch) {
       applyFiltersAndReset();
     } else {
@@ -129,12 +121,20 @@ function renderArticles() {
 
   noResultsMsg.style.display = filteredArticles.length === 0 ? "block" : "none";
   loadMoreBtn.style.display = end < filteredArticles.length ? "block" : "none";
+
+  updateURLPage(); // ✅ hou de URL synchroon met de pagina
 }
 
 // --- Load more button ---
 loadMoreBtn.addEventListener("click", () => {
   currentPage++;
   renderArticles();
+
+  // ✅ smooth scroll naar nieuw gedeelte
+  window.scrollTo({
+    top: document.body.scrollHeight - window.innerHeight / 2,
+    behavior: "smooth"
+  });
 });
 
 // --- filters & search ---
@@ -165,7 +165,8 @@ function applyFiltersAndReset() {
   currentPage = 1;
   renderArticles();
 }
-// --- Sorting by Most Viewed --- //
+
+// --- Sorting by Most Viewed ---
 const sortMostViewedBtn = document.getElementById("sortMostViewed");
 const sortNewestBtn = document.getElementById("sortNewest");
 
@@ -177,7 +178,7 @@ if (sortMostViewedBtn && sortNewestBtn) {
     filteredArticles.sort((a, b) => {
       const viewsA = parseInt(localStorage.getItem(`views_${a.id}`)) || 0;
       const viewsB = parseInt(localStorage.getItem(`views_${b.id}`)) || 0;
-      return viewsB - viewsA; // meest bekeken eerst
+      return viewsB - viewsA;
     });
 
     currentPage = 1;
