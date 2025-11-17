@@ -12,7 +12,7 @@ body {
 header {
   background: linear-gradient(135deg, #004d7a, #008793);
   color: white;
-  padding: 18px 30px;
+  padding: 18px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;

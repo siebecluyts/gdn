@@ -87,7 +87,7 @@ fetch("articles.json")
   })
   .catch(err => {
     console.error("Error loading articles.json:", err);
-    articlesContainer.innerHTML = "<p style='text-align:center'>Failed to load articles. <button onclick='window.location.href='/gdn';'>Reload articles</button></p>";
+    articlesContainer.innerHTML = "<p style='text-align:center'>Failed to load articles.  <button onclick='window.location.href='/gdn';'>Reload articles</button></p>";
   });
 
 // --- Render ---
