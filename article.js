@@ -5,7 +5,7 @@
   const params = new URLSearchParams(window.location.search);
   const articleId = params.get("id");
   if (!articleId) {
-    articleContainer.innerHTML = "<p>Article ID missing.</p><p><a href='/gdn'>Back to home</a></p>";
+    articleContainer.innerHTML = "<p>Article ID missing. Please add a article ID.</p><p><a href='/gdn'>Back to home</a></p>";
     return;
   }
 
