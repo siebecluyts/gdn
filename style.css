@@ -155,7 +155,7 @@ nav a:hover, .dropbtn:hover {
 }
 
 /* ===== Load More Button ===== */
-.load-more {
+button {
   display: block;
   margin: 30px auto 50px;
   padding: 14px 24px;
@@ -168,7 +168,7 @@ nav a:hover, .dropbtn:hover {
   transition: background 0.3s, transform 0.2s;
 }
 
-.load-more:hover {
+button:hover {
   background: #00324f;
   transform: translateY(-2px);
 }
