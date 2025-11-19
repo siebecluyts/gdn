@@ -160,7 +160,7 @@ nav a:hover, .dropbtn:hover {
   margin: 30px auto 50px;
   padding: 14px 24px;
   font-size: 15px;
-  background: #0082cd;
+  background: #005789;
   color: white;
   border: none;
   border-radius: 8px;
@@ -169,7 +169,7 @@ nav a:hover, .dropbtn:hover {
 }
 
 .lolbutton:hover {
-  background: #005587;
+  background: #003f63;
   transform: translateY(-2px);
 }
 
