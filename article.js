@@ -28,6 +28,9 @@
         return;
       }
 
+      // Bewaar artikel wereldwijd zodat save-knoppen het kunnen gebruiken
+      window.currentArticle = article;
+
       const thumbHtml = article.thumbnail 
         ? `<img src="${escapeHtml(article.thumbnail)}" alt="${escapeHtml(article.title)}" 
             style="display:block; margin:10px auto; width:80%; max-height:500px; object-fit:cover; border-radius:8px;">`
@@ -53,6 +56,7 @@
         bodyDiv.innerHTML = contentHtml;
       }
 
+      // View counter
       try {
         const viewKey = `views_${article.id}`;
         const current = parseInt(localStorage.getItem(viewKey)) || 0;
@@ -62,4 +66,58 @@
     .catch(() => {
       articleContainer.innerHTML = "<p>Error loading article.</p><p><a href='index.html'>Back to home</a></p>";
     });
+
+
+  /* =======================================================
+      3-DOT MENU + DOWNLOAD FUNCTIES
+  ======================================================= */
+
+  const btn = document.getElementById("article-menu-btn");
+  const dropdown = document.getElementById("article-menu-dropdown");
+
+  if (btn && dropdown) {
+    btn.addEventListener("click", () => {
+      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!dropdown.contains(e.target) && e.target !== btn) {
+        dropdown.style.display = "none";
+      }
+    });
+  }
+
+  function downloadFile(filename, content) {
+    const blob = new Blob([content], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  document.querySelectorAll(".submenu-item").forEach(item => {
+    item.addEventListener("click", () => {
+      const type = item.dataset.type;
+      const a = window.currentArticle;
+      if (!a) return alert("Article not loaded yet.");
+
+      if (type === "json") {
+        downloadFile(`article-${a.id}.json`, JSON.stringify(a, null, 2));
+      }
+      if (type === "md") {
+        let md = `# ${a.title}\n\n`;
+        md += `**By ${a.author} — ${a.date} — ${a.category}**\n\n`;
+        md += (a.content || "").replace(/<br\s*\/?>/g, "\n");
+        downloadFile(`article-${a.id}.md`, md);
+      }
+      if (type === "txt") {
+        let txt = `${a.title}\nBy ${a.author} — ${a.date} — ${a.category}\n\n` +
+                  (a.content || "").replace(/<br\s*\/?>/g, "\n");
+        downloadFile(`article-${a.id}.txt`, txt);
+      }
+    });
+  });
+
 })();
