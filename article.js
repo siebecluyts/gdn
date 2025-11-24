@@ -52,29 +52,26 @@
       }
       bodyDiv.innerHTML = contentHtml;
 
-      // Count local views
-      try {
-        const viewKey = `views_${article.id}`;
-        const current = parseInt(localStorage.getItem(viewKey)) || 0;
-        localStorage.setItem(viewKey, current + 1);
-      } catch {}
-
       // --------------------------
       // MENU LOGIC
       // --------------------------
       const menuBtn = document.querySelector(".article-menu-btn");
       const menu = document.getElementById("articleMenu");
 
-      menuBtn.addEventListener("click", () => {
-        menu.classList.toggle("open");
+      menuBtn.addEventListener("click", (e) => {
+        e.stopPropagation(); // voorkom dat document click meteen sluit
+        menu.classList.toggle("active"); // 'active' matcht CSS
       });
 
       document.body.addEventListener("click", (e) => {
-        if (!menuBtn.contains(e.target) && !menu.contains(e.target)) {
-          menu.classList.remove("open");
+        if (!menu.contains(e.target)) {
+          menu.classList.remove("active");
         }
       });
 
+      // --------------------------
+      // DOWNLOAD / SHARE FUNCTIONS
+      // --------------------------
       function download(filename, data) {
         const blob = new Blob([data], { type: "text/plain" });
         const url = URL.createObjectURL(blob);
@@ -85,13 +82,12 @@
         URL.revokeObjectURL(url);
       }
 
-      // Copy link
       document.getElementById("copyLink").addEventListener("click", () => {
         navigator.clipboard.writeText(window.location.href);
         alert("Link copied!");
+        menu.classList.remove("active");
       });
 
-      // Share
       document.getElementById("shareArticle").addEventListener("click", async () => {
         if (navigator.share) {
           try {
@@ -104,26 +100,35 @@
         } else {
           alert("Your browser doesn't support Share.");
         }
+        menu.classList.remove("active");
       });
 
-      // Download Markdown
       document.getElementById("dlMarkdown").addEventListener("click", () => {
         const md = `# ${article.title}\n\n${article.author} — ${article.date}\n\n${article.content}`;
         download(`${article.title}.md`, md);
+        menu.classList.remove("active");
       });
 
-      // Download JSON
       document.getElementById("dlJSON").addEventListener("click", () => {
         const json = JSON.stringify(article, null, 2);
         download(`${article.title}.json`, json);
+        menu.classList.remove("active");
       });
 
-      // Download TXT
       document.getElementById("dlTXT").addEventListener("click", () => {
         const txt = `${article.title}\n${article.author} — ${article.date}\n\n${article.content}`;
         download(`${article.title}.txt`, txt);
+        menu.classList.remove("active");
       });
 
+      // --------------------------
+      // LOCAL VIEWS
+      // --------------------------
+      try {
+        const viewKey = `views_${article.id}`;
+        const current = parseInt(localStorage.getItem(viewKey)) || 0;
+        localStorage.setItem(viewKey, current + 1);
+      } catch {}
     })
     .catch(() => {
       articleContainer.innerHTML = "<p>Error loading article.</p><p><a href='/gdn'>Back to home</a></p>";
