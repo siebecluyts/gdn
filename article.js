@@ -1,3 +1,13 @@
+// Redirect /gdn/21 -> /gdn/article?id=21
+(function () {
+  const path = window.location.pathname; // bv. /gdn/21
+  const match = path.match(/^\/gdn\/(\d+)$/);
+
+  if (match) {
+    const articleId = match[1];
+    window.location.replace(`/gdn/article?id=${articleId}`);
+  }
+})();
 (function () {
   const articleContainer = document.getElementById("article-detail");
   if (!articleContainer) return;
@@ -120,16 +130,93 @@
         download(`${article.title}.txt`, txt);
         menu.classList.remove("active");
       });
-// FULL URL genereren
+// QR CODE genereren + downloadbaar maken
 document.getElementById("makeFullURL").addEventListener("click", () => {
   const full = window.location.href;
-  navigator.clipboard.writeText(full);
-  alert("Full URL copied:\n" + full);
+
+  // QR-code popup overlay
+  let popup = document.createElement("div");
+  popup.style.position = "fixed";
+  popup.style.top = "0";
+  popup.style.left = "0";
+  popup.style.width = "100vw";
+  popup.style.height = "100vh";
+  popup.style.background = "rgba(0,0,0,0.6)";
+  popup.style.display = "flex";
+  popup.style.alignItems = "center";
+  popup.style.justifyContent = "center";
+  popup.style.zIndex = "9999";
+
+  // witte box
+  let box = document.createElement("div");
+  box.style.background = "#fff";
+  box.style.padding = "20px";
+  box.style.borderRadius = "12px";
+  box.style.boxShadow = "0 0 20px rgba(0,0,0,0.3)";
+  box.style.textAlign = "center";
+
+  // titel
+  let title = document.createElement("h2");
+  title.innerText = "QR Code";
+  box.appendChild(title);
+
+  // canvas voor QR code
+  let canvas = document.createElement("canvas");
+  canvas.width = 300;
+  canvas.height = 300;
+  canvas.style.borderRadius = "8px";
+  box.appendChild(canvas);
+
+  // DOWNLOAD knop
+  let downloadBtn = document.createElement("a");
+  downloadBtn.innerText = "Download QR Code";
+  downloadBtn.style.display = "inline-block";
+  downloadBtn.style.marginTop = "12px";
+  downloadBtn.style.padding = "10px 18px";
+  downloadBtn.style.background = "#0078ff";
+  downloadBtn.style.color = "#fff";
+  downloadBtn.style.borderRadius = "6px";
+  downloadBtn.style.textDecoration = "none";
+  downloadBtn.style.cursor = "pointer";
+  box.appendChild(downloadBtn);
+
+  // SLUIT knop
+  let closeBtn = document.createElement("button");
+  closeBtn.innerText = "Sluiten";
+  closeBtn.style.marginTop = "10px";
+  closeBtn.style.padding = "8px 18px";
+  closeBtn.style.cursor = "pointer";
+  closeBtn.onclick = () => popup.remove();
+  box.appendChild(closeBtn);
+
+  popup.appendChild(box);
+  document.body.appendChild(popup);
+
+  // QR tekenen
+  generateQR(full, canvas, downloadBtn);
 });
+
+// mini QR generator (Google Charts API)
+function generateQR(text, canvas, downloadLink) {
+  const size = 300;
+  const ctx = canvas.getContext("2d");
+
+  const img = new Image();
+  img.crossOrigin = "anonymous";
+  img.src = `https://chart.googleapis.com/chart?cht=qr&chs=${size}x${size}&chl=${encodeURIComponent(text)}`;
+
+  img.onload = () => {
+    ctx.drawImage(img, 0, 0, size, size);
+
+    // download link instellen zodra image geladen is
+    downloadLink.href = canvas.toDataURL("image/png");
+    downloadLink.download = "qr-code.png";
+  };
+}
 
 // KORTE URL genereren → /gdn/{id}
 document.getElementById("makeShortURL").addEventListener("click", () => {
-  const shortURL = `/gdn/${article.id}`;
+  const shortURL = `https://siebecluyts.github.io/gdn/${article.id}`;
   navigator.clipboard.writeText(shortURL);
   alert("Short URL copied:\n" + shortURL);
 });
