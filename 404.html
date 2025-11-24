@@ -4,36 +4,25 @@
   <meta charset="UTF-8">
   <title>Redirecting...</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Automatische fallback -->
   <meta http-equiv="refresh" content="0;url=/gdn/" />
-
   <script>
-    // Haal path op
-    const path = window.location.pathname;
+    const path = window.location.pathname; // bv. /gdn/21
 
-    // ------------------------------
-    // 1. Short URL: /gdn/24 → /gdn/article?id=24
-    // ------------------------------
-    const shortMatch = path.match(/^\/gdn\/([0-9]+)\/?$/);
+    // short URL: /gdn/21 → /gdn/article?id=21
+    const shortMatch = path.match(/^\/gdn\/(\d+)\/?$/);
     if (shortMatch) {
       const id = shortMatch[1];
       window.location.replace(`/gdn/article?id=${id}`);
     }
 
-    // ------------------------------
-    // 2. Search redirect: /gdn/search/term → /gdn/?q=term
-    // (jouw originele functionaliteit)
-    // ------------------------------
+    // search redirect: /gdn/search/term → /gdn/?q=term
     const searchMatch = path.match(/^\/gdn\/search\/(.+)/);
     if (searchMatch) {
       const q = decodeURIComponent(searchMatch[1]);
       window.location.replace(`/gdn/?q=${encodeURIComponent(q)}`);
     }
 
-    // ------------------------------
-    // 3. Default fallback → homepage
-    // ------------------------------
+    // fallback → homepage
     window.location.replace("/gdn/");
   </script>
 </head>
