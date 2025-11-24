@@ -107,32 +107,6 @@
     "content": "Today, oktober 16 2025, we are exactly 31 days away from a new update to GD. This is because on 16 november 2025 the random and chance gauntlet wil come out. Players where quick to find that the sprites for the gauntlets are not yet in the files. So there will be a update on 16 november. There is a chance Robtop makes the sprites server-side, so the sprites are on the computer of Robtop and not on the one of the player, but the chances are low. We are just going to have to wait."   
 },
 {
-  "id": 13,
-  "title": "Poll: whats your favorite gamemode?",
-  "author": "GDN",
-  "date": "2025-10-18",
-  "category": "Poll",
-  "thumbnail": "assets/articlethumbnail/13.png",
-  "content": "Here at the GDN, we wonder what gamemodes the community prefers. By filling out the form a bit down, you help us get a better view at the community.",
-  "poll": {
-    "question": "What is your favorite gamemode?",
-    "options": ["Cube", "Ship", "Ball", "Ufo", "Spider", "Wave", "Swing", "Robot"]
-  }
-},
-{
-  "id": 14,
-  "title": "Poll: who is the best player in gd?",
-  "author": "GDN",
-  "date": "2025-10-18",
-  "category": "Poll",
-  "thumbnail": "assets/articlethumbnail/14.png",
-  "content": "We want to know what you guys best player is.",
-  "poll": {
-    "question": "Who is the best player in gd?",
-    "options": ["Zoink", "WpoPoff", "Npesta", "Doggie", "Trick", "Cuatrocientos", "Riot", "Paqoe", "EVW", "SDslayer", "mrspaghetti"]
-  }
-},
-{
   "id": 15,
   "title": "EVW beat Sonic Wave!",
   "author": "GDN",
