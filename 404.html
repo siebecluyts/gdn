@@ -3,20 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <title>Redirecting...</title>
-  <meta http-equiv="refresh" content="0;url=/" />
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4382191760626362"
-     crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Automatische fallback -->
+  <meta http-equiv="refresh" content="0;url=/gdn/" />
+
   <script>
-    // GitHub Pages 404 handler
+    // Haal path op
     const path = window.location.pathname;
-    const match = path.match(/^\/gdn\/search\/(.+)/); // let op: jouw repo naam in de URL
-    if (match) {
-      const q = decodeURIComponent(match[1]);
-      const newUrl = `/gdn/?q=${encodeURIComponent(q)}`;
-      window.location.replace(newUrl);
-    } else {
-      window.location.replace("/gdn/");
+
+    // ------------------------------
+    // 1. Short URL: /gdn/24 → /gdn/article?id=24
+    // ------------------------------
+    const shortMatch = path.match(/^\/gdn\/([0-9]+)\/?$/);
+    if (shortMatch) {
+      const id = shortMatch[1];
+      window.location.replace(`/gdn/article?id=${id}`);
     }
+
+    // ------------------------------
+    // 2. Search redirect: /gdn/search/term → /gdn/?q=term
+    // (jouw originele functionaliteit)
+    // ------------------------------
+    const searchMatch = path.match(/^\/gdn\/search\/(.+)/);
+    if (searchMatch) {
+      const q = decodeURIComponent(searchMatch[1]);
+      window.location.replace(`/gdn/?q=${encodeURIComponent(q)}`);
+    }
+
+    // ------------------------------
+    // 3. Default fallback → homepage
+    // ------------------------------
+    window.location.replace("/gdn/");
   </script>
 </head>
 <body>

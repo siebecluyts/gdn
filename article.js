@@ -120,6 +120,19 @@
         download(`${article.title}.txt`, txt);
         menu.classList.remove("active");
       });
+// FULL URL genereren
+document.getElementById("makeFullURL").addEventListener("click", () => {
+  const full = window.location.href;
+  navigator.clipboard.writeText(full);
+  alert("Full URL copied:\n" + full);
+});
+
+// KORTE URL genereren → /gdn/{id}
+document.getElementById("makeShortURL").addEventListener("click", () => {
+  const shortURL = `/gdn/${article.id}`;
+  navigator.clipboard.writeText(shortURL);
+  alert("Short URL copied:\n" + shortURL);
+});
 
       // --------------------------
       // LOCAL VIEWS
