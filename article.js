@@ -34,17 +34,6 @@
         : "";
 
       const html = `
-        <div id="menu-wrapper">
-          <button id="article-menu">⋮</button>
-          <div id="article-menu-dropdown" class="dropdown-menu">
-            <button data-action="copylink">Copy link</button>
-            <button data-action="share">Share…</button>
-            <button data-action="save-md">Save as Markdown</button>
-            <button data-action="save-txt">Save as TXT</button>
-            <button data-action="save-json">Save as JSON</button>
-          </div>
-        </div>
-
         <article>
           <h1>${escapeHtml(article.title)}</h1>
           <p style="color:#666;">By ${escapeHtml(article.author)} — ${escapeHtml(article.date)} — ${escapeHtml(article.category || "")}</p>
@@ -63,22 +52,26 @@
       }
       bodyDiv.innerHTML = contentHtml;
 
+      // Count local views
       try {
         const viewKey = `views_${article.id}`;
         const current = parseInt(localStorage.getItem(viewKey)) || 0;
         localStorage.setItem(viewKey, current + 1);
       } catch {}
 
-      const btn = document.getElementById("article-menu");
-      const menu = document.getElementById("article-menu-dropdown");
+      // --------------------------
+      // MENU LOGIC
+      // --------------------------
+      const menuBtn = document.querySelector(".article-menu-btn");
+      const menu = document.getElementById("articleMenu");
 
-      btn.addEventListener("click", () => {
-        menu.style.display = menu.style.display === "block" ? "none" : "block";
+      menuBtn.addEventListener("click", () => {
+        menu.classList.toggle("open");
       });
 
       document.body.addEventListener("click", (e) => {
-        if (!btn.contains(e.target) && !menu.contains(e.target)) {
-          menu.style.display = "none";
+        if (!menuBtn.contains(e.target) && !menu.contains(e.target)) {
+          menu.classList.remove("open");
         }
       });
 
@@ -92,45 +85,43 @@
         URL.revokeObjectURL(url);
       }
 
-      menu.addEventListener("click", async (e) => {
-        const action = e.target.dataset.action;
-        if (!action) return;
+      // Copy link
+      document.getElementById("copyLink").addEventListener("click", () => {
+        navigator.clipboard.writeText(window.location.href);
+        alert("Link copied!");
+      });
 
-        if (action === "copylink") {
-          navigator.clipboard.writeText(window.location.href);
-          alert("Link copied!");
+      // Share
+      document.getElementById("shareArticle").addEventListener("click", async () => {
+        if (navigator.share) {
+          try {
+            await navigator.share({
+              title: article.title,
+              text: "Check out this GDN article!",
+              url: window.location.href
+            });
+          } catch { }
+        } else {
+          alert("Your browser doesn't support Share.");
         }
+      });
 
-        if (action === "share") {
-          if (navigator.share) {
-            try {
-              await navigator.share({
-                title: article.title,
-                text: "Check out this GDN article!",
-                url: window.location.href
-              });
-            } catch (err) {
-              console.log("Share cancelled.");
-            }
-          } else {
-            alert("Your browser doesn't support Share.");
-          }
-        }
+      // Download Markdown
+      document.getElementById("dlMarkdown").addEventListener("click", () => {
+        const md = `# ${article.title}\n\n${article.author} — ${article.date}\n\n${article.content}`;
+        download(`${article.title}.md`, md);
+      });
 
-        if (action === "save-md") {
-          const md = `# ${article.title}\n\n${article.author} — ${article.date}\n\n${article.content}`;
-          download(`${article.title}.md`, md);
-        }
+      // Download JSON
+      document.getElementById("dlJSON").addEventListener("click", () => {
+        const json = JSON.stringify(article, null, 2);
+        download(`${article.title}.json`, json);
+      });
 
-        if (action === "save-txt") {
-          const txt = `${article.title}\n${article.author} — ${article.date}\n\n${article.content}`;
-          download(`${article.title}.txt`, txt);
-        }
-
-        if (action === "save-json") {
-          const json = JSON.stringify(article, null, 2);
-          download(`${article.title}.json`, json);
-        }
+      // Download TXT
+      document.getElementById("dlTXT").addEventListener("click", () => {
+        const txt = `${article.title}\n${article.author} — ${article.date}\n\n${article.content}`;
+        download(`${article.title}.txt`, txt);
       });
 
     })
