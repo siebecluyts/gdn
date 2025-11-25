@@ -3,6 +3,7 @@ const loadMoreBtn = document.getElementById("loadMoreBtn");
 const searchInput = document.getElementById("search");
 const categoryLinks = document.querySelectorAll(".dropdown-content a");
 const noResultsMsg = document.getElementById("no-results");
+const articlesContainerGDN = document.getElementById("articlesGDN");
 
 let articles = [];
 let filteredArticles = [];
@@ -146,3 +147,36 @@ function applyFiltersAndReset() {
   currentPage = 1;
   renderArticles();
 }
+window.addEventListener("DOMContentLoaded", () => {
+    const gdnContainer = document.getElementById("articlesGDN");
+    if (!gdnContainer) return; // Alleen uitvoeren op Author GDN pagina
+
+    // Wacht tot artikelen geladen zijn
+    const checkReady = setInterval(() => {
+        if (articles.length > 0) {
+            clearInterval(checkReady);
+
+            // Filter alleen artikelen waarvan author === "GDN"
+            const gdnArticles = articles.filter(a =>
+                (a.author || "").toLowerCase() === "gdn"
+            );
+
+            // Render deze artikelen in #articlesGDN
+            gdnContainer.innerHTML = gdnArticles
+                .map(a => `
+                    <article class="article-card">
+                        ${a.thumbnail ? `<img src="${a.thumbnail}" class="article-thumb">` : ""}
+                        <h3><a href="article?id=${a.id}">${escapeHtml(a.title)}</a></h3>
+                        <p>By ${escapeHtml(a.author)} - ${escapeHtml(a.date)}</p>
+                        <p>${makeSummaryFromContent(a.content || a.description)}</p>
+                        <a href="article?id=${a.id}" class="read-more">Read More</a>
+                    </article>
+                `)
+                .join("");
+
+            if (gdnArticles.length === 0) {
+                gdnContainer.innerHTML = "<p>No articles found from GDN.</p>";
+            }
+        }
+    }, 50);
+});
