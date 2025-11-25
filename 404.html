@@ -4,19 +4,25 @@
   <meta charset="UTF-8">
   <title>Redirecting...</title>
   <script>
-    // Pak de path na /gdn/
     const path = window.location.pathname;
 
-    // Voorbeeld: /gdn/21 → "21"
-    const matchShort = path.match(/^\/gdn\/(\d+)$/);
-
-    if (matchShort) {
-      const id = matchShort[1];
-      window.location.replace(`/gdn/article?id=${id}`);
-    } 
+    // 🚫 Als het om een authors-pagina gaat → NIET redirecten
+    // Bijvoorbeeld: /gdn/authors/siebe.html
+    if (path.startsWith("/gdn/authors/")) {
+      // Laat GitHub Pages gewoon 404 tonen als het echt niet bestaat
+      // (of laat de browser de file ophalen)
+      // Dus: NIETS DOEN
+    }
     else {
-      // Normale fallback (homepage)
-      window.location.replace("/gdn/");
+      // Short URLs: /gdn/21 → /gdn/article?id=21
+      const matchShort = path.match(/^\/gdn\/(\d+)$/);
+      if (matchShort) {
+        const id = matchShort[1];
+        window.location.replace(`/gdn/article?id=${id}`);
+      } else {
+        // Fallback: homepage
+        window.location.replace("/gdn/");
+      }
     }
   </script>
 </head>
