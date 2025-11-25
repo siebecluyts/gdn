@@ -8,6 +8,7 @@
     window.location.replace(`/gdn/article?id=${articleId}`);
   }
 })();
+
 (function () {
   const articleContainer = document.getElementById("article-detail");
   if (!articleContainer) return;
@@ -69,8 +70,8 @@
       const menu = document.getElementById("articleMenu");
 
       menuBtn.addEventListener("click", (e) => {
-        e.stopPropagation(); // voorkom dat document click meteen sluit
-        menu.classList.toggle("active"); // 'active' matcht CSS
+        e.stopPropagation();
+        menu.classList.toggle("active");
       });
 
       document.body.addEventListener("click", (e) => {
@@ -131,12 +132,67 @@
         menu.classList.remove("active");
       });
 
-// KORTE URL genereren → /gdn/{id}
-document.getElementById("makeShortURL").addEventListener("click", () => {
-  const shortURL = `https://siebecluyts.github.io/gdn/${article.id}`;
-  navigator.clipboard.writeText(shortURL);
-  alert("Short URL copied:\n" + shortURL);
-});
+      // --------------------------
+      // SHORT URL
+      // --------------------------
+      document.getElementById("makeShortURL").addEventListener("click", () => {
+        const shortURL = `https://siebecluyts.github.io/gdn/${article.id}`;
+        navigator.clipboard.writeText(shortURL);
+        alert("Short URL copied:\n" + shortURL);
+        menu.classList.remove("active");
+      });
+
+      // --------------------------
+      // TEXT-TO-SPEECH
+      // --------------------------
+      let utterance;
+      let isSpeaking = false;
+
+      const playBtn = document.getElementById("playArticle");
+      const pauseBtn = document.getElementById("pauseArticle");
+      const stopBtn = document.getElementById("stopArticle");
+
+      function getArticleText() {
+        return bodyDiv.innerText || bodyDiv.textContent || "";
+      }
+
+      playBtn.addEventListener("click", () => {
+        if (!('speechSynthesis' in window)) {
+          alert("Your browser doesn't support text-to-speech.");
+          return;
+        }
+
+        if (isSpeaking) {
+          window.speechSynthesis.resume();
+          return;
+        }
+
+        const text = getArticleText();
+        if (!text) return;
+
+        utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 1;
+        utterance.pitch = 1;
+        utterance.lang = "en-US"; // of "nl-NL" voor Nederlands
+
+        window.speechSynthesis.speak(utterance);
+        isSpeaking = true;
+
+        utterance.onend = () => {
+          isSpeaking = false;
+        };
+      });
+
+      pauseBtn.addEventListener("click", () => {
+        if (isSpeaking) window.speechSynthesis.pause();
+      });
+
+      stopBtn.addEventListener("click", () => {
+        if (isSpeaking) {
+          window.speechSynthesis.cancel();
+          isSpeaking = false;
+        }
+      });
 
       // --------------------------
       // LOCAL VIEWS
@@ -146,6 +202,7 @@ document.getElementById("makeShortURL").addEventListener("click", () => {
         const current = parseInt(localStorage.getItem(viewKey)) || 0;
         localStorage.setItem(viewKey, current + 1);
       } catch {}
+
     })
     .catch(() => {
       articleContainer.innerHTML = "<p>Error loading article.</p><p><a href='/gdn'>Back to home</a></p>";
