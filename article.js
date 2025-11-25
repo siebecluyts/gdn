@@ -1,18 +1,14 @@
-// --------------------------
-// Redirect /gdn/{id} -> /gdn/article?id={id}
-// --------------------------
+// Redirect /gdn/21 -> /gdn/article?id=21
 (function () {
   const path = window.location.pathname; // bv. /gdn/21
   const match = path.match(/^\/gdn\/(\d+)$/);
+
   if (match) {
     const articleId = match[1];
     window.location.replace(`/gdn/article?id=${articleId}`);
   }
 })();
 
-// --------------------------
-// Article loading & rendering
-// --------------------------
 (function () {
   const articleContainer = document.getElementById("article-detail");
   if (!articleContainer) return;
@@ -33,14 +29,6 @@
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;");
-  }
-
-  function makeSummaryFromContent(htmlContent, maxChars = 120) {
-    const tmp = document.createElement("div");
-    tmp.innerHTML = htmlContent || "";
-    let plain = tmp.textContent || tmp.innerText || "";
-    if (plain.length > maxChars) plain = plain.slice(0, maxChars).trim() + "...";
-    return escapeHtml(plain).replace(/\n/g, "<br>");
   }
 
   fetch("articles.json")
@@ -82,7 +70,7 @@
       const menu = document.getElementById("articleMenu");
 
       menuBtn.addEventListener("click", (e) => {
-        e.stopPropagation(); // voorkom dat document click meteen sluit
+        e.stopPropagation();
         menu.classList.toggle("active");
       });
 
@@ -93,7 +81,7 @@
       });
 
       // --------------------------
-      // DOWNLOAD / SHARE FUNCTIONS
+      // DOWNLOAD / SHARE / SHORT URL
       // --------------------------
       function download(filename, data) {
         const blob = new Blob([data], { type: "text/plain" });
@@ -144,7 +132,7 @@
         menu.classList.remove("active");
       });
 
-      // Short URL
+      // KORTE URL genereren → /gdn/{id}
       document.getElementById("makeShortURL").addEventListener("click", () => {
         const shortURL = `https://siebecluyts.github.io/gdn/${article.id}`;
         navigator.clipboard.writeText(shortURL);
@@ -153,30 +141,7 @@
       });
 
       // --------------------------
-      // Text-to-Speech / Voorlezen
-      // --------------------------
-      document.getElementById("readArticle").addEventListener("click", () => {
-        const text = article.content || article.description || "";
-        const utter = new SpeechSynthesisUtterance(text);
-        speechSynthesis.speak(utter);
-        menu.classList.remove("active");
-      });
-
-      // Translate via Google Translate
-      document.getElementById("translateArticle").addEventListener("click", () => {
-        const url = `https://translate.google.com/translate?sl=auto&tl=en&u=${encodeURIComponent(window.location.href)}`;
-        window.open(url, "_blank");
-        menu.classList.remove("active");
-      });
-
-      // Print article
-      document.getElementById("printArticle").addEventListener("click", () => {
-        window.print();
-        menu.classList.remove("active");
-      });
-
-      // --------------------------
-      // Report Issue / Feedback Form
+      // REPORT ISSUE / FEEDBACK FORM
       // --------------------------
       document.getElementById("reportIssue").addEventListener("click", () => {
         const form = document.createElement("form");
@@ -184,7 +149,6 @@
         form.action = "https://formsubmit.co/debendevanzelem@gmail.com"; // vervang door jouw Formspree ID
         form.target = "_blank";
 
-        // Naam
         const nameInput = document.createElement("input");
         nameInput.type = "text";
         nameInput.name = "name";
@@ -192,7 +156,6 @@
         nameInput.required = true;
         form.appendChild(nameInput);
 
-        // Email
         const emailInput = document.createElement("input");
         emailInput.type = "email";
         emailInput.name = "email";
@@ -200,32 +163,29 @@
         emailInput.required = true;
         form.appendChild(emailInput);
 
-        // Probleem / bericht
         const msgInput = document.createElement("textarea");
         msgInput.name = "message";
         msgInput.placeholder = "Describe the problem with the article...";
         msgInput.required = true;
         form.appendChild(msgInput);
 
-        // Hidden: article ID
         const articleIdInput = document.createElement("input");
         articleIdInput.type = "hidden";
         articleIdInput.name = "articleId";
         articleIdInput.value = article.id;
         form.appendChild(articleIdInput);
 
-        // Hidden: redirect na submit
         const nextInput = document.createElement("input");
         nextInput.type = "hidden";
         nextInput.name = "_next";
         nextInput.value = "https://siebecluyts.github.io/gdn/thankscontact.html";
         form.appendChild(nextInput);
-    // Hidden: autoresponse
-    const autoRespInput = document.createElement("input");
-    autoRespInput.type = "hidden";
-    autoRespInput.name = "_autoresponse";
-    autoRespInput.value = "Thanks for your feedback! We will review as quick as possible.";
-    form.appendChild(autoRespInput);
+
+        const autoRespInput = document.createElement("input");
+        autoRespInput.type = "hidden";
+        autoRespInput.name = "_autoresponse";
+        autoRespInput.value = "Thanks for your feedback! We will review as quick as possible.";
+        form.appendChild(autoRespInput);
 
         document.body.appendChild(form);
         form.submit();
@@ -234,14 +194,35 @@
       });
 
       // --------------------------
-      // Local views
+      // TEXT-TO-SPEECH (voorlezen)
+      // --------------------------
+      document.getElementById("ttsArticle").addEventListener("click", () => {
+        const utter = new SpeechSynthesisUtterance(article.content || "");
+        utter.rate = 1;
+        utter.pitch = 1;
+        speechSynthesis.speak(utter);
+        menu.classList.remove("active");
+      });
+
+      // --------------------------
+      // TRANSLATE
+      // --------------------------
+      document.getElementById("translateArticle").addEventListener("click", () => {
+        const contentDiv = document.getElementById("article-body");
+        const text = contentDiv.innerText;
+        const newUrl = `https://translate.google.com/?sl=auto&tl=en&text=${encodeURIComponent(text)}`;
+        window.open(newUrl, "_blank");
+        menu.classList.remove("active");
+      });
+
+      // --------------------------
+      // LOCAL VIEWS
       // --------------------------
       try {
         const viewKey = `views_${article.id}`;
         const current = parseInt(localStorage.getItem(viewKey)) || 0;
         localStorage.setItem(viewKey, current + 1);
       } catch {}
-
     })
     .catch(() => {
       articleContainer.innerHTML = "<p>Error loading article.</p><p><a href='/gdn'>Back to home</a></p>";
