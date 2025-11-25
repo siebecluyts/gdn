@@ -46,7 +46,7 @@
       const html = `
         <article>
           <h1>${escapeHtml(article.title)}</h1>
-          <p style="color:#666;">By <a href="authors/${escapeHtml(article.author)}.html">${escapeHtml(article.author)}</a> — ${escapeHtml(article.date)} — ${escapeHtml(article.category || "")}</p>
+          <p style="color:#666;">By <a href="authors/${escapeHtml(article.author)}">${escapeHtml(article.author)}</a> — ${escapeHtml(article.date)} — ${escapeHtml(article.category || "")}</p>
           ${thumbHtml}
           <div id="article-body" style="margin-top:16px;"></div>
           <p style="margin-top:18px;"><a href="/gdn">Back to Home</a></p>

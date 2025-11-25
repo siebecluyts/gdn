@@ -5,6 +5,9 @@ const categoryLinks = document.querySelectorAll(".dropdown-content a");
 const noResultsMsg = document.getElementById("no-results");
 const articlesContainerGDN = document.getElementById("articlesGDN");
 
+// Detecteer of we op een author page zitten
+const isAuthorPage = document.getElementById("articlesGDN") !== null;
+
 let articles = [];
 let filteredArticles = [];
 const articlesPerPage = 5;
@@ -78,21 +81,29 @@ fetch("articles.json")
       return (Number(b.id) || 0) - (Number(a.id) || 0);
     });
 
-    filteredArticles = articles.slice();
-    if (initialSearch) {
-      searchInput.value = initialSearch;
-      applyFiltersAndReset();
-    } else {
-      renderArticles();
+    // Normale homepage
+    if (!isAuthorPage) {
+      filteredArticles = articles.slice();
+      if (initialSearch) {
+        if (searchInput) searchInput.value = initialSearch;
+        applyFiltersAndReset();
+      } else {
+        renderArticles();
+      }
     }
   })
   .catch(err => {
     console.error("Error loading articles.json:", err);
-    articlesContainer.innerHTML = "<p style='text-align:center'>Failed to load articles.  <button onclick='window.location.href='/gdn';'>Reload articles</button></p>";
+    if (articlesContainer) {
+      articlesContainer.innerHTML =
+        "<p style='text-align:center'>Failed to load articles. <button onclick='window.location.href=\"/gdn\";'>Reload articles</button></p>";
+    }
   });
 
-// --- Render ---
+// --- Render (homepage) ---
 function renderArticles() {
+  if (!articlesContainer) return;
+
   const end = currentPage * articlesPerPage;
   const toDisplay = filteredArticles.slice(0, end);
 
@@ -108,75 +119,84 @@ function renderArticles() {
     `)
     .join("");
 
-  noResultsMsg.style.display = filteredArticles.length === 0 ? "block" : "none";
-  loadMoreBtn.style.display = end < filteredArticles.length ? "block" : "none";
+  if (noResultsMsg) noResultsMsg.style.display = filteredArticles.length === 0 ? "block" : "none";
+  if (loadMoreBtn) loadMoreBtn.style.display = end < filteredArticles.length ? "block" : "none";
 }
 
 // --- Load more ---
-loadMoreBtn.addEventListener("click", () => {
-  currentPage++;
-  renderArticles();
-});
+if (loadMoreBtn && !isAuthorPage) {
+  loadMoreBtn.addEventListener("click", () => {
+    currentPage++;
+    renderArticles();
+  });
+}
 
 // --- Category filters ---
-categoryLinks.forEach(link => {
-  link.addEventListener("click", e => {
-    e.preventDefault();
-    currentCategory = (link.dataset.category || "All").toString();
-    applyFiltersAndReset();
+if (!isAuthorPage) {
+  categoryLinks.forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault();
+      currentCategory = (link.dataset.category || "All").toString();
+      applyFiltersAndReset();
+    });
   });
-});
+}
 
 // --- Search ---
-searchInput.addEventListener("input", () => {
-  applyFiltersAndReset();
-});
+if (searchInput && !isAuthorPage) {
+  searchInput.addEventListener("input", () => {
+    applyFiltersAndReset();
+  });
+}
 
 function applyFiltersAndReset() {
-  const q = (searchInput.value || "").toLowerCase().trim();
+  if (isAuthorPage) return;
+
+  const q = (searchInput?.value || "").toLowerCase().trim();
   const cat = (currentCategory || "All").toString().toLowerCase();
 
   filteredArticles = articles.filter(article => {
-    const matchesCategory = cat === "all" || ((article.category || "").toLowerCase() === cat);
+    const matchesCategory =
+      cat === "all" || ((article.category || "").toLowerCase() === cat);
+
     const title = (article.title || "").toLowerCase();
     const content = htmlToTextKeepBr(article.content || article.description || "").toLowerCase();
     const matchesSearch = title.includes(q) || content.includes(q);
+
     return matchesCategory && matchesSearch;
   });
 
   currentPage = 1;
   renderArticles();
 }
+
+// --- AUTHOR PAGE (GDN) ---
 window.addEventListener("DOMContentLoaded", () => {
-    const gdnContainer = document.getElementById("articlesGDN");
-    if (!gdnContainer) return; // Alleen uitvoeren op Author GDN pagina
+  if (!articlesContainerGDN) return; // niet op author page
 
-    // Wacht tot artikelen geladen zijn
-    const checkReady = setInterval(() => {
-        if (articles.length > 0) {
-            clearInterval(checkReady);
+  const checkReady = setInterval(() => {
+    if (articles.length > 0) {
+      clearInterval(checkReady);
 
-            // Filter alleen artikelen waarvan author === "GDN"
-            const gdnArticles = articles.filter(a =>
-                (a.author || "").toLowerCase() === "gdn"
-            );
+      const gdnArticles = articles.filter(a =>
+        (a.author || "").toLowerCase() === "gdn"
+      );
 
-            // Render deze artikelen in #articlesGDN
-            gdnContainer.innerHTML = gdnArticles
-                .map(a => `
-                    <article class="article-card">
-                        ${a.thumbnail ? `<img src="${a.thumbnail}" class="article-thumb">` : ""}
-                        <h3><a href="article?id=${a.id}">${escapeHtml(a.title)}</a></h3>
-                        <p>By ${escapeHtml(a.author)} - ${escapeHtml(a.date)}</p>
-                        <p>${makeSummaryFromContent(a.content || a.description)}</p>
-                        <a href="article?id=${a.id}" class="read-more">Read More</a>
-                    </article>
-                `)
-                .join("");
+      articlesContainerGDN.innerHTML = gdnArticles
+        .map(a => `
+          <article class="article-card">
+            ${a.thumbnail ? `<img src="${a.thumbnail}" class="article-thumb">` : ""}
+            <h3><a href="../article?id=${a.id}">${escapeHtml(a.title)}</a></h3>
+            <p>By ${escapeHtml(a.author)} - ${escapeHtml(a.date)}</p>
+            <p>${makeSummaryFromContent(a.content || a.description)}</p>
+            <a href="../article?id=${a.id}" class="read-more">Read More</a>
+          </article>
+        `)
+        .join("");
 
-            if (gdnArticles.length === 0) {
-                gdnContainer.innerHTML = "<p>No articles found from GDN.</p>";
-            }
-        }
-    }, 50);
+      if (gdnArticles.length === 0) {
+        articlesContainerGDN.innerHTML = "<p>No articles found from GDN.</p>";
+      }
+    }
+  }, 50);
 });
