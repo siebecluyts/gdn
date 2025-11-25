@@ -1,14 +1,18 @@
-// Redirect /gdn/21 -> /gdn/article?id=21
+// --------------------------
+// Redirect /gdn/{id} -> /gdn/article?id={id}
+// --------------------------
 (function () {
   const path = window.location.pathname; // bv. /gdn/21
   const match = path.match(/^\/gdn\/(\d+)$/);
-
   if (match) {
     const articleId = match[1];
     window.location.replace(`/gdn/article?id=${articleId}`);
   }
 })();
 
+// --------------------------
+// Article loading & rendering
+// --------------------------
 (function () {
   const articleContainer = document.getElementById("article-detail");
   if (!articleContainer) return;
@@ -29,6 +33,14 @@
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;");
+  }
+
+  function makeSummaryFromContent(htmlContent, maxChars = 120) {
+    const tmp = document.createElement("div");
+    tmp.innerHTML = htmlContent || "";
+    let plain = tmp.textContent || tmp.innerText || "";
+    if (plain.length > maxChars) plain = plain.slice(0, maxChars).trim() + "...";
+    return escapeHtml(plain).replace(/\n/g, "<br>");
   }
 
   fetch("articles.json")
@@ -70,7 +82,7 @@
       const menu = document.getElementById("articleMenu");
 
       menuBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
+        e.stopPropagation(); // voorkom dat document click meteen sluit
         menu.classList.toggle("active");
       });
 
@@ -132,9 +144,7 @@
         menu.classList.remove("active");
       });
 
-      // --------------------------
-      // SHORT URL
-      // --------------------------
+      // Short URL
       document.getElementById("makeShortURL").addEventListener("click", () => {
         const shortURL = `https://siebecluyts.github.io/gdn/${article.id}`;
         navigator.clipboard.writeText(shortURL);
@@ -143,59 +153,88 @@
       });
 
       // --------------------------
-      // TEXT-TO-SPEECH
+      // Text-to-Speech / Voorlezen
       // --------------------------
-      let utterance;
-      let isSpeaking = false;
-
-      const playBtn = document.getElementById("playArticle");
-      const pauseBtn = document.getElementById("pauseArticle");
-      const stopBtn = document.getElementById("stopArticle");
-
-      function getArticleText() {
-        return bodyDiv.innerText || bodyDiv.textContent || "";
-      }
-
-      playBtn.addEventListener("click", () => {
-        if (!('speechSynthesis' in window)) {
-          alert("Your browser doesn't support text-to-speech.");
-          return;
-        }
-
-        if (isSpeaking) {
-          window.speechSynthesis.resume();
-          return;
-        }
-
-        const text = getArticleText();
-        if (!text) return;
-
-        utterance = new SpeechSynthesisUtterance(text);
-        utterance.rate = 1;
-        utterance.pitch = 1;
-        utterance.lang = "en-US"; // of "nl-NL" voor Nederlands
-
-        window.speechSynthesis.speak(utterance);
-        isSpeaking = true;
-
-        utterance.onend = () => {
-          isSpeaking = false;
-        };
+      document.getElementById("readArticle").addEventListener("click", () => {
+        const text = article.content || article.description || "";
+        const utter = new SpeechSynthesisUtterance(text);
+        speechSynthesis.speak(utter);
+        menu.classList.remove("active");
       });
 
-      pauseBtn.addEventListener("click", () => {
-        if (isSpeaking) window.speechSynthesis.pause();
+      // Translate via Google Translate
+      document.getElementById("translateArticle").addEventListener("click", () => {
+        const url = `https://translate.google.com/translate?sl=auto&tl=en&u=${encodeURIComponent(window.location.href)}`;
+        window.open(url, "_blank");
+        menu.classList.remove("active");
       });
 
-      stopBtn.addEventListener("click", () => {
-        if (isSpeaking) {
-          window.speechSynthesis.cancel();
-          isSpeaking = false;
-        }
+      // Print article
+      document.getElementById("printArticle").addEventListener("click", () => {
+        window.print();
+        menu.classList.remove("active");
       });
 
       // --------------------------
-      // LOCAL VIEWS
+      // Report Issue / Feedback Form
+      // --------------------------
+      document.getElementById("reportIssue").addEventListener("click", () => {
+        const form = document.createElement("form");
+        form.method = "POST";
+        form.action = "https://formsubmit.co/debendevanzelem@gmail.com"; // vervang door jouw Formspree ID
+        form.target = "_blank";
+
+        // Naam
+        const nameInput = document.createElement("input");
+        nameInput.type = "text";
+        nameInput.name = "name";
+        nameInput.placeholder = "Your name";
+        nameInput.required = true;
+        form.appendChild(nameInput);
+
+        // Email
+        const emailInput = document.createElement("input");
+        emailInput.type = "email";
+        emailInput.name = "email";
+        emailInput.placeholder = "Your email";
+        emailInput.required = true;
+        form.appendChild(emailInput);
+
+        // Probleem / bericht
+        const msgInput = document.createElement("textarea");
+        msgInput.name = "message";
+        msgInput.placeholder = "Describe the problem with the article...";
+        msgInput.required = true;
+        form.appendChild(msgInput);
+
+        // Hidden: article ID
+        const articleIdInput = document.createElement("input");
+        articleIdInput.type = "hidden";
+        articleIdInput.name = "articleId";
+        articleIdInput.value = article.id;
+        form.appendChild(articleIdInput);
+
+        // Hidden: redirect na submit
+        const nextInput = document.createElement("input");
+        nextInput.type = "hidden";
+        nextInput.name = "_next";
+        nextInput.value = "https://siebecluyts.github.io/gdn/thankscontact.html";
+        form.appendChild(nextInput);
+    // Hidden: autoresponse
+    const autoRespInput = document.createElement("input");
+    autoRespInput.type = "hidden";
+    autoRespInput.name = "_autoresponse";
+    autoRespInput.value = "Thanks for your feedback! We will review as quick as possible.";
+    form.appendChild(autoRespInput);
+
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+        menu.classList.remove("active");
+      });
+
+      // --------------------------
+      // Local views
       // --------------------------
       try {
         const viewKey = `views_${article.id}`;
