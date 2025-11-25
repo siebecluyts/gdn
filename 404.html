@@ -3,31 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <title>Redirecting...</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Fallback redirect -->
-  <meta http-equiv="refresh" content="0;url=/gdn/" />
-
   <script>
-    const path = window.location.pathname;  
-    // Voorbeeld: /gdn/21 of /gdn/search/abc
+    // Pak de path na /gdn/
+    const path = window.location.pathname;
 
-    // 1. Short URL → artikel
-    const shortMatch = path.match(/^\/gdn\/(\d+)\/?$/);
-    if (shortMatch) {
-      const id = shortMatch[1];
+    // Voorbeeld: /gdn/21 → "21"
+    const matchShort = path.match(/^\/gdn\/(\d+)$/);
+
+    if (matchShort) {
+      const id = matchShort[1];
       window.location.replace(`/gdn/article?id=${id}`);
+    } 
+    else {
+      // Normale fallback (homepage)
+      window.location.replace("/gdn/");
     }
-
-    // 2. Search redirect
-    const searchMatch = path.match(/^\/gdn\/search\/(.+)/);
-    if (searchMatch) {
-      const q = decodeURIComponent(searchMatch[1]);
-      window.location.replace(`/gdn/?q=${encodeURIComponent(q)}`);
-    }
-
-    // 3. Niets matched → home
-    window.location.replace("/gdn/");
   </script>
 </head>
 <body>
