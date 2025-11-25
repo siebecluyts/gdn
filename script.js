@@ -64,7 +64,7 @@ if (!initialSearch && urlParams.has("q")) {
 }
 
 // --- Load & sorteer artikelen ---
-fetch("articles.json")
+fetch("/gdn/articles.json")
   .then(res => res.json())
   .then(data => {
     articles = Array.isArray(data) ? data.slice() : [];
