@@ -31,7 +31,7 @@
       .replace(/'/g, "&#039;");
   }
 
-  fetch("articles.json")
+  fetch("/gdn/articles.json")
     .then(res => res.json())
     .then(data => {
       const article = data.find(a => String(a.id) === String(articleId));
