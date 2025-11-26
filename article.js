@@ -143,34 +143,52 @@
       // ----------------------------------------------
       // REPORT ISSUE FORM (FormSubmit)
       // ----------------------------------------------
-      document.getElementById("reportIssue")?.addEventListener("click", () => {
-        const form = document.createElement("form");
-        form.method = "POST";
-        form.action = "https://formsubmit.co/debendevanzelem@gmail.com";
-        form.target = "_blank";
+document.getElementById("reportIssue")?.addEventListener("click", () => {
+  // Popup achtergrond
+  const overlay = document.createElement("div");
+  overlay.style.position = "fixed";
+  overlay.style.top = 0;
+  overlay.style.left = 0;
+  overlay.style.width = "100%";
+  overlay.style.height = "100%";
+  overlay.style.background = "rgba(0,0,0,0.6)";
+  overlay.style.display = "flex";
+  overlay.style.alignItems = "center";
+  overlay.style.justifyContent = "center";
+  overlay.style.zIndex = "9999";
 
-        // Name
-        form.innerHTML += `<input name="name" required placeholder="Your name">`;
+  // Formulieren-popup
+  const box = document.createElement("div");
+  box.style.background = "#fff";
+  box.style.padding = "20px";
+  box.style.borderRadius = "10px";
+  box.style.width = "320px";
+  box.style.boxShadow = "0 4px 15px rgba(0,0,0,0.3)";
+  box.innerHTML = `
+    <h3>Report an issue</h3>
+    <form id="issueForm" method="POST" action="https://formsubmit.co/debendevanzelem@gmail.com">
+      <input name="name" placeholder="Your name" required style="width:100%;margin-top:10px;padding:8px;border-radius:6px;">
+      <input name="email" type="email" placeholder="Your email" required style="width:100%;margin-top:10px;padding:8px;border-radius:6px;">
+      <textarea name="message" placeholder="Describe the problem..." required style="width:100%;margin-top:10px;padding:8px;border-radius:6px;height:100px;"></textarea>
 
-        // Email
-        form.innerHTML += `<input type="email" name="email" required placeholder="Your email">`;
+      <input type="hidden" name="articleId" value="${article.id}">
+      <input type="hidden" name="_next" value="https://siebecluyts.github.io/gdn/thankscontact.html">
+      <input type="hidden" name="_autoresponse" value="Thanks for your feedback! We will review as quick as possible.">
 
-        // Problem
-        form.innerHTML += `<textarea name="message" required placeholder="Describe the problem..."></textarea>`;
+      <div style="margin-top:15px;display:flex;gap:10px;">
+        <button type="submit" style="flex:1;padding:8px;border:none;border-radius:6px;background:#28a745;color:white;">Send</button>
+        <button type="button" id="cancelIssue" style="flex:1;padding:8px;border:none;border-radius:6px;background:#ccc;">Cancel</button>
+      </div>
+    </form>
+  `;
 
-        // Article ID
-        form.innerHTML += `<input type="hidden" name="articleId" value="${article.id}">`;
+  overlay.appendChild(box);
+  document.body.appendChild(overlay);
 
-        // Redirect
-        form.innerHTML += `<input type="hidden" name="_next" value="https://siebecluyts.github.io/gdn/thankscontact.html">`;
-
-        // Auto-response
-        form.innerHTML += `<input type="hidden" name="_autoresponse" value="Thanks for your feedback! We will review as quick as possible.">`;
-
-        document.body.appendChild(form);
-        form.submit();
-        form.remove();
-      });
+  document.getElementById("cancelIssue").addEventListener("click", () => {
+    overlay.remove();
+  });
+});
 
       // ----------------------------------------------
       // TTS
