@@ -143,8 +143,11 @@
       // ----------------------------------------------
       // REPORT ISSUE FORM (FormSubmit)
       // ----------------------------------------------
-document.getElementById("reportIssue")?.addEventListener("click", () => {
-  // Popup achtergrond
+document.getElementById("reportIssue")?.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  // Popup background
   const overlay = document.createElement("div");
   overlay.style.position = "fixed";
   overlay.style.top = 0;
@@ -157,7 +160,7 @@ document.getElementById("reportIssue")?.addEventListener("click", () => {
   overlay.style.justifyContent = "center";
   overlay.style.zIndex = "9999";
 
-  // Formulieren-popup
+  // Form popup
   const box = document.createElement("div");
   box.style.background = "#fff";
   box.style.padding = "20px";
@@ -165,19 +168,20 @@ document.getElementById("reportIssue")?.addEventListener("click", () => {
   box.style.width = "320px";
   box.style.boxShadow = "0 4px 15px rgba(0,0,0,0.3)";
   box.innerHTML = `
-    <h3>Report an issue</h3>
-    <form id="issueForm" method="POST" action="https://formsubmit.co/debendevanzelem@gmail.com">
-      <input name="name" placeholder="Your name" required style="width:100%;margin-top:10px;padding:8px;border-radius:6px;">
-      <input name="email" type="email" placeholder="Your email" required style="width:100%;margin-top:10px;padding:8px;border-radius:6px;">
-      <textarea name="message" placeholder="Describe the problem..." required style="width:100%;margin-top:10px;padding:8px;border-radius:6px;height:100px;"></textarea>
+    <h3>Report an Issue</h3>
+    <form method="POST" action="https://formsubmit.co/debendevanzelem@gmail.com">
+
+      <input name="name" placeholder="Your name" required style="width:100%;margin-top:10px;padding:8px;">
+      <input type="email" name="email" placeholder="Your email" required style="width:100%;margin-top:10px;padding:8px;">
+      <textarea name="message" placeholder="Describe the problem..." required style="width:100%;margin-top:10px;padding:8px;height:100px;"></textarea>
 
       <input type="hidden" name="articleId" value="${article.id}">
       <input type="hidden" name="_next" value="https://siebecluyts.github.io/gdn/thankscontact.html">
       <input type="hidden" name="_autoresponse" value="Thanks for your feedback! We will review as quick as possible.">
 
       <div style="margin-top:15px;display:flex;gap:10px;">
-        <button type="submit" style="flex:1;padding:8px;border:none;border-radius:6px;background:#28a745;color:white;">Send</button>
-        <button type="button" id="cancelIssue" style="flex:1;padding:8px;border:none;border-radius:6px;background:#ccc;">Cancel</button>
+        <button type="submit" style="flex:1;padding:8px;background:#28a745;color:white;border:none;border-radius:6px;">Send</button>
+        <button type="button" id="cancelIssue" style="flex:1;padding:8px;background:#ccc;border:none;border-radius:6px;">Cancel</button>
       </div>
     </form>
   `;
