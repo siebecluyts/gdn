@@ -1,29 +1,31 @@
+// ----------------------------------------------
 // Redirect /gdn/21 -> /gdn/article?id=21
+// ----------------------------------------------
 (function () {
-  const path = window.location.pathname; // bv. /gdn/21
-  const match = path.match(/^\/gdn\/(\d+)$/);
-
+  const match = window.location.pathname.match(/^\/gdn\/(\d+)$/);
   if (match) {
-    const articleId = match[1];
-    window.location.replace(`/gdn/article?id=${articleId}`);
+    window.location.replace(`/gdn/article?id=${match[1]}`);
   }
 })();
 
+
+// ----------------------------------------------
+// ARTICLE PAGE LOADER
+// ----------------------------------------------
 (function () {
-  const articleContainer = document.getElementById("article-detail");
-  if (!articleContainer) return;
+  const container = document.getElementById("article-detail");
+  if (!container) return;
 
   const params = new URLSearchParams(window.location.search);
   const articleId = params.get("id");
 
   if (!articleId) {
-    articleContainer.innerHTML = "<p>Article ID missing.</p><p><a href='/gdn'>Back to home</a></p>";
+    container.innerHTML = "<p>Article ID missing.</p><p><a href='/gdn'>Back</a></p>";
     return;
   }
 
-  function escapeHtml(text) {
-    if (!text) return "";
-    return String(text)
+  function escape(text) {
+    return String(text || "")
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
@@ -31,201 +33,177 @@
       .replace(/'/g, "&#039;");
   }
 
-  fetch("articles.json")
-    .then(res => res.json())
+  // -------------------------------------------------
+  // FETCH ARTICLES.JSON (RELATIVE PATH FOR GITHUB)
+  // -------------------------------------------------
+  fetch("articles.json")   // <---- DIT IS DE FIX
+    .then(r => r.json())
     .then(data => {
       const article = data.find(a => String(a.id) === String(articleId));
+
       if (!article) {
-        articleContainer.innerHTML = "<h2>Article not found.</h2><p><a href='/gdn'>Back to home</a></p>";
+        container.innerHTML = "<h2>Article not found.</h2><p><a href='/gdn'>Back</a></p>";
         return;
       }
 
-      const thumbHtml = article.thumbnail
-        ? `<img src="${escapeHtml(article.thumbnail)}" class="article-thumb" alt="${escapeHtml(article.title)}">`
+      const thumb = article.thumbnail
+        ? `<img src="${escape(article.thumbnail)}" class="article-thumb">`
         : "";
 
-      const html = `
+      container.insertAdjacentHTML(
+        "beforeend",
+        `
         <article>
-          <h1>${escapeHtml(article.title)}</h1>
-          <p style="color:#666;">By <a href="authors/${escapeHtml(article.author)}">${escapeHtml(article.author)}</a> — ${escapeHtml(article.date)} — ${escapeHtml(article.category || "")}</p>
-          ${thumbHtml}
+          <h1>${escape(article.title)}</h1>
+          <p style="color:#666;">
+            By <a href="authors/${escape(article.author)}">${escape(article.author)}</a>
+            — ${escape(article.date)} — ${escape(article.category)}
+          </p>
+          ${thumb}
           <div id="article-body" style="margin-top:16px;"></div>
-          <p style="margin-top:18px;"><a href="/gdn">Back to Home</a></p>
+          <p style="margin-top:18px;"><a href="/gdn">Back</a></p>
         </article>
-      `;
+        `
+      );
 
-      articleContainer.insertAdjacentHTML("beforeend", html);
+      // CONTENT
+      const body = document.getElementById("article-body");
+      let html = article.content || article.description || "";
+      if (!html.includes("<")) html = escape(html).replace(/\n/g, "<br>");
+      body.innerHTML = html;
 
-      const bodyDiv = document.getElementById("article-body");
-      let contentHtml = String(article.content || article.description || "");
-      if (!contentHtml.includes("<")) {
-        contentHtml = escapeHtml(contentHtml).replace(/\n/g, "<br>");
-      }
-      bodyDiv.innerHTML = contentHtml;
-
-      // --------------------------
-      // MENU LOGIC
-      // --------------------------
+      // ----------------------------------------------
+      // MENU
+      // ----------------------------------------------
       const menuBtn = document.querySelector(".article-menu-btn");
       const menu = document.getElementById("articleMenu");
 
-      menuBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        menu.classList.toggle("active");
-      });
+      if (menuBtn && menu) {
+        menuBtn.addEventListener("click", e => {
+          e.stopPropagation();
+          menu.classList.toggle("active");
+        });
 
-      document.body.addEventListener("click", (e) => {
-        if (!menu.contains(e.target)) {
-          menu.classList.remove("active");
-        }
-      });
+        document.body.addEventListener("click", e => {
+          if (!menu.contains(e.target)) menu.classList.remove("active");
+        });
+      }
 
-      // --------------------------
-      // DOWNLOAD / SHARE / SHORT URL
-      // --------------------------
-      function download(filename, data) {
+      // ----------------------------------------------
+      // DOWNLOADS
+      // ----------------------------------------------
+      function download(name, data) {
         const blob = new Blob([data], { type: "text/plain" });
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = filename;
+        a.download = name;
         a.click();
         URL.revokeObjectURL(url);
       }
 
-      document.getElementById("copyLink").addEventListener("click", () => {
-        navigator.clipboard.writeText(window.location.href);
+      document.getElementById("copyLink")?.addEventListener("click", () => {
+        navigator.clipboard.writeText(location.href);
         alert("Link copied!");
-        menu.classList.remove("active");
       });
 
-      document.getElementById("shareArticle").addEventListener("click", async () => {
+      document.getElementById("shareArticle")?.addEventListener("click", async () => {
         if (navigator.share) {
           try {
             await navigator.share({
               title: article.title,
               text: "Check out this GDN article!",
-              url: window.location.href
+              url: location.href
             });
           } catch { }
-        } else {
-          alert("Your browser doesn't support Share.");
-        }
-        menu.classList.remove("active");
+        } else alert("Your browser can't share.");
       });
 
-      document.getElementById("dlMarkdown").addEventListener("click", () => {
-        const md = `# ${article.title}\n\n${article.author} — ${article.date}\n\n${article.content}`;
-        download(`${article.title}.md`, md);
-        menu.classList.remove("active");
+      document.getElementById("dlMarkdown")?.addEventListener("click", () => {
+        download(`${article.title}.md`, `# ${article.title}\n\n${article.author} — ${article.date}\n\n${article.content}`);
       });
 
-      document.getElementById("dlJSON").addEventListener("click", () => {
-        const json = JSON.stringify(article, null, 2);
-        download(`${article.title}.json`, json);
-        menu.classList.remove("active");
+      document.getElementById("dlJSON")?.addEventListener("click", () => {
+        download(`${article.title}.json`, JSON.stringify(article, null, 2));
       });
 
-      document.getElementById("dlTXT").addEventListener("click", () => {
-        const txt = `${article.title}\n${article.author} — ${article.date}\n\n${article.content}`;
-        download(`${article.title}.txt`, txt);
-        menu.classList.remove("active");
+      document.getElementById("dlTXT")?.addEventListener("click", () => {
+        download(`${article.title}.txt`, `${article.title}\n${article.author} — ${article.date}\n\n${article.content}`);
       });
 
-      // KORTE URL genereren → /gdn/{id}
-      document.getElementById("makeShortURL").addEventListener("click", () => {
-        const shortURL = `https://siebecluyts.github.io/gdn/${article.id}`;
-        navigator.clipboard.writeText(shortURL);
-        alert("Short URL copied:\n" + shortURL);
-        menu.classList.remove("active");
+      // ----------------------------------------------
+      // SHORT URL
+      // ----------------------------------------------
+      document.getElementById("makeShortURL")?.addEventListener("click", () => {
+        const s = `https://siebecluyts.github.io/gdn/${article.id}`;
+        navigator.clipboard.writeText(s);
+        alert("Short URL copied:\n" + s);
       });
 
-      // --------------------------
-      // REPORT ISSUE / FEEDBACK FORM
-      // --------------------------
-      document.getElementById("reportIssue").addEventListener("click", () => {
+      // ----------------------------------------------
+      // REPORT ISSUE FORM (FormSubmit)
+      // ----------------------------------------------
+      document.getElementById("reportIssue")?.addEventListener("click", () => {
         const form = document.createElement("form");
         form.method = "POST";
-        form.action = "https://formsubmit.co/debendevanzelem@gmail.com"; // vervang door jouw Formspree ID
+        form.action = "https://formsubmit.co/debendevanzelem@gmail.com";
         form.target = "_blank";
 
-        const nameInput = document.createElement("input");
-        nameInput.type = "text";
-        nameInput.name = "name";
-        nameInput.placeholder = "Your name";
-        nameInput.required = true;
-        form.appendChild(nameInput);
+        // Name
+        form.innerHTML += `<input name="name" required placeholder="Your name">`;
 
-        const emailInput = document.createElement("input");
-        emailInput.type = "email";
-        emailInput.name = "email";
-        emailInput.placeholder = "Your email";
-        emailInput.required = true;
-        form.appendChild(emailInput);
+        // Email
+        form.innerHTML += `<input type="email" name="email" required placeholder="Your email">`;
 
-        const msgInput = document.createElement("textarea");
-        msgInput.name = "message";
-        msgInput.placeholder = "Describe the problem with the article...";
-        msgInput.required = true;
-        form.appendChild(msgInput);
+        // Problem
+        form.innerHTML += `<textarea name="message" required placeholder="Describe the problem..."></textarea>`;
 
-        const articleIdInput = document.createElement("input");
-        articleIdInput.type = "hidden";
-        articleIdInput.name = "articleId";
-        articleIdInput.value = article.id;
-        form.appendChild(articleIdInput);
+        // Article ID
+        form.innerHTML += `<input type="hidden" name="articleId" value="${article.id}">`;
 
-        const nextInput = document.createElement("input");
-        nextInput.type = "hidden";
-        nextInput.name = "_next";
-        nextInput.value = "https://siebecluyts.github.io/gdn/thankscontact.html";
-        form.appendChild(nextInput);
+        // Redirect
+        form.innerHTML += `<input type="hidden" name="_next" value="https://siebecluyts.github.io/gdn/thankscontact.html">`;
 
-        const autoRespInput = document.createElement("input");
-        autoRespInput.type = "hidden";
-        autoRespInput.name = "_autoresponse";
-        autoRespInput.value = "Thanks for your feedback! We will review as quick as possible.";
-        form.appendChild(autoRespInput);
+        // Auto-response
+        form.innerHTML += `<input type="hidden" name="_autoresponse" value="Thanks for your feedback! We will review as quick as possible.">`;
 
         document.body.appendChild(form);
         form.submit();
-        document.body.removeChild(form);
-        menu.classList.remove("active");
+        form.remove();
       });
 
-      // --------------------------
-      // TEXT-TO-SPEECH (voorlezen)
-      // --------------------------
-      document.getElementById("ttsArticle").addEventListener("click", () => {
-        const utter = new SpeechSynthesisUtterance(article.content || "");
-        utter.rate = 1;
-        utter.pitch = 1;
-        speechSynthesis.speak(utter);
-        menu.classList.remove("active");
+      // ----------------------------------------------
+      // TTS
+      // ----------------------------------------------
+      document.getElementById("ttsArticle")?.addEventListener("click", () => {
+        const u = new SpeechSynthesisUtterance(article.content || "");
+        speechSynthesis.speak(u);
       });
 
-      // --------------------------
+      // ----------------------------------------------
       // TRANSLATE
-      // --------------------------
-      document.getElementById("translateArticle").addEventListener("click", () => {
-        const contentDiv = document.getElementById("article-body");
-        const text = contentDiv.innerText;
-        const newUrl = `https://translate.google.com/?sl=auto&tl=en&text=${encodeURIComponent(text)}`;
-        window.open(newUrl, "_blank");
-        menu.classList.remove("active");
+      // ----------------------------------------------
+      document.getElementById("translateArticle")?.addEventListener("click", () => {
+        const t = body.innerText;
+        window.open(
+          `https://translate.google.com/?sl=auto&tl=en&text=${encodeURIComponent(t)}`,
+          "_blank"
+        );
       });
 
-      // --------------------------
-      // LOCAL VIEWS
-      // --------------------------
+      // ----------------------------------------------
+      // LOCAL VIEWS COUNT
+      // ----------------------------------------------
       try {
-        const viewKey = `views_${article.id}`;
-        const current = parseInt(localStorage.getItem(viewKey)) || 0;
-        localStorage.setItem(viewKey, current + 1);
-      } catch {}
+        const k = "views_" + article.id;
+        const v = Number(localStorage.getItem(k)) || 0;
+        localStorage.setItem(k, v + 1);
+      } catch { }
+
     })
-    .catch(() => {
-      articleContainer.innerHTML = "<p>Error loading article.</p><p><a href='/gdn'>Back to home</a></p>";
+    .catch(err => {
+      console.error("JSON load error:", err);
+      container.innerHTML = "<p>Error loading article.</p><p><a href='/gdn'>Back</a></p>";
     });
 
 })();
