@@ -225,7 +225,7 @@ document.getElementById("reportIssue")?.addEventListener("click", (e) => {
     })
     .catch(err => {
       console.error("JSON load error:", err);
-      container.innerHTML = "<p>Error loading article.</p><p><a href='/gdn'>Back</a></p>";
+      container.innerHTML = "<p>Error loading article.</p><p><a href='/gdn'>Back to Home</a></p>";
     });
 
 })();
