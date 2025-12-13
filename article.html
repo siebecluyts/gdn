@@ -73,6 +73,27 @@
     .article-menu button:hover {
       background: #f0f0f0;
     }
+    #article-tags {
+  margin-bottom: 10px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 4px 8px;
+  margin-right: 6px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Kleuren */
+.tag-confirmed { background: #1abc9c; color: #fff; }
+.tag-rumor { background: #f39c12; color: #000; }
+.tag-verification { background: #e74c3c; color: #fff; }
+.tag-level-completion { background: #3498db; color: #fff; }
+.tag-breaking { background: #8e44ad; color: #fff; }
+
   </style>
 </head>
 
@@ -83,7 +104,7 @@
       <a href="/gdn">Home</a>
     </nav>
   </header>
-
+<div id="article-tags"></div>
 <main id="article-detail">
     <button class="article-menu-btn">⋮</button>
 

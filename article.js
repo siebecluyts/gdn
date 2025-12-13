@@ -193,6 +193,16 @@ document.getElementById("reportIssue")?.addEventListener("click", (e) => {
     overlay.remove();
   });
 });
+const tagsContainer = document.getElementById("article-tags");
+
+if (article.tags && Array.isArray(article.tags)) {
+  article.tags.forEach(tag => {
+    const span = document.createElement("span");
+    span.className = `tag tag-${tag.replace(/\s+/g, "-")}`;
+    span.textContent = tag.toUpperCase();
+    tagsContainer.appendChild(span);
+  });
+}
 
       // ----------------------------------------------
       // TTS
