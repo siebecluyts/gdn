@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "title": "Random Gauntlet comes out!",
+    "category": "Updates",
+    "date": "2025-12-14",
+    "description": "The Random Gauntlet was officially released, adding a new challenge for players."
+  },
+  {
+    "id": 2,
+    "title": "Orbit showcase comes out!",
+    "category": "Community",
+    "date": "2026-01-05",
+    "description": "Orbit released a new Geometry Dash showcase that gained a lot of attention."
+  }
+]
