@@ -311,3 +311,11 @@ body.dark .cookie-banner {
   background: #1e2e46;
   border: 1px solid #2a3442;
 }
+
+body.dark a:visited {
+  color: #145392;
+}
+
+body.dark a{
+  color: #016fdc;
+}
