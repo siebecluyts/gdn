@@ -200,3 +200,59 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   }, 50);
 });
+// ----------------------------
+// Helpers
+// ----------------------------
+function cookiesAccepted() {
+  return localStorage.getItem("cookies_accepted") === "true";
+}
+
+// ----------------------------
+// COOKIE BANNER
+// ----------------------------
+window.addEventListener("load", () => {
+  const banner = document.getElementById("cookie-banner");
+
+  if (!cookiesAccepted()) {
+    banner.classList.remove("hidden");
+  }
+
+  document.getElementById("accept-cookies").addEventListener("click", () => {
+    localStorage.setItem("cookies_accepted", "true");
+
+    // save current dark mode state
+    localStorage.setItem(
+      "darkMode",
+      document.body.classList.contains("dark")
+    );
+
+    banner.classList.add("hidden");
+  });
+
+  document.getElementById("decline-cookies").addEventListener("click", () => {
+    banner.classList.add("hidden");
+  });
+});
+
+// ----------------------------
+// DARK MODE (UNIVERSEEL)
+// ----------------------------
+const toggle = document.getElementById("darkModeToggle");
+
+// Apply saved dark mode ONLY if cookies are accepted
+if (cookiesAccepted()) {
+  const savedDark = localStorage.getItem("darkMode") === "true";
+  if (savedDark) document.body.classList.add("dark");
+}
+
+toggle.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+
+  // Only store preference if cookies accepted
+  if (cookiesAccepted()) {
+    localStorage.setItem(
+      "darkMode",
+      document.body.classList.contains("dark")
+    );
+  }
+});
