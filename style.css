@@ -313,9 +313,10 @@ body.dark .cookie-banner {
 }
 
 body.dark a:visited:not(.header) {
-  color: #245bae;
+  color: #007FED;
 }
 
 body.dark a:not(.header) {
   color: #5388be;
 }
+
