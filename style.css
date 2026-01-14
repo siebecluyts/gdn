@@ -89,6 +89,43 @@ nav a:hover, .dropbtn:hover {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+.dropdown-2 {
+  position: relative;
+}
+
+.dropbtn-2 {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-content-2 {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 180px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 999;
+}
+
+.dropdown-content-2 a {
+  color: #004d7a;
+  padding: 12px 16px;
+  display: block;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.dropdown-content-2 a:hover {
+  background: #f0f0f0;
+}
+
+.dropdown-2:hover .dropdown-content {
+  display: block;
+}
 
 /* ===== Search ===== */
 #search {
