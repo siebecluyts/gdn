@@ -46,9 +46,7 @@
         return;
       }
 
-      const thumb = article.thumbnail
-        ? `<img src="https://siebecluyts.github.io/gdn/assets/articlethumbnail/${article.id}.png" class="article-thumb">`
-        : "";
+      const thumb = `<img src="https://siebecluyts.github.io/gdn/assets/articlethumbnail/${article.id}.png" class="article-thumb">`;
 
       container.insertAdjacentHTML(
         "beforeend",
