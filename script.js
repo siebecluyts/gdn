@@ -110,7 +110,7 @@ function renderArticles() {
   articlesContainer.innerHTML = toDisplay
     .map(a => `
       <article class="article-card" data-category="${a.category}">
-        ${a.thumbnail ? `<img src="${a.thumbnail}" alt="${a.title}" class="article-thumb">` : ""}
+        ${a.thumbnail ? `<img src="https://siebecluyts.github.io/gdn/assets/articlethumbnail/${a.id}.png" alt="${a.title}" class="article-thumb">` : ""}
         <h3><a href="/gdn/article?id=${a.id}">${escapeHtml(a.title)}</a></h3>
         <p>By ${escapeHtml(a.author)} - ${escapeHtml(a.date)}</p>
         <p>${makeSummaryFromContent(a.content || a.description)}</p>
@@ -185,7 +185,7 @@ window.addEventListener("DOMContentLoaded", () => {
       articlesContainerGDN.innerHTML = gdnArticles
         .map(a => `
           <article class="article-card">
-            ${a.thumbnail ? `<img src="${a.thumbnail}" class="article-thumb">` : ""}
+            ${a.thumbnail ? `<img src=""https://siebecluyts.github.io/gdn/assets/articlethumbnail/${a.id}.png" class="article-thumb">` : ""}
             <h3><a href="/gdn/article?id=${a.id}">${escapeHtml(a.title)}</a></h3>
             <p>By ${escapeHtml(a.author)} - ${escapeHtml(a.date)}</p>
             <p>${makeSummaryFromContent(a.content || a.description)}</p>

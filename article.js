@@ -47,7 +47,7 @@
       }
 
       const thumb = article.thumbnail
-        ? `<img src="${escape(article.thumbnail)}" class="article-thumb">`
+        ? `<img src="https://siebecluyts.github.io/gdn/assets/articlethumbnail/${article.id}.png" class="article-thumb">`
         : "";
 
       container.insertAdjacentHTML(
