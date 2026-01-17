@@ -46,7 +46,11 @@
         return;
       }
 
+<<<<<<< HEAD
       const thumb = `<a href="/gdn/assets/articlethumbnail/${article.id}.png"><img src="/gdn/assets/articlethumbnail/${article.id}.png" class="article-thumb"></a>`;
+=======
+      const thumb = `<img src="/gdn/assets/articlethumbnail/${article.id}.png" class="article-thumb">`;
+>>>>>>> 88874bf9e985e110c0e4d9586e512180eaff7bcc
 
       container.insertAdjacentHTML(
         "beforeend",
