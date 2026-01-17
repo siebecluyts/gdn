@@ -46,7 +46,7 @@
         return;
       }
 
-      const thumb = `<img src="https://siebecluyts.github.io/gdn/assets/articlethumbnail/${article.id}.png" class="article-thumb">`;
+      const thumb = `<a href="/gdn/assets/articlethumbnail/${article.id}.png"><img src="/gdn/assets/articlethumbnail/${article.id}.png" class="article-thumb"></a>`;
 
       container.insertAdjacentHTML(
         "beforeend",
