@@ -5,8 +5,8 @@ const categoryLinks = document.querySelectorAll(".dropdown-content a");
 const noResultsMsg = document.getElementById("no-results");
 const articlesContainerGDN = document.getElementById("articlesGDN");
 
-// Detecteer of we op een author page zitten
-const isAuthorPage = document.getElementById("articlesGDN") !== null;
+// Detecteer author page
+const isAuthorPage = articlesContainerGDN !== null;
 
 let articles = [];
 let filteredArticles = [];
@@ -14,7 +14,8 @@ const articlesPerPage = 5;
 let currentPage = 1;
 let currentCategory = "All";
 
-// --- helpers ---
+/* ================= HELPERS ================= */
+
 function htmlToTextKeepBr(html) {
   if (!html) return "";
   let s = String(html).replace(/<br\s*\/?>/gi, "\n");
@@ -35,10 +36,11 @@ function escapeHtml(text) {
 
 function makeSummaryFromContent(htmlContent, maxChars = 120) {
   const plain = htmlToTextKeepBr(htmlContent).trim();
-  if (plain.length <= maxChars) {
-    return escapeHtml(plain).replace(/\n/g, "<br>");
-  }
-  const sliced = plain.slice(0, maxChars).trim() + "...";
+  const sliced =
+    plain.length > maxChars
+      ? plain.slice(0, maxChars).trim() + "..."
+      : plain;
+
   return escapeHtml(sliced).replace(/\n/g, "<br>");
 }
 
@@ -48,22 +50,24 @@ function parseDateSafe(d) {
   return isNaN(t) ? null : t;
 }
 
-// --- Detecteer zoektermen via /search/... of ?q=... ---
+/* ================= SEARCH VIA URL ================= */
+
 const currentPath = window.location.pathname;
 const urlParams = new URLSearchParams(window.location.search);
 let initialSearch = "";
 
-// Detecteer /search/<term>
 if (currentPath.includes("/search/")) {
-  initialSearch = decodeURIComponent(currentPath.split("/gdn/search/")[1] || "").replace(/\/$/, "");
+  initialSearch = decodeURIComponent(
+    currentPath.split("/gdn/search/")[1] || ""
+  ).replace(/\/$/, "");
 }
 
-// Detecteer ?q=<term>
 if (!initialSearch && urlParams.has("q")) {
   initialSearch = urlParams.get("q");
 }
 
-// --- Load & sorteer artikelen ---
+/* ================= FETCH ARTICLES ================= */
+
 fetch("/gdn/articles.json")
   .then(res => res.json())
   .then(data => {
@@ -73,19 +77,17 @@ fetch("/gdn/articles.json")
     articles.sort((a, b) => {
       const ta = parseDateSafe(a.date);
       const tb = parseDateSafe(b.date);
-
       if (ta && tb) return tb - ta;
       if (ta) return -1;
       if (tb) return 1;
-
       return (Number(b.id) || 0) - (Number(a.id) || 0);
     });
 
-    // Normale homepage
     if (!isAuthorPage) {
       filteredArticles = articles.slice();
+
       if (initialSearch) {
-        if (searchInput) searchInput.value = initialSearch;
+        searchInput.value = initialSearch;
         applyFiltersAndReset();
       } else {
         renderArticles();
@@ -95,12 +97,16 @@ fetch("/gdn/articles.json")
   .catch(err => {
     console.error("Error loading articles.json:", err);
     if (articlesContainer) {
-      articlesContainer.innerHTML =
-        "<p style='text-align:center'>Failed to load articles. <button onclick='window.location.href=\"/gdn\";'>Reload articles</button></p>";
+      articlesContainer.innerHTML = `
+        <p style="text-align:center">
+          Failed to load articles.
+          <button onclick="location.reload()">Reload</button>
+        </p>`;
     }
   });
 
-// --- Render (homepage) ---
+/* ================= RENDER HOMEPAGE ================= */
+
 function renderArticles() {
   if (!articlesContainer) return;
 
@@ -109,8 +115,8 @@ function renderArticles() {
 
   articlesContainer.innerHTML = toDisplay
     .map(a => `
-      <article class="article-card" data-category="${a.category}">
-        <img src="/gdn/assets/articlethumbnail/${a.id}.png" alt="${a.title}" class="article-thumb">
+      <article class="article-card" data-category="${escapeHtml(a.category)}">
+        <img src="/gdn/assets/articlethumbnail/${a.id}.png" alt="${escapeHtml(a.title)}">
         <h3><a href="/gdn/article?id=${a.id}">${escapeHtml(a.title)}</a></h3>
         <p>By ${escapeHtml(a.author)} - ${escapeHtml(a.date)}</p>
         <p>${makeSummaryFromContent(a.content || a.description)}</p>
@@ -119,11 +125,15 @@ function renderArticles() {
     `)
     .join("");
 
-  if (noResultsMsg) noResultsMsg.style.display = filteredArticles.length === 0 ? "block" : "none";
-  if (loadMoreBtn) loadMoreBtn.style.display = end < filteredArticles.length ? "block" : "none";
+  noResultsMsg.style.display =
+    filteredArticles.length === 0 ? "block" : "none";
+
+  loadMoreBtn.style.display =
+    end < filteredArticles.length ? "block" : "none";
 }
 
-// --- Load more ---
+/* ================= LOAD MORE ================= */
+
 if (loadMoreBtn && !isAuthorPage) {
   loadMoreBtn.addEventListener("click", () => {
     currentPage++;
@@ -131,37 +141,50 @@ if (loadMoreBtn && !isAuthorPage) {
   });
 }
 
-// --- Category filters ---
+/* ================= CATEGORY FILTER ================= */
+
 if (!isAuthorPage) {
   categoryLinks.forEach(link => {
     link.addEventListener("click", e => {
       e.preventDefault();
-      currentCategory = (link.dataset.category || "All").toString();
+      currentCategory = (link.dataset.category || "All");
       applyFiltersAndReset();
     });
   });
 }
 
-// --- Search ---
+/* ================= SEARCH ================= */
+
 if (searchInput && !isAuthorPage) {
-  searchInput.addEventListener("input", () => {
-    applyFiltersAndReset();
-  });
+  searchInput.addEventListener("input", applyFiltersAndReset);
 }
+
+/* ================= FILTER LOGIC (FIXED) ================= */
 
 function applyFiltersAndReset() {
   if (isAuthorPage) return;
 
-  const q = (searchInput?.value || "").toLowerCase().trim();
-  const cat = (currentCategory || "All").toString().toLowerCase();
+  const q = (searchInput.value || "").toLowerCase().trim();
+  const cat = currentCategory.toLowerCase();
 
   filteredArticles = articles.filter(article => {
     const matchesCategory =
-      cat === "all" || ((article.category || "").toLowerCase() === cat);
+      cat === "all" ||
+      (article.category || "").toLowerCase() === cat;
 
     const title = (article.title || "").toLowerCase();
-    const content = htmlToTextKeepBr(article.content || article.description || "").toLowerCase();
-    const matchesSearch = title.includes(q) || content.includes(q);
+    const author = (article.author || "").toLowerCase();
+    const date = (article.date || "").toLowerCase();
+    const content = htmlToTextKeepBr(
+      article.content || article.description || ""
+    ).toLowerCase();
+
+    const matchesSearch =
+      !q ||
+      title.includes(q) ||
+      author.includes(q) ||
+      content.includes(q) ||
+      date.includes(q);
 
     return matchesCategory && matchesSearch;
   });
@@ -170,85 +193,66 @@ function applyFiltersAndReset() {
   renderArticles();
 }
 
-// --- AUTHOR PAGE (GDN) ---
+/* ================= AUTHOR PAGE ================= */
+
 window.addEventListener("DOMContentLoaded", () => {
-  if (!articlesContainerGDN) return; // niet op author page
+  if (!articlesContainerGDN) return;
 
-  const checkReady = setInterval(() => {
-    if (articles.length > 0) {
-      clearInterval(checkReady);
+  const wait = setInterval(() => {
+    if (!articles.length) return;
+    clearInterval(wait);
 
-      const gdnArticles = articles.filter(a =>
-        (a.author || "").toLowerCase() === "gdn"
-      );
+    const gdnArticles = articles.filter(
+      a => (a.author || "").toLowerCase() === "gdn"
+    );
 
-      articlesContainerGDN.innerHTML = gdnArticles
-        .map(a => `
+    articlesContainerGDN.innerHTML = gdnArticles.length
+      ? gdnArticles.map(a => `
           <article class="article-card">
-            <img src="/gdn/assets/articlethumbnail/${a.id}.png" class="article-thumb">
+            <img src="/gdn/assets/articlethumbnail/${a.id}.png">
             <h3><a href="/gdn/article?id=${a.id}">${escapeHtml(a.title)}</a></h3>
             <p>By ${escapeHtml(a.author)} - ${escapeHtml(a.date)}</p>
             <p>${makeSummaryFromContent(a.content || a.description)}</p>
-            <a href="/gdn/article?id=${a.id}" class="read-more">Read More</a>
           </article>
-        `)
-        .join("");
-
-      if (gdnArticles.length === 0) {
-        articlesContainerGDN.innerHTML = "<p>No articles found from GDN.</p>";
-      }
-    }
+        `).join("")
+      : "<p>No articles found from GDN.</p>";
   }, 50);
 });
-// ----------------------------
-// Helpers
-// ----------------------------
+
+/* ================= COOKIES ================= */
+
 function cookiesAccepted() {
   return localStorage.getItem("cookies_accepted") === "true";
 }
 
-// ----------------------------
-// COOKIE BANNER
-// ----------------------------
 window.addEventListener("load", () => {
   const banner = document.getElementById("cookie-banner");
+  if (!cookiesAccepted()) banner.classList.remove("hidden");
 
-  if (!cookiesAccepted()) {
-    banner.classList.remove("hidden");
-  }
-
-  document.getElementById("accept-cookies").addEventListener("click", () => {
+  document.getElementById("accept-cookies").onclick = () => {
     localStorage.setItem("cookies_accepted", "true");
-
-    // save current dark mode state
     localStorage.setItem(
       "darkMode",
       document.body.classList.contains("dark")
     );
-
     banner.classList.add("hidden");
-  });
+  };
 
-  document.getElementById("decline-cookies").addEventListener("click", () => {
+  document.getElementById("decline-cookies").onclick = () =>
     banner.classList.add("hidden");
-  });
 });
 
-// ----------------------------
-// DARK MODE (UNIVERSEEL)
-// ----------------------------
+/* ================= DARK MODE (UNIVERSEEL) ================= */
+
 const toggle = document.getElementById("darkModeToggle");
 
-// Apply saved dark mode ONLY if cookies are accepted
-if (cookiesAccepted()) {
-  const savedDark = localStorage.getItem("darkMode") === "true";
-  if (savedDark) document.body.classList.add("dark");
+if (cookiesAccepted() && localStorage.getItem("darkMode") === "true") {
+  document.body.classList.add("dark");
 }
 
-toggle.addEventListener("click", () => {
+toggle?.addEventListener("click", () => {
   document.body.classList.toggle("dark");
 
-  // Only store preference if cookies accepted
   if (cookiesAccepted()) {
     localStorage.setItem(
       "darkMode",
