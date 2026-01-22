@@ -88,22 +88,22 @@
     "content": "On October 1, 2025, the popular streamer Vortrox beat the level Yatagarasu, which is known for being one of the hardest levels in Geometry Dash. Vortrox has been streaming his attempts to beat the level for weeks, and his fans have been cheering him on every step of the way. After many failed attempts and close calls, Vortrox finally managed to complete the level and achieve his goal. His stream was filled with excitement and celebration as he shared the moment with his viewers. Many people are congratulating Vortrox on his achievement and praising his dedication and perseverance in beating such a challenging level. This is a major accomplishment for vortrox and his fans, due to his problems with his great-grandmother passing away recently."   ,
   "tags": ["confirmed", "level completion", "demonlist level"]
 },
-  {
-    "id": 11,
+{
+  "id": 11,
   "title": "New event level Eta Carnis",
   "author": "GDN",
-    "date": "2025-10-10",
-    "category": "Events",
-    "content": "ETA Carnis became the 19th Event level in the popular game Geometry Dash, succeeding FUNHOUSE. This level is unique as it has been classified with a Mythic rating and is also noted for its Halloween theme. The level is the first mythic 6 star level. It is a mega-collabiration and the host is GloryEX",
+  "date": "2025-10-10",
+  "category": "Events",
+  "content": "ETA Carnis became the 19th Event level in the popular game Geometry Dash, succeeding FUNHOUSE. This level is unique as it has been classified with a Mythic rating and is also noted for its Halloween theme. The level is the first mythic 6 star. It is a mega-collaboration and the host is GloryEX.",
   "tags": ["confirmed", "event"]   
 },
-  {
-    "id": 12,
+{
+  "id": 12,
   "title": "A new update wil come over 1 month",
   "author": "GDN",
-    "date": "2025-10-16",
-    "category": "Updates",
-    "content": "Today, oktober 16 2025, we are exactly 31 days away from a new update to GD. This is because on 16 november 2025 the random and chance gauntlet wil come out. Players where quick to find that the sprites for the gauntlets are not yet in the files. So there will be a update on 16 november. There is a chance Robtop makes the sprites server-side, so the sprites are on the computer of Robtop and not on the one of the player, but the chances are low. We are just going to have to wait."  ,
+  "date": "2025-10-16",
+  "category": "Updates",
+  "content": "Today, October 16 2025, we are exactly 31 days away from a new update to GD, because on 16 November 2025 the Random and Chance gauntlet will come out. Players quickly found that the sprites for the gauntlets were not yet in the files. So there will be an update on 16 November. There is a chance RobTop makes the sprites server-side, but the chances are low. We are just going to have to wait.",
   "tags": ["rumor", "update"] 
 },
 {
@@ -112,105 +112,117 @@
   "author": "GDN",
   "date": "2025-10-19",
   "category": "Community",
-  "content": "EVW is one of the most populair gd content creators. He decided to try to beat RGB, a list that contains the top 3 levels back in 2017 on the demonlist. RGB consists of Yatagarasu, Erebus and of course Sonic Wave. EVW already beat Yatagarasu and Erebus, so it was cool to see him beat the last level Sonic Wave, which is the hardest one of the 3 levels.",
-  "tags": ["confirmed", "level completion", "demonlist level"]},
+  "content": "EVW is one of the most popular GD content creator. He decided to try to beat RGB, a list that contains the top 3 levels back in 2017 on the demonlist. RGB consists of Yatagarasu, Erebus and of course Sonic Wave. EVW already beat Yatagarasu and Erebus, so it was cool to see him beat the last level Sonic Wave, which is the hardest one of the 3.",
+  "tags": ["confirmed", "level completion", "demonlist level"]
+},
 {
   "id": 14,
   "title": "Bencar face revealed!",
   "author": "GDN",
   "date": "2025-10-19",
   "category": "Community",
-  "content": "The player Bencar, who together with NotVixios has the channel SecretWayGD, was livestreaming his progress on Zodiac when he said that if he got 100 dollars he would face reveal. Not even a minute later someone donated 100 dollars and Bencar face reveald on the spot. Now there is a new meme in the community because he looks like Npesta",
-  "tags": ["confirmed"]},
+  "content": "The player Bencar, who owns with NotVixios the channel SecretWayGD, was livestreaming his progress on Zodiac when he said that if he got 100 dollars he would face reveal. Not even a minute later someone donated 100 dollars and Bencar face reveald on the spot. Now a new meme appeared in the community, because he looks like Npesta.",
+  "tags": ["confirmed"]
+},
 {
   "id": 15,
   "title": "Nullscapes hackers are everywere!",
   "author": "GDN",
   "date": "2025-10-21",
   "category": "Community",
-  "content": "Nullscapes is a level made by Kiba and verified by Zoink. The level is the sequel to Shardscapes. Since Zoink verified it, it has been placed 4th on the demonlist, but nobody else has beaten it yet. <br> Because the level is so hard and everybody wants to see someone beat it, there are a lot of hackers in Nullscapes. The player Danielcookie was seen as the best mobile gd player, and he said he beat Nullscapes very easy. This grew some suspision on his friend who made a copy of Danielcookie's level and it was just too easy, like something felt wrong. The friend whent in the editor and found a lot of invisable option triggers under the level.<br>There are also some other hackers. CookieIsMine was seen as one of the best players in Nullscapes, but it was later found he was playing 'Nullscapes hold'. He confessed to doing this on Twitter on 16 October 2025, after the Demonlist moderators supposedly forced him to, because he had been posting fake progress on his Twitter account. On top of that, his Pointecrate account has been banned for three months. CookieIsMine also provided that Secret Way's video about his notable progress made him feel guilty, causing him to make his faked runs more obvious, and finally playing the level with an Elmo costume. Despite faking his runs, CookieIsMine has made legitimate progress on the level of 44-80% and 63-100%, saying that he really wants to beat the level in the future.",
-  "tags": ["confirmed", "demonlist level"]},
+  "content": "Nullscapes is a level made by Kiba and verified by Zoink. It is the sequel to Shardscapes. Since Zoink verified it, it has been placed 4th on the demonlist, but nobody else has beaten it yet. <br> Because the level is so hard and everybody wants to see someone beat it, there are a lot of hackers in Nullscapes. The player Danielcookie was seen as the best mobile GD player, and he said he beat Nullscapes very easy. This grew some suspicion on his friend who made a copy of Danielcookie's level and it was just too easy, like something felt wrong. The friend went in the editor and found a lot of invisable option triggers under the level.<br>There are also some other hackers. CookieIsMine was seen as one of the best players in Nullscapes, but it was later found he was playing 'Nullscapes hold'. He confessed to doing this on Twitter on 16 October 2025, after the Demonlist moderators supposedly forced him to, because he had been posting fake progress on his Twitter account. On top of that, his Pointecrate account has been banned for three months. CookieIsMine also provided that Secret Way's video about his notable progress made him feel guilty, causing him to make his faked runs more obvious, and finally playing the level with an Elmo costume. Despite faking his runs, CookieIsMine has made legitimate progress on the level of 44-80% and 63-100%, saying that he really wants to beat the level in the future.",
+  "tags": ["confirmed", "demonlist level"]
+},
 {
   "id": 16,
   "title": "Vortrox verified a new extreme demon!",
   "author": "GDN",
   "date": "2025-10-23",
   "category": "Community",
-  "content": "After beating Yatagarasu on stream, the streamer and content creator Vortrox took a break from playing and went to NYC for a trip. Despite this, on august 21, 2025, Vortrox would announce he would try to verify a new extreme demon called 'Fallen Horizon' a megacollab with great decoration. He would get 69% on the level after just 2 hours of playing. Nice! He would quickly get 80% after that and then verified the level after just 1700 attempts!",
-  "tags": ["confirmed", "verification", "demonlist level"]},
+  "content": "After beating Yatagarasu on stream, the streamer and content creator Vortrox took a break from playing and went to NYC for a trip. Despite this, on August 21, 2025, Vortrox would announce he would try to verify a new extreme demon called 'Fallen Horizon', a megacollab with great decoration. He would get 69% on the level after just 2 hours of playing. Nice! He would quickly get 80% after that and then verified the level after just 1700 attempts!",
+  "tags": ["confirmed", "verification", "demonlist level"]
+},
 {
   "id": 17,
   "title": "Nullscapes just got its first legit victor!",
   "author": "GDN",
   "date": "2025-10-24",
   "category": "Community",
-  "content": "Yesterday, the player spookkd would be the first victor of Nullscapes. The level was verified by Zoink and since then players where thrying to beat the level. Even tho a few of players said they did it, they where later exposed for hacking.",
-  "tags": ["confirmed", "first victor", "demonlist level"]},
+  "content": "Yesterday, the player spookkd would be the first victor of Nullscapes. The level was verified by Zoink and since then players are trying to beat the level. Even thought a few of players said they did it, they were later exposed for hacking.",
+  "tags": ["confirmed", "first victor", "demonlist level"]
+},
 {
   "id": 18,
   "title": "Flamewall got placed on the demonlist!",
   "author": "GDN",
   "date": "2025-10-25",
   "category": "Community",
-  "content": "After exactly 1 month of Flamewall being rated, the level got placed on the demonlist on place 3, after Amethyst and before Tidal Wave. The level was originally verified by Cuatrocientos. The level has a timespan over 7 minutes.",
-  "tags": ["confirmed", "demonlist level"]},
+  "content": "After exactly 1 month of Flamewall being rated, the level got placed on the demonlist at place 3, after Amethyst and before Tidal Wave. The level was originally verified by Cuatrocientos. It lasts over 7 minutes.",
+  "tags": ["confirmed", "demonlist level"]
+},
 {
   "id": 19,
   "title": "Random gauntlet deadline got extended",
   "author": "GDN",
   "date": "2025-11-3",
   "category": "Updates",
-  "content": "On november 3rd, 2025, RobtopGames would post on youtube and discord that the deadline for the random gauntlet will be moved from november 16 to december 14. This would give creators more time to finish their levels. The submissions where according to Robtop low but a lot of people asked to move the deadline. This also means that our theorie about the update that would come, will also be later that expected. The levels that will win will be in game on december 20, 2025, 4 pm EST. Then the update would probably come out. In RobTop's own words he said: 'This extension was given due to more creators than usual requesting more time to finish their level, which is also noticeable in the relatively low number of entries. It makes sense that making an entry for this contest takes more time because of the randomization rule, which means that you may have to make several versions of parts of your level.' You can view the full youtube post <a href='https://www.youtube.com/post/UgkxZItuRNOg4BXau4fziuf8sEmMkM9iTxnR' target='_blank'> here</a> .",
-  "tags": ["confirmed", "update", "official"]},
+  "content": "On november 3rd, 2025, RobtopGames would post on YouTube and Discord that the deadline for the Random gauntlet will be moved from November 16 to December 14. This would give creators more time to finish their levels. The submissions were according to RobTop low but a lot of people asked to move the deadline. This also means that our theory about the update that would come, will also be later that expected. The levels that will win will be in game on December 20, 2025, 4 PM EST. Then the update would probably come out. In RobTop's own words he said: 'This extension was given due to more creators than usual requesting more time to finish their level, which is also noticeable in the relatively low number of entries. It makes sense that making an entry for this contest takes more time because of the randomization rule, which means that you may have to make several versions of parts of your level.' You can view the full YouTube post <a href='https://www.youtube.com/post/UgkxZItuRNOg4BXau4fziuf8sEmMkM9iTxnR' target='_blank'>here</a> .",
+  "tags": ["confirmed", "update", "official"]
+},
 {
   "id": 20,
   "title": "Vortrox beat Low Death!",
   "author": "GDN",
   "date": "2025-11-7",
   "category": "Community",
-  "content": "Vortrox announced that he would take on Low Death, an extreme demon that has become infamous for taking an astonishing five years to verify. This is noteworthy because it reflects his confidence and skill, as this is the fewest attempts he has ever put into an extreme demon. On November 7, 2025, he successfully completed Low Death after a total of 7,132 attempts.<br>What makes this level particularly challenging are its many difficult sections that require not just skill but also precise timing and quick reflexes. In addition to these hard parts, Low Death is packed with hidden easter eggs, which reward players for exploring and can add unexpected surprises to the gaming experience. Vortrox's accomplishment not only highlights his dedication but also serves as an inspiration to others in the gaming community looking to tackle their own difficult challenges.",
-  "tags": ["confirmed", "level completion"]},
-  
+  "content": "Vortrox announced that he would take on Low Death, an extreme demon that has become infamous for taking an astonishing five years to verify. This is noteworthy because it reflects his confidence and skill, as this is the fewest attempts he has ever put into an extreme demon. On November 7, 2025, he successfully completed Low Death after a total of 7,132 attempts.<br>What makes this level particularly challenging are its many difficult sections that require not just skill but also precise timing and quick reflexes. In addition to these hard parts, Low Death is packed with hidden easter eggs, which reward players for exploring and can add unexpected surprises to the gaming experience. Vortrox's accomplishment not only highlights his dedication, but also serves as an inspiration to others in the gaming community looking to tackle their own difficult challenges.",
+  "tags": ["confirmed", "level completion"]
+},
 {
   "id": 21,
-  "title": "Zoink almost beat FlameWall",
+  "title": "Zoink almost beat Flamewall",
   "author": "GDN",
   "date": "2025-11-17",
   "category": "Community",
-  "content": "On November 2nd, 2025, Zoink made an exciting announcement that he would rebeat the entire main list of levels, which includes the newly added level FlameWall. This initiative thrilled his fans and the gaming community, as it showcased his dedication to mastering every challenge presented. The anticipation built up as players eagerly awaited updates on his progress.<br>On November 16, Zoink hosted a live stream where he played through FlameWall. During the stream, he achieved a new personal best of 63%, a significant milestone that demonstrated his skill and determination. However, the excitement didn’t stop there. Shortly after reaching that impressive percentage, Zoink pushed himself further and managed to score 68%. This feat tied him with another prominent player, zLevii, who was the first to achieve a world record of 68% on the same level about a month ago.<br>And then Zoink didn't felt like it was enough, because then he finished a run from 16-100%, breaking the previous record of 24-97%",
-  "tags": ["confirmed", "demonlist level"]},
+  "content": "On November 2nd, 2025, Zoink made an exciting announcement that he would rebeat the entire main list of levels, which includes the newly added level Flamewall. This initiative thrilled his fans and the gaming community, as it showcased his dedication to mastering every challenge presented. The anticipation built up as players eagerly awaited updates on his progress.<br>On November 16, Zoink hosted a live stream where he played through Flamewall. During the stream, he achieved a new personal best of 63%, a significant milestone that demonstrated his skill and determination. However, the excitement didn’t stop there. Shortly after reaching that impressive percentage, Zoink pushed himself further and managed to score 68%. This feat tied him with another prominent player, zLevii, who was the first to achieve a world record of 68% on the same level about a month ago.<br>And then Zoink didn't felt like it was enough, because then he finished a run from 16-100%, breaking the previous record of 24-97%.",
+  "tags": ["confirmed", "demonlist level"]
+},
 {
   "id": 22,
   "title": "What will come in 2.21?",
   "author": "GDN",
   "date": "2025-11-24",
   "category": "Updates",
-  "content": "2.21 is speculated to release on 20 december, 2025, 4pm EST. We will see what will come in this update here. <br><br> The main level that should come out in 2.2 was Explorers, but it got delayed to 2.21. This would come out.<br> The map would come out. It would be something like GD world, but with custom made platformer levels.<br> Together with the map, versus mode is also a button that is in the game, but is still delayed. It should be a kind of multiplayer competition mode. <br> The Random and Chance gauntlet will come out. These where the ones that gave us the day the update would come out, because the images are not in the files yet. <br> And of course the icons. There where a lot of icons that would come out in 2.21, so these would come.<br><br>Now we just think 2.21 will come out then, but there are a few diffrent things that could happen. There is a chance the update would just add the gauntlets, and be update 2.208 or something.",
-  "tags": [ "update", "leak", "rumor"]},
+  "content": "2.21 is speculated to release on December 20 2025, 4pm EST. We will see what will come in this update here. <br><br> The main level that should have came out in 2.2 was Explorers, but it got delayed to 2.21. This would finally release.<br> The Map would come out. It would be something like GD World, but with user made platformer levels.<br> Alongside with the Map, Versus Mode is also a button that is in the game, but is still delayed. It should be a kind of multiplayer competition mode. <br> The Random and Chance gauntlet will come out. These were the ones that gave us the day the update would come out, because the images are not in the files yet. <br> And of course, the icons. There were a lot of icons that would come out in 2.21.<br><br>Now we just think 2.21 will come out then, but there are a few different things that could happen. There is a chance the update would just add the gauntlets, and be update 2.208 or something.",
+  "tags": ["update", "leak", "rumor"]
+},
 {
   "id": 23,
-  "title": "Zoink died at 99% in FlameWall",
+  "title": "Zoink died at 99% in Flamewall",
   "author": "GDN",
   "date": "2025-11-25",
   "category": "Community",
-  "content": "Zoink has been playing the top 3 level FlameWall for a short time, but is already the best player after Cuatrocientos, the verifier of the level. Just 1 week ago Zoink would get 68%, which was the world record at the time, tied with zLevii. He also got a run of 16-100% that same stream. <br> But in Zoinks last stream he got to 99%, the place where Cuatrocientos died twice, and the curse stayed because Zoink died at 99.5% in the level.",
-  "tags": ["confirmed", "death at 99", "demonlist level"]},
+  "content": "Zoink has been playing the top 3 level Flamewall for a short time, but is already the best player after its verifier Cuatrocientos. Just 1 week ago Zoink would get 68%, which was the world record at the time, tied with zLevii. He also got a run of 16-100% that same stream. <br> But in Zoink's last stream he got to 99%, the place where Cuatrocientos died twice, and the curse stayed because Zoink died at 99.5% in the level.",
+  "tags": ["confirmed", "death at 99", "demonlist level"]
+},
 {
   "id": 24,
   "title": "Zoink's next verification level!",
   "author": "GDN",
   "date": "2025-12-2",
   "category": "Community",
-  "content": "The creator and host of some of the most populair levels, MindCap, just published the showcase of Orbit, a level where every click is a orb. On january 7nd 2023 MindCap gave the layout of the level and on november 5 2025 he would announce the verifier would be Zoink. Zoink is probably going to beat the level after he finished FlameWall, the level where he got 99% on just a week ago.",
-  "tags": ["confirmed"]},
+  "content": "The creator and host of some of the most populair levels, MindCap, just published the showcase of Orbit, a level were every click is an orb. On January 7 2023 MindCap gave the layout of the level and on November 5 2025 he announced the verifier would be Zoink. Zoink is probably going to beat the level after he finishes Flamewall, the level where he got 99% on just a week ago.",
+  "tags": ["confirmed"]
+},
 {
   "id": 25,
-  "title": "Zoink beat FlameWall!",
+  "title": "Zoink beat Flamewall!",
   "author": "GDN",
   "date": "2025-12-5",
   "category": "Community",
   "content": "After Cuatrocientos verified Flamewall, a top 3 demon, it had no victors for about 3 months. There were 3 players who stated they wanted to be the first victor: zLevii, w3rty and Zoink. zLevii got the record of 68% about a month ago and since then Zoink started playing the level. He quickly got to the same 68% where zLevii died. But only a few days later Zoink would get 99%, the spot where Cuatrocientos, the verifier, died twice. On December 4th 2025 Zoink tweeted that he beat Flamewall after 11745 attempts and 63 hours of gameplay.",
-  "tags": ["confirmed", "first victor", "demonlist level", "level completion"]},
+  "tags": ["confirmed", "first victor", "demonlist level", "level completion"]
+},
 {
   "id": 26,
   "title": "Boobawamba got its first victor!",
@@ -218,8 +230,8 @@
   "date": "2025-12-10",
   "category": "Community",
   "content": "Boobawamba is a top 6 level on the demon list and has the world record for the longest time a list demon has gotten without a first victor, surpassing the previous record holder Nullscapes. The level has not got any victors for over a year. EastShark was its verifier. The level has a lot of memory parts, and most players tought somebody like Zoink or wPopoff would be the first victor. Today the player Agonom beat the level after over 92 000 attempts.",
-  "tags": ["confirmed", "first victor", "demonlist level", "level completion"]}
-  ,
+  "tags": ["confirmed", "first victor", "demonlist level", "level completion"]
+},
 {
   "id": 27,
   "title": "The demonlist is making a huge placement swap!",
@@ -227,8 +239,8 @@
   "date": "2025-12-20",
   "category": "Community",
   "content": "The past few days RobTop has been rating new extreme demons and those are added to the demonlist. This is very controversial because now popular extreme demons are falling of the demonlist, like Zodiac is out the top 100, Slaughterhouse is out the top 20 and Limbo is out the top 40. There has been a debate in the community if Amethyst should be top 1 instead of Thinking Space II. But despite this, the demonlist swapped the top 2 level (Amethyst) and the top 3 (Flamewall).",
-  "tags": ["confirmed", "demonlist"]}
-    ,
+  "tags": ["confirmed", "demonlist"]
+},
 {
   "id": 28,
   "title": "The Random gauntlet got extended again!",
@@ -236,7 +248,8 @@
   "date": "2025-12-20",
   "category": "Updates",
   "content": "The Random and Chance gauntlet should have come out today but in the GD Discord server was posted that the judging of the levels was complete, but there were some problems rendering the video. The gauntlets would also bring a new update, giving that the their textures are not in the files, but this is just a rumor. RobTop said when he extended the gauntlets first that it would be the last extension. Because an update (probably 2.208) would maybe come out, players are thinking this is just a way that RobTop is hiding the fact his update is not finished",
-  "tags": ["confirmed", "official", "update"]}    ,
+  "tags": ["confirmed", "official", "update"]
+},
 {
   "id": 29,
   "title": "The Random gauntlet... soon.",
@@ -244,7 +257,8 @@
   "date": "2025-12-24",
   "category": "Updates",
   "content": "The levels for the Random and Chance gauntlet were revealed on December 23 2025 at 10 PM. The levels where:<br><br> 'Randomverse' by MinAY & more<br>'Dronification' by Ivyteal<br>'Dll' by Galofuf<br>'Dimension Break' by AbstractDark<br>'KRYPT OF KRANDON' by LightPotatoDev<br>'IO' by 7ak<br>'Fukashigi' by Trms01<br>'Busted' by Whirl<br>'Update Disorder' by DangerousROBOT<br>'Project Novaform' by Dolphe & Gostley<br><br>On the endscreen of the video stood 'The Gauntlets will be available in-game soon', which is just RobTop being RobTop. Here at GDN we still believe there will be an update when the gauntlets will come in game. This is because the texture for the Random and Chance gauntlet are not in the files yet.",
-  "tags": ["confirmed", "official", "update"]}    ,
+  "tags": ["confirmed", "official", "update"]
+},
 {
   "id": 30,
   "title": "Orbit is becoming harder than we thought.",
@@ -252,7 +266,8 @@
   "date": "2025-12-27",
   "category": "Community",
   "content": "Around a month ago, the host of Orbit said the level would be top 10 difficulty. The verifier Zoink is known for buffing his verifications most of the time, but Mindcap said Zoink couldn't change the level without his permission. However, since Zoink has been itching to buff the level, Mindcap gave him permission to buff the level. If this happens more often and if Zoink adds even more buffs we could see a new potentially top 5 level on the demonlist." ,
-  "tags": ["confirmed", "demonlist", "demonlist level"]}    ,
+  "tags": ["confirmed", "demonlist", "demonlist level"]
+},
 {
   "id": 31,
   "title": "Orbit is NOT becoming harder than we thought.",
@@ -260,7 +275,8 @@
   "date": "2026-01-01",
   "category": "Community",
   "content": "A few days ago, we said that Zoink would be buffing Orbit, but he posted a short on his YouTube channel where he said that some clicks were way too easy and some way too hard. He said he was actually just balancing the gameplay a bit.",
-  "tags": ["confirmed", "demonlist", "demonlist level"]},
+  "tags": ["confirmed", "demonlist", "demonlist level"]
+},
 {
   "id": 32,
   "title": "SpaceUK beat Acheron legitimately!",
@@ -268,7 +284,8 @@
   "date": "2026-01-03",
   "category": "Community",
   "content": "SpaceUK is the biggest cheater in the history of Geometry Dash. His first demon was Decode, an easy demon. After that he jumped to the insane demon Windy Landscape. It was the first time a player had beaten an insane as his second demon. After that, he beat Leyak, wich was also an insane demon. He then beat Wasureta, an extreme demon, as his fourth demon. The community was hyped to see such a skilled player breeze trough demons. Some people where thinking that his completions could be hacked, but when SpaceUK beat The Golden as his fifth demon, a top 2 extreme at the time, the community went wild. SpaceUK swiftly beat the top hardest demons in record time, with an average of one per day. He joined the Slaughterhouse verification race in October 2021, completing the verification process in just over a week, on 24 October 2021.<br><br> He later completed the entire main list, as marked by completing Sephiroth on 7 May 2022, becoming the second player after nSwish to do so. However, on 19 June 2022, SpaceUK privatised most of his videos, deactivated his Twitter account, and requested a removal of his Pointercrate profile, claiming that he had become disinterested in the game. Following the backlash, he reinstated his videos and reactivated his social media accounts the day after, with Pointercrate restoring his profile two weeks later. In the following nine months, he beat many of the hardest levels in impressively low attempt counts, reportedly becoming the first victor of Aerial Gleam, Abyss of Darkness, and Acheron. He also claimed to hold the record for the lowest attempt count on Kyouki with roughly 13,500 attempts. In early 2023, he was chosen to verify the Top 1 level Banshee, an old impossible level built by Komp in 2014 that was picked up by Nikrodox and revamped. On 28 March 2023, he posted a 60% run, showing rapid progress. However, on 1 April 2023, his progress videos were unlisted, and he declared his abandonment of Banshee on social media. This left followers questioning whether it was an April Fools' prank or a genuine exit from the verification. <br><br> But in April 2023 everything changed when the player Paqoe posted a video titled 'exposing SpaceUK'. In the video he explained SpaceUK used zBot to cheat. zBot is a showcase bot where you beat the level in practice and then the bot plays the level in normal mode using the successful attempts of the practice runs. zBot also added fake clicks, but these are a few frames off. This is how Paqoe exposed SpaceUK. SpaceUK was also found guilty of hacking his other accomplishments due to an easter egg the creator of zBot added. SpaceUK confessed and deleted his channel and was not seen again until the start of 2025 when he would come back as BirdUK and be legit. He beat a few of his levels legitimately like The Golden but today he beat Acheron, for real this time." ,
-  "tags": ["confirmed", "demonlist", "demonlist level"]},
+  "tags": ["confirmed", "demonlist", "demonlist level"]
+},
 {
   "id": 33,
   "title": "WorldGames got exposed for cheating!",
@@ -276,7 +293,8 @@
   "date": "2026-01-17",
   "category": "Community",
   "content": "WorldGames is a popular GD player and content creator known for his series where he beat every main levels blindfolded. He was known for being the player with the highest attempt count on a single level: Clubstep, with around 2 million attempts. There were other players who played blindfolded, but WorldGames was one of the more popular ones and was respected by the community.<br><br> But 2 days ago, Treble made a video where he explained a method called masking. Masking is a video editing technic where you can put a layer over a video to hide certain parts. WorldGames filmed 2 separate videos: one where he just plays the level normally and one where he is blindfolded, but doesn't play the level. Then he would mask the part where he plays the level in the blindfolded video with the part where he plays normally. This way it looks like he is playing blindfolded, when in reality he is not.<br><br> It was even more obvious because WorldGames made a lot of videos like GD IRL where you can see his editing skills. When looking at the videos you can sometimes see that a piece of finger is cut of but then back the next frame. Or in other videos you can see the attempt counter on the screen. <br><br>This is not confirmed yet by WorldGames. We recommend watching Treble's video to see the proof yourself: <a href='https://www.youtube.com/watch?v=fwaibDYuj2I' target='_blank'>https://www.youtube.com/watch?v=fwaibDYuj2I</a>.",
-  "tags": ["breaking", "controversial"]},
+  "tags": ["breaking", "controversial"]
+},
 {
   "id": 34,
   "title": "GD 2.208 is out!",
@@ -284,7 +302,7 @@
   "date": "2026-01-19",
   "category": "Updates",
   "content": "When the Random and Chance gauntlets were revealed, players found that the textures were not in game yet. This meant that the game would have to be updated for the gaunltets to be playable. We made articles about this. The community realized that an update would come because there were a lot of missed deadlines. First the deadline got moved, then the results video and then we had to wait a long time before it came in the game. <br><br> Today, January 19th 2026, the update finally came out. It added the Random and Chance gauntlet, a few bugfixes and some other small changes like the leaderboard now also filtering on coins, demons, and moons, a feature the community has been asking for a long time. There is also a built-in Click Between Frames, a feature that was only a mod before. The update is called 2.208. There are still a lot of things that are missing that where said to come in 2.21, like Explorers, Versus Mode and the Map. We will have to wait and see when these will come. RobTop said he is now in full development of a new update and that update 2.209 will follow soon with additional community-requested features.<br><br>Update: 2.2081 is out! it fixed a few little bugs. Robtop was also active online and said 2.209 would be very big.",
-  "tags": ["breaking", "update"]}
+  "tags": ["breaking", "update"]
+}
 
-] 
-
+]
