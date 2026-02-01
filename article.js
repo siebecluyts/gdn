@@ -113,8 +113,10 @@
               text: "Check out this GDN article!",
               url: location.href
             });
-          } catch { }
-        } else alert("Your browser can't share.");
+          } catch (e) {
+            console.error(e);
+          }
+        } else alert("Your browser can't share. Please copy the link manually.");
       });
 
       document.getElementById("dlMarkdown")?.addEventListener("click", () => {
