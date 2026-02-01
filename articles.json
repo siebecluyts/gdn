@@ -302,7 +302,7 @@
   "date": "2026-01-19",
   "category": "Updates",
   "content": "When the Random and Chance gauntlets were revealed, players found that the textures were not in game yet. This meant that the game would have to be updated for the gaunltets to be playable. We made articles about this. The community realized that an update would come because there were a lot of missed deadlines. First the deadline got moved, then the results video and then we had to wait a long time before it came in the game. <br><br> Today, January 19th 2026, the update finally came out. It added the Random and Chance gauntlet, a few bugfixes and some other small changes like the leaderboard now also filtering on coins, demons, and moons, a feature the community has been asking for a long time. There is also a built-in Click Between Frames, a feature that was only a mod before. The update is called 2.208. There are still a lot of things that are missing that where said to come in 2.21, like Explorers, Versus Mode and the Map. We will have to wait and see when these will come. RobTop said he is now in full development of a new update and that update 2.209 will follow soon with additional community-requested features.<br><br>Update: 2.2081 is out! it fixed a few little bugs. Robtop was also active online and said 2.209 would be very big.",
-  "tags": ["breaking", "update"]
+  "tags": ["breaking", "update", "confirmed"]
 },
 {
   "id": 35,
@@ -311,7 +311,7 @@
   "date": "2026-01-29",
   "category": "Updates",
   "content": "After the PC version of Geometry Dash 2.208 came out on January 19th, 2026, players were wondering when the mobile version would come out. Today, January 29th 2026, the mobile version finally came out. It has all of the features of the PC version, including the Random and Chance gauntlet, the built-in Click Between Frames and the new leaderboard filters. Now mobile players can also enjoy the new features that were added in this update. Mobile players where not happy that it took so long, but are happy the update is finally here.",
-  "tags": ["breaking", "update"]
+  "tags": ["breaking", "update", "confirmed"]
 },
 {
   "id": 36,
@@ -321,6 +321,15 @@
   "category": "Community",
   "content": "The best player Zoink has been verifing Mindcap's newest project Orbit, a level where every click is an orb, for about one and a half month now. Zoink previously got 73% on the level, but when he started streaming again after not playing for 4 days he got 93%. But at the end of orbit you have a lot of teleport orbs, where you need to click on the correct one. After that there comes a ball pit and if your icon falls in it means you clicked the wrong orb.<br><br>When playing the level Zoink got a good consistansy and quickly got to 93%. A bit after that he passed that part he got to the hard teleport orbs part where he sadly failed at 99%. Players hope that Zoink verifis it soon.",
   "tags": ["confirmed", "death at 99"]
+},
+{
+  "id": 37,
+  "title": "The map (and potentialy 2.21) is coming sooner than expected!",
+  "author": "GDN",
+  "date": "2026-02-01",
+  "category": "Updates",
+  "content": "The map is a feature that was first announced in 2.2, but got delayed to 2.21. The map is something like GD World, but with user made platformer levels. Players have been waiting for this feature for a long time now. When 2.208 came out, players thought the map would come in 2.209 or even later. But the player SMJS posted on Twitter 'So I just found that RobTop is doing the prep work for the map. The key with the level completions recently had a new number added which is 0 for everyone and after some reverse engineering I found that 2.2081 has an unused string in the completions info saying Map: %s' <br><br>According to SMJS he tried to updated the code but it is read only. <br>The populair content creator and programmer GD Colon said it was for the gauntlets, but SMJS replied 'The gauntlet version only exists for classic levels. This is the key for platformer completions which up until 2 days ago didn't have this last tuple value.'<br>This could mean the map is coming sooner than expected, maybe even in 2.209. We will have to wait and see.<br><brWe could not confirm this yet with RobTop, but this article will be updated when more news drops. For now you can view SMJS's tweet <a href='https://x.com/SMJSGaming/status/2017579176086098111' target='_blank'>here</a> .",
+  "tags": ["rumor", "update"]
 }
 
 ]
