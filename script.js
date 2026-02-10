@@ -199,8 +199,13 @@ function applyFiltersAndReset() {
 window.addEventListener("DOMContentLoaded", () => {
   if (!articlesContainerGDN) return;
 
+  let attempts = 0;
   const wait = setInterval(() => {
-    if (!articles.length) return;
+    attempts++;
+    if (!articles.length) {
+      if (attempts > 100) clearInterval(wait);
+      return;
+    }
     clearInterval(wait);
 
     const gdnArticles = articles.filter(
@@ -219,11 +224,17 @@ window.addEventListener("DOMContentLoaded", () => {
       : "<p>No articles found from GDN.</p>";
   }, 50);
 });
+
 window.addEventListener("DOMContentLoaded", () => {
   if (!articlesContainerShadow) return;
 
+  let attempts = 0;
   const wait = setInterval(() => {
-    if (!articles.length) return;
+    attempts++;
+    if (!articles.length) {
+      if (attempts > 100) clearInterval(wait);
+      return;
+    }
     clearInterval(wait);
 
     const shadowArticles = articles.filter(
