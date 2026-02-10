@@ -341,13 +341,13 @@
   "tags": ["mod"]
 },
 {
-  "id": "39",
-  "title": "Zoink verified Orbit!",
+  "id": "40",
+  "title": "A data breach was found!",
   "author": "GDN",
   "date": "2026-02-10",
   "category": "Community",
-  "content": "Zoink was chosen to be the verifier of Orbit, a unique level where every click is an orb. Zoink recently got 99% on the level, which was a big milestone. But yesterday during streaming he got to the final part where there are a lot of orbs and you need to click on the correct one. Zoink died here last time but when he get back there he clicked the right one. <br><br> Now that the level is beaten it can be rated and put on the demonlist, where it should go around top 10-5.",
-  "tags": ["verification", "confirmed", "level completion"]
+  "content": "The programmer SMJS is getting a lot of attention for finding a lot of stuff in the code of gd. But he recently found a big data breach. 'A data breach was discovered in the GD servers which was likely already known by malicious individuals. This means that your email, IP address, hashed password, messages, private levels and much more has likely been dumped somewhere.' is what SMJS said. We ask everyone to change their password. <br><br> This has been reported to Robtop and has been patched, but we still want everbody to change their password. <br><br> We are not able to cover everything said, but you can see for yourself <href='https://x.com/SMJSGaming/status/2020518331908763979' target='_blank'>here</a>.",
+  "tags": ["leak", "breaking"]
 }
 
 
