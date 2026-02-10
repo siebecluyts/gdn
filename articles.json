@@ -337,7 +337,7 @@
   "author": "GDN",
   "date": "2026-02-05",
   "category": "Mods",
-  "content": "When 2.208 came out, geode had to be updated to support the new version. The update process has been taking longer than expected due to the complexity of the changes in 2.208 and the need to ensure compatibility with all existing geode mods. The community became frustrated with the delay. But today the head-developer of geode, HJfod, made a video talking about how and why it is taking so long. Robtop made a lot of changes to GD's code. The newly added built-in Click Between Frames is very complicated. Robtop had to change the entire way of how clicks are registered in the game, which broke a lot of mods.<br><br> According to HJfod, they also want to give the developers of the mods more time to update their mods. He also said that one of the most popular mods, level thumbnails, laged a lot of the time. This was because of the way geode did get-requests, which is a way to get data from the game. They are now changing the way they do get-requests, which will make the mod a lot faster. HJfod also said that they are all students who don't have a lot of time to work on geode. They ask everyone to be pacient and that the update will come soon. He said that they are now working hard to implement the new changes, so that when other updates drop it will not be that long. <br><br>You can watch the full video <a href='https://www.youtube.com/watch?v=BT91PCUdyOU&pp=ygUFZ2VvZGU%3D' target='_blank'>here</a>.",
+  "content": "When 2.208 came out, Geode had to be updated to support the new version. However, the update process has been taking longer than expected due to the complexity of the changes in 2.208 and the need to ensure compatibility with all existing Geode mods. The community became frustrated with the delay. But today the head-developer of Geode, HJfod, made a video talking about how and why it is taking so long. RobTop made a lot of changes to GD's code. One of the main reason is that the newly added built-in Click Between Frames is very complicated. RobTop had to change the entire way of how clicks are registered in the game, which broke a lot of mods.<br><br> According to HJfod, they also want to give the developers of the mods more time to update their mods. He also said that one of the most popular mods, level thumbnails, lagged a lot of the time. This was because of the way Geode did GET-requests, which is a way to get data from the game's servers. They are now changing the way they do these requests, which will make the mod a lot faster. HJfod also said that they are all students who don't have a lot of time to work on Geode. He asked everyone to be patient and that the update will come soon. He said that they are now working hard to implement the new changes, in such a way that when other updates drop, it will not be that long. <br><br>You can watch the full video <a href='https://www.youtube.com/watch?v=BT91PCUdyOU&pp=ygUFZ2VvZGU%3D' target='_blank'>here</a>.",
   "tags": ["mod"]
 },
 {
@@ -346,20 +346,18 @@
   "author": "GDN",
   "date": "2026-02-10",
   "category": "Community",
-  "content": "Zoink was chosen to be the verifier of Orbit, a unique level where every click is an orb. Zoink recently got 99% on the level, which was a big milestone. But yesterday during streaming he got to the final part where there are a lot of orbs and you need to click on the correct one. Zoink died here last time but when he get back there he clicked the right one. <br><br> Now that the level is beaten it can be rated and put on the demonlist, where it should go around top 10-5.",
+  "content": "Zoink was chosen to be the verifier of Orbit, a unique level where every click is an orb. Zoink recently got 99% on the level, which was a big milestone. But yesterday during streaming he got to the final part where you need to click on the correct orb out of a lot. Zoink died here last time but when he get back there he clicked the right one and won. <br><br> Now that the level is beaten, it can be rated and put on the demonlist, where it should go around top 10-5.",
   "tags": ["level completion", "verification", "confirmed"]
-}
-,
+},
 {
   "id": "40",
   "title": "A data breach was found!",
   "author": "Shadow",
   "date": "2026-02-10",
   "category": "Community",
-  "content": "The programmer SMJS is getting a lot of attention for finding a lot of stuff in the GD code. But he recently found a big data breach. He explains: 'A data breach was discovered in the GD servers which was likely already known by malicious individuals. This means that your email, IP address, hashed password, messages, private levels and much more has likely been dumped somewhere.'. We ask everyone to change their password. <br><br> This has already been reported to RobTop and patched, but we still want everbody to change their password.<br><br>SMJS discovered the vulnerability while he was in the red team. Simply put, a red team is formed of ethical hackers. Their job is to try to attack a system or a service to find vulnerabilities and not to use it but to inform the owners so they can be fix the breaches. <br><br> We are not able to cover everything said, but you can see the Tweet for yourself <a href='https://x.com/SMJSGaming/status/2020518331908763979' target='_blank'>here</a>. You can change your password on the <a href='https://www.boomlings.com/database/accounts/accountManagement.php' target='_blank'> Account Management page.</a>",
+  "content": "The programmer SMJS is getting a lot of attention for finding a lot of stuff in the code of gd. But he recently found a big data breach. 'A data breach was discovered in the GD servers which was likely already known by malicious individuals. This means that your email, IP address, hashed password, messages, private levels and much more has likely been dumped somewhere.' is what SMJS said. We ask everyone to change their password. <br><br> This has been reported to Robtop and has been patched, but we still want everbody to change their password. <br><br> We are not able to cover everything said, but you can see for yourself <a href='https://x.com/SMJSGaming/status/2020518331908763979' target='_blank'>here</a>. You can change your password <a href='https://www.boomlings.com/database/accounts/accountManagement.php' target='_blank'> here.</a>",
   "tags": ["leak", "breaking"]
 }
-
-
 ]
+
 
