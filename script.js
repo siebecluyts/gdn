@@ -4,12 +4,13 @@ const searchInput = document.getElementById("search");
 const categoryLinks = document.querySelectorAll(".dropdown-content a");
 const noResultsMsg = document.getElementById("no-results");
 const articlesContainerGDN = document.getElementById("articlesGDN");
+const articlesContainerShadow = document.getElementById("articlesShadow");
 
 // Detecteer author page
-const isAuthorPage = articlesContainerGDN !== null;
+const isAuthorPage = articlesContainerGDN !== null || articlesContainerShadow !== null;
 
 let articles = [];
-let filteredArticles = [];
+let filteredArticles = [];  
 const articlesPerPage = 5;
 let currentPage = 1;
 let currentCategory = "All";
@@ -216,6 +217,29 @@ window.addEventListener("DOMContentLoaded", () => {
           </article>
         `).join("")
       : "<p>No articles found from GDN.</p>";
+  }, 50);
+});
+window.addEventListener("DOMContentLoaded", () => {
+  if (!articlesContainerShadow) return;
+
+  const wait = setInterval(() => {
+    if (!articles.length) return;
+    clearInterval(wait);
+
+    const shadowArticles = articles.filter(
+      a => (a.author || "").toLowerCase() === "shadow"
+    );
+
+    articlesContainerShadow.innerHTML = shadowArticles.length
+      ? shadowArticles.map(a => `
+          <article class="article-card">
+            <img src="/gdn/assets/articlethumbnail/${a.id}.png">
+            <h3><a href="/gdn/article?id=${a.id}">${escapeHtml(a.title)}</a></h3>
+            <p>By ${escapeHtml(a.author)} - ${escapeHtml(a.date)}</p>
+            <p>${makeSummaryFromContent(a.content || a.description)}</p>
+          </article>
+        `).join("")
+      : "<p>No articles found from Shadow.</p>";
   }, 50);
 });
 

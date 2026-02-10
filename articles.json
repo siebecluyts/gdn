@@ -353,10 +353,10 @@
 {
   "id": "40",
   "title": "A data breach was found!",
-  "author": "GDN",
+  "author": "Shadow",
   "date": "2026-02-10",
   "category": "Community",
-  "content": "The programmer SMJS is getting a lot of attention for finding a lot of stuff in the code of gd. But he recently found a big data breach. 'A data breach was discovered in the GD servers which was likely already known by malicious individuals. This means that your email, IP address, hashed password, messages, private levels and much more has likely been dumped somewhere.' is what SMJS said. We ask everyone to change their password. <br><br> This has been reported to Robtop and has been patched, but we still want everbody to change their password. <br><br> We are not able to cover everything said, but you can see for yourself <a href='https://x.com/SMJSGaming/status/2020518331908763979' target='_blank'>here</a>. You can change your password <a href='https://www.boomlings.com/database/accounts/accountManagement.php' target='_blank'> here.</a>",
+  "content": "The programmer SMJS is getting a lot of attention for finding a lot of stuff in the GD code. But he recently found a big data breach. He explains: 'A data breach was discovered in the GD servers which was likely already known by malicious individuals. This means that your email, IP address, hashed password, messages, private levels and much more has likely been dumped somewhere.'. We ask everyone to change their password. <br><br> This has already been reported to RobTop and patched, but we still want everbody to change their password.<br><br>SMJS discovered the vulnerability while he was in the red team. Simply put, a red team is formed of ethical hackers. Their job is to try to attack a system or a service to find vulnerabilities and not to use it but to inform the owners so they can be fix the breaches. <br><br> We are not able to cover everything said, but you can see the Tweet for yourself <a href='https://x.com/SMJSGaming/status/2020518331908763979' target='_blank'>here</a>. You can change your password on the <a href='https://www.boomlings.com/database/accounts/accountManagement.php' target='_blank'> Account Management page.</a>",
   "tags": ["leak", "breaking"]
 }
 
