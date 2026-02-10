@@ -1,0 +1,53 @@
+{
+  "background_color": "#ffffff",
+  "description": "Stay updated with the latest Geometry Dash news, updates, levels, and community stories on GDNews.",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "siebecluyts.github",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "siebecluyts.github",
+  "start_url": "/",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "https://siebecluyts.github.io/favicon-32x32.png",
+      "type": "image/png",
+      "sizes": "32x32",
+      "isSquare": true,
+      "isPng": true,
+      "isWebp": false,
+      "isJpg": false,
+      "width": 32,
+      "is512x512": false,
+      "is256x256": false,
+      "is192x192": false
+    },
+    {
+      "src": "https://siebecluyts.github.io/favicon-16x16.png",
+      "type": "image/png",
+      "sizes": "16x16",
+      "isSquare": true,
+      "isPng": true,
+      "isWebp": false,
+      "isJpg": false,
+      "width": 16,
+      "is512x512": false,
+      "is256x256": false,
+      "is192x192": false
+    },
+    {
+      "src": "https://siebecluyts.github.io/apple-touch-icon.png",
+      "sizes": "180x180",
+      "isSquare": true,
+      "isPng": true,
+      "isWebp": false,
+      "isJpg": false,
+      "width": 180,
+      "is512x512": false,
+      "is256x256": false,
+      "is192x192": false
+    }
+  ],
+  "id": "GDN"
+}
