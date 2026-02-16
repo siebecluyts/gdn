@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://siebecluyts.github.io/gdn/sitemap.xml
