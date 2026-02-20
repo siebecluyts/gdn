@@ -211,6 +211,15 @@ if (article.tags && Array.isArray(article.tags)) {
         const u = new SpeechSynthesisUtterance(article.content || "");
         speechSynthesis.speak(u);
       });
+            document.getElementById("pauseArticle")?.addEventListener("click", () => {
+        speechSynthesis.pause();
+      });
+                  document.getElementById("stopArticle")?.addEventListener("click", () => {
+        speechSynthesis.cancel();
+      });
+                        document.getElementById("resumeArticle")?.addEventListener("click", () => {
+        speechSynthesis.resume();
+      });
 
       // ----------------------------------------------
       // TRANSLATE
