@@ -116,7 +116,7 @@
           } catch (e) {
             console.error(e);
           }
-        } else alert("Your browser can't share. Please copy the link manually.");
+        } else alert("Your browser can't share. Please copy the link manually or use a different browser.");
       });
 
       document.getElementById("dlMarkdown")?.addEventListener("click", () => {
