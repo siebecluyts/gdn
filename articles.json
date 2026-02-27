@@ -373,7 +373,7 @@
   "author": "GDN",
   "date": "2026-02-26",
   "category": "Mods",
-  "content": "When 2.208 came out geode was broken, which happens every update. But most of the time this is fixed after a few days. But with 2.208 it take way longer because they updated a lot of code. The community was getting mad because the mod loader was unavailable. One of the head developers had to come out and apologize for the wait and why it takes so long. But now, a month after the update, Geode finaly updated! Not all mods are available, but it should be ready in a week or so. <br><br><a href='https://geode-sdk.org/'>Download Geode here</a>",
+  "content": "When 2.208 came out geode was broken, which happens every update. But most of the time this is fixed after a few days. But with 2.208 it take way longer because they updated a lot of code. The community was getting mad because the mod loader was unavailable. One of the head developers had to come out and apologize for the wait and why it takes so long. But now, a month after the update, Geode finaly updated! Not all mods are available, but it should be ready in a week or so. <br><br><a href='https://geode-sdk.org/install'>Download Geode here</a>",
   "tags": ["confirmed", "mod"]
 }
 ]
