@@ -46,6 +46,15 @@
         return;
       }
 
+      const viewKey = "views_" + article.id;
+      const previousViews = Number(localStorage.getItem(viewKey)) || 0;
+      const viewCount = previousViews + 1;
+      try {
+        localStorage.setItem(viewKey, viewCount);
+      } catch {
+        // ignore localStorage failures
+      }
+
       const thumb = `<a href="/gdn/assets/articlethumbnail/${article.id}.png"><img src="/gdn/assets/articlethumbnail/${article.id}.png" class="article-thumb"></a>`;
 
       container.insertAdjacentHTML(
@@ -69,6 +78,7 @@
       let html = article.content || article.description || "";
       if (!html.includes("<")) html = escape(html).replace(/\n/g, "<br>");
       body.innerHTML = html;
+      document.getElementById("viewCount").textContent = viewCount;
 
       // ----------------------------------------------
       // MENU
