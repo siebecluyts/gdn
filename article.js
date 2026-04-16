@@ -8,6 +8,11 @@
   }
 })();
 
+      try {
+        const k = "views_" + article.id;
+        const v = Number(localStorage.getItem(k)) || 0;
+        localStorage.setItem(k, v + 1);
+      } catch { }
 
 // ----------------------------------------------
 // ARTICLE PAGE LOADER
@@ -245,11 +250,6 @@ if (article.tags && Array.isArray(article.tags)) {
       // ----------------------------------------------
       // LOCAL VIEWS COUNT
       // ----------------------------------------------
-      try {
-        const k = "views_" + article.id;
-        const v = Number(localStorage.getItem(k)) || 0;
-        localStorage.setItem(k, v + 1);
-      } catch { }
 
     })
     .catch(err => {
