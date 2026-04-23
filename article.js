@@ -54,6 +54,25 @@
         container.innerHTML = "<h2>Article not found.</h2><p><a href='/gdn'>Back</a></p>";
         return;
       }
+      const giscusContainer = document.getElementById("comments");
+giscusContainer.innerHTML = '';
+const script = document.createElement('script');
+script.src = 'https://giscus.app/client.js';
+script.async = true;
+script.crossOrigin = 'anonymous';
+script.setAttribute('data-repo', 'siebecluyts/gdn');
+script.setAttribute('data-repo-id', 'R_kgDOPnZYpw');
+script.setAttribute('data-category', 'comments');
+script.setAttribute('data-category-id', 'DIC_kwDOPnZYp84C5r2s');
+// use "specific" mapping and create a unique term per article (e.g., article-id)
+script.setAttribute('data-mapping', 'specific');
+script.setAttribute('data-term', gdn-article-${article.id});
+script.setAttribute('data-reactions-enabled', '1');
+script.setAttribute('data-emit-metadata', '0');
+script.setAttribute('data-input-position', 'top');
+script.setAttribute('data-theme', 'preferred_color_scheme');
+script.setAttribute('data-lang', 'en');
+giscusContainer.appendChild(script);
     if (cookiesAccepted()) {
       const viewKey = "views_" + article.id;
       const previousViews = Number(localStorage.getItem(viewKey)) || 0;
