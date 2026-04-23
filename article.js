@@ -66,7 +66,7 @@
   script.setAttribute('data-category-id', 'DIC_kwDOPnZYp84C5r2s');
   // use "specific" mapping and create a unique term per article (e.g., article-id)
   script.setAttribute('data-mapping', 'specific');
-  script.setAttribute('data-term', gdn-article-$,{article,id});
+  script.setAttribute('data-term', article.id);
   script.setAttribute('data-reactions-enabled', '1');
   script.setAttribute('data-emit-metadata', '0');
   script.setAttribute('data-input-position', 'top');
