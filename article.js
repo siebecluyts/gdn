@@ -11,11 +11,7 @@
     return localStorage.getItem(COOKIE_KEY) === "true";
   }
     if (cookiesAccepted()) {
-      try {
-        const k = "views_" + article.id;
-        const v = Number(localStorage.getItem(k)) || 0;
-        localStorage.setItem(k, v + 1);
-      } catch { }
+      document.body.classList.add("cookies-accepted");
     }
 
 // ----------------------------------------------
@@ -73,19 +69,7 @@
   script.setAttribute('data-theme', 'dark');
   script.setAttribute('data-lang', 'en');
   giscusContainer.appendChild(script);
-    if (cookiesAccepted()) {
-      const viewKey = "views_" + article.id;
-      const previousViews = Number(localStorage.getItem(viewKey)) || 0;
-      const viewCount = previousViews + 1;
-      try {
-        localStorage.setItem(viewKey, viewCount);
-      } catch {
-        // ignore localStorage failures
-      }
-    } else {
-      var viewCount = "N/A (enable cookies to track views)";
-    }
-
+    
       const thumb = `<a href="/gdn/assets/articlethumbnail/${article.id}.png"><img src="/gdn/assets/articlethumbnail/${article.id}.png" class="article-thumb"></a>`;
 
       container.insertAdjacentHTML(
