@@ -93,7 +93,6 @@
       let html = article.content || article.description || "";
       if (!html.includes("<")) html = escape(html).replace(/\n/g, "<br>");
       body.innerHTML = html;
-      document.getElementById("viewCount").textContent = viewCount;
 
       // ----------------------------------------------
       // MENU
