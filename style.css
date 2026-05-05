@@ -358,3 +358,20 @@ body.dark a:not(.header) {
 }
 
 
+/* ===== Load All Toggle Button ===== */
+.load-all-btn {
+  background: #007a5e;
+  margin-bottom: 10px;
+}
+
+.load-all-btn:hover {
+  background: #005a45;
+}
+
+body.dark .load-all-btn {
+  background: #035e4a;
+}
+
+body.dark .load-all-btn:hover {
+  background: #024535;
+}

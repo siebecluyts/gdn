@@ -295,3 +295,50 @@ toggle?.addEventListener("click", () => {
     );
   }
 });
+/* ================= LOAD ALL TOGGLE ================= */
+
+const LOAD_ALL_KEY = "loadAllArticles";
+
+function loadAllEnabled() {
+  return localStorage.getItem(LOAD_ALL_KEY) === "true";
+}
+
+function applyLoadAllState() {
+  if (!articlesContainer || isAuthorPage) return;
+  const btn = document.getElementById("loadAllToggleBtn");
+  if (!btn) return;
+
+  if (loadAllEnabled()) {
+    currentPage = Math.ceil(filteredArticles.length / articlesPerPage) || 1;
+    btn.textContent = "⏸ Use Load More";
+  } else {
+    currentPage = 1;
+    btn.textContent = "⚡ Load All Articles";
+  }
+  renderArticles();
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  if (isAuthorPage || !cookiesAccepted()) return;
+
+  const btn = document.createElement("button");
+  btn.id = "loadAllToggleBtn";
+  btn.className = "load-all-btn lolbutton";
+  btn.textContent = loadAllEnabled() ? "⏸ Use Load More" : "⚡ Load All Articles";
+  loadMoreBtn.parentNode.insertBefore(btn, loadMoreBtn);
+
+  btn.addEventListener("click", () => {
+    localStorage.setItem(LOAD_ALL_KEY, !loadAllEnabled());
+    applyLoadAllState();
+  });
+
+  // Apply saved preference once articles are loaded
+  if (loadAllEnabled()) {
+    const wait = setInterval(() => {
+      if (articles.length) {
+        clearInterval(wait);
+        applyLoadAllState();
+      }
+    }, 50);
+  }
+});
