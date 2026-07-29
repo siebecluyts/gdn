@@ -500,6 +500,15 @@
   "date": "2026-07-15",
   "category": "Community",
   "content": "GD has now a new YouTube channel called Geometry Dash Spotlight ! It will share Event levels, community highlights, Gauntlet contest entries 'and more', as stated in the channel's description. It was created on May 2nd and publicly announced on June, 22th 2026. There is already two videos uploaded : a <a href='https://www.youtube.com/watch?v=Xp_QOfXeuRM' target='_blank'>showcase of the last event level</a> and another <a href='https://www.youtube.com/watch?v=eQ6NkWZwhD0' target='_blank'>showcase of the new Spider Gauntlet's first level</a>.",
-  "tags": []
+  "tags": ["confirmed", "official", "featured"]
+},
+{
+  "id": "57",
+  "title": "Zodiac fell off the demonlist!",
+  "author": "GDN",
+  "date": "2026-07-29",
+  "category": "Community",
+  "content": "About 1 month ago, the top player Nickname verified the level Green Bullet, and after a while it got placed on the Demonlist at the #6 spot, which pushed Acheron out the top 20 and the former #1 demon Zodiac out the list altogether after 7 and a half years and over 1.000 victors!<br><br> Another new placement on the demonlist is The Bloop, a level that Zoink verified nearly 4 months ago. In the video description he said he thinks the level could possebly be top 25, but maybe even 20-75, but a efw days ago the level got placed at the #10 spot, pushing Every End to the #11 spot.<br>The Bloop is currently sitting at the #11 spot, due to the placement of Green Bullet.",
+  "tags": ["confirmed", "demonlist level", "breaking"]
 }
 ]
