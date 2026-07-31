@@ -6,13 +6,15 @@
   if (match) {
     window.location.replace(`/gdn/article?id=${match[1]}`);
   }
-})();  const COOKIE_KEY = "cookies_accepted";
-  function cookiesAccepted() {
-    return localStorage.getItem(COOKIE_KEY) === "true";
-  }
-    if (cookiesAccepted()) {
-      document.body.classList.add("cookies-accepted");
-    }
+})();
+
+const COOKIE_KEY = "cookies_accepted";
+function cookiesAccepted() {
+  return localStorage.getItem(COOKIE_KEY) === "true";
+}
+if (cookiesAccepted()) {
+  document.body.classList.add("cookies-accepted");
+}
 
 // ----------------------------------------------
 // ARTICLE PAGE LOADER
@@ -41,7 +43,7 @@
   // -------------------------------------------------
   // FETCH ARTICLES.JSON (RELATIVE PATH FOR GITHUB)
   // -------------------------------------------------
-  fetch("articles.json")   // <---- DIT IS DE FIX
+  fetch("articles.json")
     .then(r => r.json())
     .then(data => {
       const article = data.find(a => String(a.id) === String(articleId));
@@ -50,38 +52,55 @@
         container.innerHTML = "<h2>Article not found.</h2><p><a href='/gdn'>Back</a></p>";
         return;
       }
+
       const giscusContainer = document.getElementById("comments");
-  giscusContainer.innerHTML = '';
-  const script = document.createElement('script');
-  script.src = 'https://giscus.app/client.js';
-  script.async = true;
-  script.crossOrigin = 'anonymous';
-  script.setAttribute('data-repo', 'siebecluyts/gdn');
-  script.setAttribute('data-repo-id', 'R_kgDOPnZYpw');
-  script.setAttribute('data-category', 'comments');
-  script.setAttribute('data-category-id', 'DIC_kwDOPnZYp84C5r2s');
-  // use "specific" mapping and create a unique term per article (e.g., article-id)
-  script.setAttribute('data-mapping', 'specific');
-  script.setAttribute('data-term', article.id);
-  script.setAttribute('data-reactions-enabled', '1');
-  script.setAttribute('data-emit-metadata', '0');
-  script.setAttribute('data-input-position', 'top');
-  script.setAttribute('data-theme', 'dark_high_contrast');
-  script.setAttribute('data-lang', 'en');
-  giscusContainer.appendChild(script);
+      if (giscusContainer) {
+        giscusContainer.innerHTML = '';
+        const script = document.createElement('script');
+        script.src = 'https://giscus.app/client.js';
+        script.async = true;
+        script.crossOrigin = 'anonymous';
+        script.setAttribute('data-repo', 'siebecluyts/gdn');
+        script.setAttribute('data-repo-id', 'R_kgDOPnZYpw');
+        script.setAttribute('data-category', 'comments');
+        script.setAttribute('data-category-id', 'DIC_kwDOPnZYp84C5r2s');
+        script.setAttribute('data-mapping', 'specific');
+        script.setAttribute('data-term', article.id);
+        script.setAttribute('data-reactions-enabled', '1');
+        script.setAttribute('data-emit-metadata', '0');
+        script.setAttribute('data-input-position', 'top');
+        script.setAttribute('data-theme', 'dark_high_contrast');
+        script.setAttribute('data-lang', 'en');
+        giscusContainer.appendChild(script);
+      }
     
       const thumb = `<a href="/gdn/assets/articlethumbnail/${article.id}.png"><img src="/gdn/assets/articlethumbnail/${article.id}.png" class="article-thumb"></a>`;
+
+      // ----------------------------------------------
+      // WARNING CHECK
+      // ----------------------------------------------
+      let warningHtml = "";
+      if (article.warning === "1") {
+        warningHtml = `
+          <div style='border: 2px solid darkblue; border-radius: 12px; padding: 5px; margin: auto; width: 200px; background-color: #034C5E; color: white; text-align: center;'>
+            <h5>Viewer discretion is advised</h5>
+            <p>This article contains graphic content</p>
+          </div><br><br>
+        `;
+      }
 
       container.insertAdjacentHTML(
         "beforeend",
         `
         <article>
+          ${warningHtml}
           <h1>${escape(article.title)}</h1>
           <p style="color:#666;">
             By <a href="authors/${escape(article.author)}">${escape(article.author)}</a>
             — ${escape(article.date)} — ${escape(article.category)}
           </p>
           ${thumb}
+          
           <div id="article-body" style="margin-top:16px;"></div>
           <p style="margin-top:18px;"><a href="/gdn">Back</a></p>
         </article>
@@ -167,66 +186,69 @@
       // ----------------------------------------------
       // REPORT ISSUE FORM (FormSubmit)
       // ----------------------------------------------
-document.getElementById("reportIssue")?.addEventListener("click", (e) => {
-  e.preventDefault();
-  e.stopPropagation();
+      document.getElementById("reportIssue")?.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
 
-  // Popup background
-  const overlay = document.createElement("div");
-  overlay.style.position = "fixed";
-  overlay.style.top = 0;
-  overlay.style.left = 0;
-  overlay.style.width = "100%";
-  overlay.style.height = "100%";
-  overlay.style.background = "rgba(0,0,0,0.6)";
-  overlay.style.display = "flex";
-  overlay.style.alignItems = "center";
-  overlay.style.justifyContent = "center";
-  overlay.style.zIndex = "9999";
+        // Popup background
+        const overlay = document.createElement("div");
+        overlay.style.position = "fixed";
+        overlay.style.top = "0";
+        overlay.style.left = "0";
+        overlay.style.width = "100%";
+        overlay.style.height = "100%";
+        overlay.style.background = "rgba(0,0,0,0.6)";
+        overlay.style.display = "flex";
+        overlay.style.alignItems = "center";
+        overlay.style.justifyContent = "center";
+        overlay.style.zIndex = "9999";
 
-  // Form popup
-  const box = document.createElement("div");
-  box.style.background = "#fff";
-  box.style.padding = "20px";
-  box.style.borderRadius = "10px";
-  box.style.width = "320px";
-  box.style.boxShadow = "0 4px 15px rgba(0,0,0,0.3)";
-  box.innerHTML = `
-    <h3>Report an Issue</h3>
-    <form method="POST" action="https://formsubmit.co/debendevanzelem@gmail.com">
+        // Form popup
+        const box = document.createElement("div");
+        box.style.background = "#fff";
+        box.style.padding = "20px";
+        box.style.borderRadius = "10px";
+        box.style.width = "320px";
+        box.style.boxShadow = "0 4px 15px rgba(0,0,0,0.3)";
+        box.innerHTML = `
+          <h3>Report an Issue</h3>
+          <form method="POST" action="https://formsubmit.co/debendevanzelem@gmail.com">
 
-      <input name="name" placeholder="Your name" required style="width:100%;margin-top:10px;padding:8px;">
-      <input type="email" name="email" placeholder="Your email" required style="width:100%;margin-top:10px;padding:8px;">
-      <textarea name="message" placeholder="Describe the problem..." required style="width:100%;margin-top:10px;padding:8px;height:100px;"></textarea>
+            <input name="name" placeholder="Your name" required style="width:100%;margin-top:10px;padding:8px;">
+            <input type="email" name="email" placeholder="Your email" required style="width:100%;margin-top:10px;padding:8px;">
+            <textarea name="message" placeholder="Describe the problem..." required style="width:100%;margin-top:10px;padding:8px;height:100px;"></textarea>
 
-      <input type="hidden" name="articleId" value="${article.id}">
-      <input type="hidden" name="_next" value="https://siebecluyts.github.io/gdn/thankscontact.html">
-      <input type="hidden" name="_autoresponse" value="Thanks for your feedback! We will review as quick as possible.">
+            <input type="hidden" name="articleId" value="${article.id}">
+            <input type="hidden" name="_next" value="https://siebecluyts.github.io/gdn/thankscontact.html">
+            <input type="hidden" name="_autoresponse" value="Thanks for your feedback! We will review as quick as possible.">
 
-      <div style="margin-top:15px;display:flex;gap:10px;">
-        <button type="submit" style="flex:1;padding:8px;background:#28a745;color:white;border:none;border-radius:6px;">Send</button>
-        <button type="button" id="cancelIssue" style="flex:1;padding:8px;background:#ccc;border:none;border-radius:6px;">Cancel</button>
-      </div>
-    </form>
-  `;
+            <div style="margin-top:15px;display:flex;gap:10px;">
+              <button type="submit" style="flex:1;padding:8px;background:#28a745;color:white;border:none;border-radius:6px;">Send</button>
+              <button type="button" id="cancelIssue" style="flex:1;padding:8px;background:#ccc;border:none;border-radius:6px;">Cancel</button>
+            </div>
+          </form>
+        `;
 
-  overlay.appendChild(box);
-  document.body.appendChild(overlay);
+        overlay.appendChild(box);
+        document.body.appendChild(overlay);
 
-  document.getElementById("cancelIssue").addEventListener("click", () => {
-    overlay.remove();
-  });
-});
-const tagsContainer = document.getElementById("article-tags");
+        document.getElementById("cancelIssue").addEventListener("click", () => {
+          overlay.remove();
+        });
+      });
 
-if (article.tags && Array.isArray(article.tags)) {
-  article.tags.forEach(tag => {
-    const span = document.createElement("span");
-    span.className = `tag tag-${tag.replace(/\s+/g, "-")}`;
-    span.textContent = tag.toUpperCase();
-    tagsContainer.appendChild(span);
-  });
-}
+      // ----------------------------------------------
+      // TAGS
+      // ----------------------------------------------
+      const tagsContainer = document.getElementById("article-tags");
+      if (tagsContainer && article.tags && Array.isArray(article.tags)) {
+        article.tags.forEach(tag => {
+          const span = document.createElement("span");
+          span.className = `tag tag-${tag.replace(/\s+/g, "-")}`;
+          span.textContent = tag.toUpperCase();
+          tagsContainer.appendChild(span);
+        });
+      }
 
       // ----------------------------------------------
       // TTS
@@ -235,13 +257,13 @@ if (article.tags && Array.isArray(article.tags)) {
         const u = new SpeechSynthesisUtterance(article.content || "");
         speechSynthesis.speak(u);
       });
-            document.getElementById("pauseArticle")?.addEventListener("click", () => {
+      document.getElementById("pauseArticle")?.addEventListener("click", () => {
         speechSynthesis.pause();
       });
-                  document.getElementById("stopArticle")?.addEventListener("click", () => {
+      document.getElementById("stopArticle")?.addEventListener("click", () => {
         speechSynthesis.cancel();
       });
-                        document.getElementById("resumeArticle")?.addEventListener("click", () => {
+      document.getElementById("resumeArticle")?.addEventListener("click", () => {
         speechSynthesis.resume();
       });
 
@@ -255,10 +277,6 @@ if (article.tags && Array.isArray(article.tags)) {
           "_blank"
         );
       });
-
-      // ----------------------------------------------
-      // LOCAL VIEWS COUNT
-      // ----------------------------------------------
 
     })
     .catch(err => {
